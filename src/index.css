@@ -25,9 +25,9 @@
     --secondary: #C3F3C3;
     --tertiary: #5F7F5F;
 
-    --primaryHover: #44BB44;
-    --secondaryHover: #90C090;
-    --tertiaryHover: #3C4C3C;
+    --primaryHover: #66CC55;
+    --secondaryHover: #A1D1A1;
+    --tertiaryHover: #3D5D3D;
 
     --inputError: #F3C3C3;
 
@@ -58,4 +58,3 @@ h1 {
 h2 {
     font-size: 31.5px;
 }
-

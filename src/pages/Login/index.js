@@ -1,7 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // styles
 import './styles.css';
+
+// pages
+import {
+  Loket,
+} from '../index';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -9,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [passwordErr, setPasswordErr] = useState(false);
   const [errMsg, setErrMsg] = useState('');
+  const navigate = useNavigate();
 
   const LoginOnClick = async (e) => {
     e.preventDefault();
@@ -23,13 +30,14 @@ export default function Login() {
       }),
     });
     const json = await res.json();
-    console.log(`json`, json);
 
     setUsernameErr(json.msg === `Nama Pengguna tidak ditemukan` ? true : false);
     setPasswordErr(json.msg === `Kata Sandi salah` ? true : false);
 
     if(json.status === `success`) {
       setErrMsg('');
+
+      (json.data.role === 'LOKET') && navigate('/loket');
     }
     else {
       setErrMsg(json.msg);

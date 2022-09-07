@@ -87,6 +87,5 @@
 }
 .Login button:hover {
     background-color: var(--primaryHover);
-    color: white;
     cursor: pointer;
 }

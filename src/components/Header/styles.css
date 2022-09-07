@@ -1,0 +1,27 @@
+.Header-bg {
+    background-image: url('../../assets/images/bgTest.jpg');
+}
+
+.Header {
+    background-color: #5F7F5FCC;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.Header h1 {
+    font-family: OpenSans-semibold;
+    font-size: 31.5px;
+    color: white;
+}
+
+.Header h2 {
+    font-size: 25px;
+    color: white;
+}
