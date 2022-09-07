@@ -1,0 +1,92 @@
+.Login {
+    background-image: url('../../assets/images/bgTest.jpg');
+    /* background-color: #5F7F5FCC; */
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Login .box {
+    padding: 100px;
+    background-color: #C3F3C3DD;
+    border-radius: 25px;
+    box-shadow: 0px 10px 10px 0px #00000040;
+    display: flex;
+}
+
+.Login .title {
+    margin-right: 150px;
+    font-family: OpenSans-semibold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Login h1 {
+    text-align: center;
+}
+
+.Login .form {
+    display: flex;
+}
+
+.Login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Login .input:nth-child(1) {
+    margin-bottom: 50px;
+}
+.Login .input-err {
+    background-color: var(--inputError);
+}
+
+.Login label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 31.5px;
+}
+
+.Login input {
+    width: 375px;
+    border: 1px solid black;
+    box-shadow: 0px 5px 5px 0px #00000040;
+    border-radius: 12.5px;
+    padding: 10px;
+    font-size: var(--inputFontSize);
+}
+.Login input:active, .Login input:focus {
+    outline: 2.5px solid var(--primary);
+}
+
+.Login .err-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    color: red;
+    font-size: 20px;
+}
+
+.Login button {
+    display: block;
+    width: 100%;
+    background-color: var(--primary);
+    border-radius: 12.5px;
+    border: 1px solid black;
+    box-shadow: 0px 5px 5px 0px #00000040;
+    padding: 10px;
+    font-size: var(--buttonFontSize);
+}
+.Login button:hover {
+    background-color: var(--primaryHover);
+    color: white;
+    cursor: pointer;
+}

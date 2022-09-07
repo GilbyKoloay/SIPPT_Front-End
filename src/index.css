@@ -1,13 +1,61 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: 'OpenSans-light';
+    src: local('OpenSans-light'), url('./assets/fonts/OpenSans-Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'OpenSans-regular';
+    src: local('OpenSans-regular'), url('./assets/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'OpenSans-medium';
+    src: local('OpenSans-medium'), url('./assets/fonts/OpenSans-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'OpenSans-semibold';
+    src: local('OpenSans-semibold'), url('./assets/fonts/OpenSans-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'OpenSans-bold';
+    src: local('OpenSans-bold'), url('./assets/fonts/OpenSans-Bold.ttf') format('truetype');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+:root {
+    --primary: #77EE77;
+    --secondary: #C3F3C3;
+    --tertiary: #5F7F5F;
+
+    --primaryHover: #44BB44;
+    --secondaryHover: #90C090;
+    --tertiaryHover: #3C4C3C;
+
+    --inputError: #F3C3C3;
+
+    --buttonFontSize: 25px;
+    --inputFontSize: 25px;
 }
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    font-family: "OpenSans-regular";
+}
+
+* {
+    margin: 0;
+}
+
+h1 {
+    font-size: 37.5px;
+}
+
+h2 {
+    font-size: 31.5px;
+}
+
