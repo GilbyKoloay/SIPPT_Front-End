@@ -5,4 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* prevent text from being selected */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

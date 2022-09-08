@@ -7,11 +7,13 @@ import './styles.css';
 import { Header, Dashboard, Footer } from '../../components';
 
 export default function Loket() {
+  const [content, setContent] = useState(null);
+
   return(
     <div className='Loket'>
       <Header props={{ role: 'LOKET', name: 'telor' }} />
       <div className='Dashboard-Content'>
-        <Dashboard />
+        <Dashboard  />
         <div className='Content'>Content</div>
       </div>
       <Footer />

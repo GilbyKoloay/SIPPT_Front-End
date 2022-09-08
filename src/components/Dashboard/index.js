@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
 // styles
 import './styles.css';
 
-export default function Dashboard() {
+export default function Dashboard({ props }) {
+
   return(
     <div className='Dashboard'>
       <div className='Items'>
