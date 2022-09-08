@@ -4,17 +4,38 @@ import { useState } from 'react';
 import './styles.css';
 
 // components
-import { Header, Dashboard, Footer } from '../../components';
+import {
+  Header,
+  Dashboard,
+  Footer,
+
+  DaftarPasienBaru,
+  Pasien,
+  AntrianPoli,
+} from '../../components';
 
 export default function Loket() {
-  const [content, setContent] = useState(null);
+  const [selectedContent, setSelectedContent] = useState('Dashboard');
+  const contents = [
+    'Daftar Pasien Baru',
+    'Pasien',
+    'Antrian Poli',
+  ];
+
+  const dashboardOnClick = (val) => {
+    setSelectedContent(val);
+  };
 
   return(
     <div className='Loket'>
-      <Header props={{ role: 'LOKET', name: 'telor' }} />
+      <Header role={'LOKET'} name={'telor'} />
       <div className='Dashboard-Content'>
-        <Dashboard  />
-        <div className='Content'>Content</div>
+        <Dashboard contents={contents} onClick={dashboardOnClick} />
+        <div className='Content'>
+          {selectedContent === 'Daftar Pasien Baru' && <DaftarPasienBaru />}
+          {selectedContent === 'Pasien' && <Pasien />}
+          {selectedContent === 'Antrian Poli' && <AntrianPoli />}
+        </div>
       </div>
       <Footer />
     </div>

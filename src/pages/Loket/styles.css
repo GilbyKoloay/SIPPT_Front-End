@@ -12,5 +12,7 @@
 }
 
 .Content {
+    padding: 50px;
+    display: flex;
     flex: 1;
 }
