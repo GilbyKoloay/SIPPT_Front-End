@@ -45,41 +45,43 @@ export default function Login() {
   };
 
   return(
-    <div className='Login'>
-      <div className='box'>
-        <div className='title'>
-          <h1>Sistem Informasi Pelayanan</h1>
-          <h1>Puskesmas Talawaan</h1>
-          <div className='icons'>
+    <div className='Login-bg'>
+      <div className='Login'>
+        <div className='box'>
+          <div className='title'>
+            <h1>Sistem Informasi Pelayanan</h1>
+            <h1>Puskesmas Talawaan</h1>
+            <div className='icons'>
 
+            </div>
           </div>
-        </div>
-        <div className='form'>
-          <form>
-            <div className='input'>
-              <label >Nama Pengguna</label>
-              <input 
-                className={usernameErr ? 'input-err' : 'input'} 
-                type='text' 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-              />
-            </div>
+          <div className='form'>
+            <form>
+              <div className='input'>
+                <label >Nama Pengguna</label>
+                <input 
+                  className={usernameErr ? 'input-err' : 'input'} 
+                  type='text' 
+                  value={username} 
+                  onChange={(e) => setUsername(e.target.value)} 
+                />
+              </div>
 
-            <div className='input'>
-              <label >Kata Sandi</label>
-              <input 
-                className={passwordErr ? 'input-err' : 'input'} 
-                type='password' 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-              />
-            </div>
+              <div className='input'>
+                <label >Kata Sandi</label>
+                <input 
+                  className={passwordErr ? 'input-err' : 'input'} 
+                  type='password' 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                />
+              </div>
 
-            <div className='err-msg'>{errMsg}</div>
+              <div className='err-msg'>{errMsg}</div>
 
-            <button onClick={(e) => LoginOnClick(e)}>Masuk</button>
-          </form>
+              <button onClick={(e) => LoginOnClick(e)}>Masuk</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -13,6 +13,12 @@
     padding-bottom: 25px;
     padding-left: 100px;
     padding-right: 100px;
+    border: 1px solid black;
+
+    /* prevent text from being selected */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .Header h1 {

@@ -1,0 +1,61 @@
+.Dashboard {
+    background-color: var(--secondary);
+    width: 275px;
+    border: 1px solid black;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    /* prevent text from being selected */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Dashboard .Title {
+    padding: 25px;
+    text-align: center;
+    font-family: OpenSans-semibold;
+    font-size: 25px;
+    border-top-right-radius: 20px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.Dashboard .Title:hover {
+    background-color: var(--primary);
+    cursor: pointer;
+    border-top-right-radius: 20px;
+}
+
+.Dashboard .Item {
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.Dashboard .Item:last-child {
+    border-bottom: 2px solid black;
+}
+.Dashboard .Item:hover {
+    background-color: var(--primary);
+    cursor: pointer;
+}
+
+.Dashboard .Logout {
+    font-size: 25px;
+    margin-bottom: 50px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    background-color: #CC4747;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.Dashboard .Logout:hover {
+    background-color: #FF4747;
+    cursor: pointer;
+}
