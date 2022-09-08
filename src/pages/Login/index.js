@@ -58,7 +58,7 @@ export default function Login() {
           <div className='form'>
             <form>
               <div className='input'>
-                <label >Nama Pengguna</label>
+                <h2>Nama Pengguna</h2>
                 <input 
                   className={usernameErr ? 'input-err' : 'input'} 
                   type='text' 
@@ -68,7 +68,7 @@ export default function Login() {
               </div>
 
               <div className='input'>
-                <label >Kata Sandi</label>
+                <h2 >Kata Sandi</h2>
                 <input 
                   className={passwordErr ? 'input-err' : 'input'} 
                   type='password' 
@@ -77,7 +77,7 @@ export default function Login() {
                 />
               </div>
 
-              <div className='err-msg'>{errMsg}</div>
+              <h4 className='err-msg'>{errMsg}</h4>
 
               <button onClick={(e) => LoginOnClick(e)}>Masuk</button>
             </form>

@@ -5,8 +5,8 @@ export default function Header({ props }) {
   return(
     <div className='Header-bg'>
       <div className='Header'>
-        <h1>SISTEM INFORMASI PELAYANAN PUSKESMAS TALAWAAN</h1>
-        <h2>{ props.role } - { props.name }</h2>
+        <h2>SISTEM INFORMASI PELAYANAN PUSKESMAS TALAWAAN</h2>
+        <h3>{ props.role } - { props.name }</h3>
       </div>
     </div>
   );

@@ -21,13 +21,12 @@
     user-select: none;
 }
 
-.Header h1 {
+.Header h2 {
     font-family: OpenSans-semibold;
     font-size: 31.5px;
     color: white;
 }
 
-.Header h2 {
-    font-size: 25px;
+.Header h3 {
     color: white;
 }

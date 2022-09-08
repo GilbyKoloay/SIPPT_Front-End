@@ -4,7 +4,7 @@ import { useState } from 'react';
 import './styles.css';
 
 // components
-import { Header, Dashboard } from '../../components';
+import { Header, Dashboard, Footer } from '../../components';
 
 export default function Loket() {
   return(
@@ -14,7 +14,7 @@ export default function Loket() {
         <Dashboard />
         <div className='Content'>Content</div>
       </div>
-      <div className='Footer'>Footer</div>
+      <Footer />
     </div>
   );
 }
