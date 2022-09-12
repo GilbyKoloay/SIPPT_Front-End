@@ -4,28 +4,23 @@
 
 .header {
     background-color: #5F7F5FCC;
-    height: 100px;
+    height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 100px;
     padding-right: 100px;
     border: 1px solid black;
-
-    /* prevent text from being selected */
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
-.header h2 {
+.header h1 {
     font-family: OpenSans-semibold;
     color: white;
 }
 
-.header h3 {
+.header h2 {
     color: white;
 }

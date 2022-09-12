@@ -159,7 +159,7 @@ export default function DaftarPasienBaru() {
       { subDistrict: 'TOULUAAN SELATAN', wardsVillages: ['BANGA', 'BUNAG', 'KALAIT', 'KALAIT DUA', 'KALAIT SATU', 'KALAIT TIGA', 'LOWANTAG', 'RANOAKO', 'SUHUYON', 'TAMBELAN'], },
     ]},
     { districtCity: 'MINAHASA UTARA', subDistricts: [
-      { subDistrict: 'TALAWAAN', wardsVillages: ['TALAWAAN', 'KOLONGAN', 'MAPANGET', 'PANIKI ATAS', 'PANIKI BARU', 'PATOKAAN', 'TEEP WARISA', 'TUMBOHON', 'WARISA', 'WARISA KAMPUNG BARU', 'WINETIN', 'WUSA'], },
+      { subDistrict: 'TALAWAAN', wardsVillages: ['KOLONGAN', 'MAPANGET', 'PANIKI ATAS', 'PANIKI BARU', 'PATOKAAN', 'TALAWAAN', 'TEEP WARISA', 'TUMBOHON', 'WARISA', 'WARISA KAMPUNG BARU', 'WINETIN', 'WUSA'], },
       { subDistrict: 'AIRMADIDI', wardsVillages: ['SAMPIRI', 'SAWANGAN', 'TANGGARI', 'AIRMADIDI ATAS', 'AIRMADIDI BAWAH', 'RAP-RAP', 'SARONGSONG SATU', 'SARONGSONG DUA', 'SUKUR'], },
       { subDistrict: 'DIMEMBE', wardsVillages: ['DIMEMBE', 'KLABAT', 'LAIKIT', 'LUMPIAS', 'MATUNGKAS', 'PINILIH', 'TATELU RONDOR', 'TATELU SATU', 'TETEY', 'WARUKAPAS', 'WASIAN'], },
       { subDistrict: 'KALAWAT', wardsVillages: ['KALAWAT', 'KALEOSAN', 'KAWANGKOAN', 'KAWANGKOAN BARU', 'KOLONGAN', 'KOLONGAN TETEMPANGAN', 'KUWIL', 'MAUMBI', 'SUWAAN', 'WATUTUMOU I', 'WATUTUMOU II', 'WATUTUMOU III'], },
@@ -531,11 +531,11 @@ export default function DaftarPasienBaru() {
               <div className='con-input-sex'>
                 <div className='sex' onClick={sexMaleOnClick}>
                   <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'sex-dot-selected' : 'sex-dot'} />
-                  <h2>Laki-laki</h2>
+                  <h3>Laki-laki</h3>
                 </div>
                 <div className='sex' onClick={sexFemaleOnClick}>
                   <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'sex-dot-selected' : 'sex-dot'} />
-                  <h2>Perempuan</h2>
+                  <h3>Perempuan</h3>
                 </div>
               </div>
             </div>
@@ -557,7 +557,7 @@ export default function DaftarPasienBaru() {
             <div className='con-input'>
               <h2>Kel. / Desa</h2>
               <select value={patientPersonalData.address.wardVillage} onChange={e => addressWardVillageOnChange(e.target.value)}>
-                <option value='' disabled selected>{`(PILIH KELURAHAN / DESA)`}</option>
+                <option value='' disabled>{`(PILIH KELURAHAN / DESA)`}</option>
                 {addressList.map(dc => dc.districtCity === patientPersonalData.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === patientPersonalData.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
               </select>
             </div>
@@ -575,11 +575,11 @@ export default function DaftarPasienBaru() {
               <h2>Tanggal Lahir</h2>
               <div className='con-input-dateWrap'>
                 <div className='con-input-date'>
-                  <input type='text' placeholder='TANGGAL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TGL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
                 </div>
                 <div className='con-input-month'>
                   <select value={patientPersonalData.birthDate.month} onChange={e => birthDateMonthOnChange(e.target.value)}>
-                    <option value='' disabled selected>{`(BULAN)`}</option>
+                    <option value='' disabled>{`(BULAN)`}</option>
                     {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
                   </select>
                 </div>
@@ -598,22 +598,22 @@ export default function DaftarPasienBaru() {
             </div>
             <div className='con-input'>
               <h2>Agama</h2>
-              <select value={patientPersonalData.religion} addressListonChange={e => religionOnChange(e.target.value)}>
-                <option value='' disabled selected>{`(PILIH AGAMA)`}</option>
+              <select value={patientPersonalData.religion} onChange={e => religionOnChange(e.target.value)}>
+                <option value='' disabled>{`(PILIH AGAMA)`}</option>
                 {religionList.map((r, index) => <option key={index} value={r}>{r}</option>)}
               </select>
             </div>
             <div className='con-input'>
               <h2>Status</h2>
-              <select value={patientPersonalData.maritalStatus} addressListonChange={e => maritalStatusOnChange(e.target.value)}>
-                <option value='' disabled selected>{`(PILIH STATUS KAWIN)`}</option>
+              <select value={patientPersonalData.maritalStatus} onChange={e => maritalStatusOnChange(e.target.value)}>
+                <option value='' disabled>{`(PILIH STATUS KAWIN)`}</option>
                 {maritalStatusList.map((m, index) => <option key={index} value={m}>{m}</option>)}
               </select>
             </div>
             <div className='con-input'>
               <h2>Pekerjaan</h2>
-              <select value={patientPersonalData.job} addressListonChange={e => jobOnChange(e.target.value)}>
-                <option value='' disabled selected>{`(PILIH PEKERJAAN)`}</option>
+              <select value={patientPersonalData.job} onChange={e => jobOnChange(e.target.value)}>
+                <option value='' disabled>{`(PILIH PEKERJAAN)`}</option>
                 {jobList.map((j, index) => <option key={index} value={j}>{j}</option>)}
               </select>
             </div>

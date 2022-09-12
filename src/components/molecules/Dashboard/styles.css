@@ -1,5 +1,5 @@
 .dashboard {
-    background-color: var(--secondary);
+    background-color: var(--secondaryColor);
     width: 275px;
     border: 1px solid black;
     border-top-right-radius: 20px;
@@ -8,23 +8,18 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-    /* prevent text from being selected */
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .dashboard .title {
     padding: 25px;
     text-align: center;
     font-family: OpenSans-semibold;
-    font-size: 25px;
+    font-size: var(--labelFontSize);
     border-top-right-radius: 20px;
     border-bottom: 1px solid black;
 }
 .dashboard .title:hover {
-    background-color: var(--primary);
+    background-color: var(--primaryColor);
     cursor: pointer;
     border-top-right-radius: 20px;
 }
@@ -32,7 +27,7 @@
 .dashboard .item {
     padding: 20px;
     text-align: center;
-    font-size: 25px;
+    font-size: var(--labelFontSize);
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
@@ -40,12 +35,12 @@
     border-bottom: 2px solid black;
 }
 .dashboard .item:hover {
-    background-color: var(--primary);
+    background-color: var(--primaryColor);
     cursor: pointer;
 }
 
 .dashboard .logout {
-    font-size: 25px;
+    font-size: var(--labelFontSize);
     margin-bottom: 50px;
     padding: 20px;
     color: white;

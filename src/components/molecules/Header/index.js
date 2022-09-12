@@ -5,8 +5,8 @@ export default function Header({ role, name }) {
   return(
     <div className='header-bg'>
       <header className='header'>
-        <h2>SISTEM INFORMASI PELAYANAN PUSKESMAS TALAWAAN</h2>
-        <h3>{ role } - { name }</h3>
+        <h1>SISTEM INFORMASI PELAYANAN PUSKESMAS TALAWAAN</h1>
+        <h2>{ role } - { name }</h2>
       </header>
     </div>
   );

@@ -20,19 +20,22 @@
 }
 
 :root {
-    --primary: #77EE77;
-    --secondary: #C3F3C3;
-    --tertiary: #5F7F5F;
+    --primaryColor: #77EE77;
+    --secondaryColor: #C3F3C3;
+    --tertiaryColor: #5F7F5F;
+    --errFontColor: #FF0000;
+    --errBgColor: #F3C3C3;
+    --inputDisabledColor: #D3D3D3;
+    --placeholderColor: #888888;
 
-    --primaryHover: #66CC55;
-    --secondaryHover: #A1D1A1;
-    --tertiaryHover: #3D5D3D;
+    --primaryColorHover: #66CC55;
+    --secondaryColorHover: #A1D1A1;
+    --tertiaryColorHover: #3D5D3D;
 
-    --inputFontSize: 25px;
-    --inputError: #F3C3C3;
-    --inputDisabled: #D3D3D3;
-
-    --buttonFontSize: 25px;
+    --titleFontSize: 30px;
+    --labelFontSize: 25px;
+    --inputFontSize: 20px;
+    --errMsgFontSize: 17.5px;
 }
 
 html {
@@ -40,11 +43,19 @@ html {
     width: 100%;
 }
 
+* {
+    margin: 0;
+}
+*::placeholder {
+    color: 'red';
+}
+
 body {
     background-color: white;
     height: 100vh;
     width: 100%;
     font-family: "OpenSans-regular";
+    font-weight: bold;
 
     /* prevent text from being selected */
     -webkit-user-select: none;
@@ -60,22 +71,18 @@ body {
     height: 100%;
 }
 
-* {
-    margin: 0;
-}
-
 h1 {
-    font-size: 37.5px;
+    font-size: var(--titleFontSize);
 }
 
 h2 {
-    font-size: 31.5px;
+    font-size: var(--labelFontSize);
 }
 
 h3 {
-    font-size: 25px;
+    font-size: var(--inputFontSize);
 }
 
 h4 {
-    font-size: 20px;
+    font-size: var(--errMsgFontSize);
 }
