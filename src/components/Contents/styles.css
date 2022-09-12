@@ -46,6 +46,7 @@
 .con .input {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
 }
@@ -159,7 +160,29 @@
     padding: 10px;
     font-size: var(--inputFontSize);
     font-family: OpenSans-regular;
+    resize: none;
 }
 .con .input-textarea textarea:focus {
     outline: 2.5px solid var(--primaryColor);
+}
+
+.con .button {
+    display: flex;
+    justify-content: end;
+    margin-top: 25px;
+}
+
+.con .button button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-size: var(--inputFontSize);
+    background-color: var(--tertiaryColor);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.con .button button:hover {
+    background-color: var(--tertiaryColorHover);
+    cursor: pointer;
 }

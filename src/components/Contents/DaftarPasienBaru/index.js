@@ -212,7 +212,8 @@ export default function DaftarPasienBaru() {
   const maritalStatusList = ['KAWIN', 'TIDAK KAWIN', 'JANDA/DUDA'];
   const jobList = ['ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR', 'PELAJAR/MAHASISWA', 'LAINNYA'];
 
-  const [patientPersonalData, setPatientPersonalData] = useState({
+  // Patient's Personal Data
+  const [PPD, setPPD] = useState({
     medicalRecordNumber: '',
     name: '',
     sex: '',
@@ -228,13 +229,13 @@ export default function DaftarPasienBaru() {
       month: '',
       year: '',
     },
+    age: '',
     familyCardName: '',
     religion: '',
     maritalStatus: '',
     job: '',
   });
-
-  const [patientPersonalDataErr, setPatientPersonalDataErr] = useState({
+  const [PPDErr, setPPDErr] = useState({
     medicalRecordNumber: false,
     name: false,
     sex: false,
@@ -252,260 +253,206 @@ export default function DaftarPasienBaru() {
     job: false,
   });
 
-  const medicalRecordNumberOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: val,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: patientPersonalData.address,
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  // Patient's BPJS/KIS Data
+  const [PBKD, setPBKD] = useState({
+    cardNumber: '',
+    name: '',
+    birthDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+    healthFacilityLevel: '',
+    nursingClass: '',
+    NIK: '',
+    address: '',
+  });
+  const [PBKDErr, setPBKDErr] = useState({
+    cardNumber: false,
+    name: false,
+    birthDate: {
+      date: false,
+      month: false,
+      year: false,
+    },
+    healthFacilityLevel: false,
+    nursingClass: false,
+    NIK: false,
+    address: false,
+  });
+
+  // Payment Method
+  const [PM, setPM] = useState({
+    paymentMethod: '',
+    JKN: '',
+    otherInsurance: '',
+    number: '',
+  });
+  const [PMerr, setPMerr] = useState({
+    paymentMethod: false,
+    JKN: false,
+    otherInsurance: false,
+    number: false,
+  });
+
+  const PPDmedicalRecordNumberOnChange = (val) => {
+    setPPD({ ...PPD, medicalRecordNumber: val });
   };
   
-  const nameOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: val,
-      sex: patientPersonalData.sex,
-      address: patientPersonalData.address,
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDnameOnChange = (val) => {
+    setPPD({ ...PPD, name: val });;
   };
 
-  const sexMaleOnClick = () => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: 'LAKI-LAKI',
-      address: patientPersonalData.address,
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDsexOnClick = (val) => {
+    setPPD({ ...PPD, sex: val });
   };
 
-  const sexFemaleOnClick = () => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: 'PEREMPUAN',
-      address: patientPersonalData.address,
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDaddressDistrictCityOnChange = (val) => {
+    setPPD({ ...PPD, address: {
+      districtCity: val,
+      subDistrict: '',
+      wardVillage: '',
+    }});
   };
 
-  const addressDistrictCityOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: val,
-        subDistrict: '',
-        wardVillage: '',
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDaddressSubDistrictOnChange = (val) => {
+    setPPD({ ...PPD, address: {
+      districtCity: PPD.address.districtCity,
+      subDistrict: val,
+      wardVillage: '',
+    }});
   };
 
-  const addressSubDistrictOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: val,
-        wardVillage: '',
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDaddressWardVillageOnChange = (val) => {
+    setPPD({ ...PPD, address: {
+      districtCity: PPD.address.districtCity,
+      subDistrict: PPD.address.subDistrict,
+      wardVillage: val,
+    }});
   };
 
-  const addressWardVillageOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: val,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDphoneNumberOnChange = (val) => {
+    setPPD({ ...PPD, phoneNumber: val });
   };
 
-  const birthDateDateOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: {
-        date: val,
-        month: patientPersonalData.birthDate.month,
-        year: patientPersonalData.birthDate.year,
-      },
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDbirthPlaceOnChange = (val) => {
+    setPPD({ ...PPD, birthPlace: val });
+  }
+
+  const PPDbirthDateDateOnChange = (val) => {
+    setPPD({ ...PPD, birthDate: {
+      date: val,
+      month: PPD.birthDate.month,
+      year: PPD.birthDate.year,
+    }});
   };
 
-  const birthDateMonthOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: {
-        date: patientPersonalData.birthDate.date,
-        month: val,
-        year: patientPersonalData.birthDate.year,
-      },
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDbirthDateMonthOnChange = (val) => {
+    setPPD({ ...PPD, birthDate: {
+      date: PPD.birthDate.date,
+      month: val,
+      year: PPD.birthDate.year
+    }});
   };
 
-  const birthDateYearOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: {
-        date: patientPersonalData.birthDate.date,
-        month: patientPersonalData.birthDate.month,
-        year: val,
-      },
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDbirthDateYearOnChange = (val) => {
+    setPPD({ ...PPD, birthDate: {
+      date: PPD.birthDate.date,
+      month: PPD.birthDate.month,
+      year: val,
+    }});
   };
 
-  const religionOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: val,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: patientPersonalData.job,
-    });
+  const PPDfamilyCardNameOnChange = (val) => {
+    setPPD({ ...PPD, familyCardName: val });
   };
 
-  const maritalStatusOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: val,
-      job: patientPersonalData.job,
-    });
+  const PPDreligionOnChange = (val) => {
+    setPPD({ ...PPD, religion: val });
+  };
+
+  const PPDmaritalStatusOnChange = (val) => {
+    setPPD({ ...PPD, maritalStatus: val });
   };
   
-  const jobOnChange = (val) => {
-    setPatientPersonalData({
-      medicalRecordNumber: patientPersonalData.medicalRecordNumber,
-      name: patientPersonalData.name,
-      sex: patientPersonalData.sex,
-      address: {
-        districtCity: patientPersonalData.address.districtCity,
-        subDistrict: patientPersonalData.address.subDistrict,
-        wardVillage: patientPersonalData.address.wardVillage,
-      },
-      phoneNumber: patientPersonalData.phoneNumber,
-      birthPlace: patientPersonalData.birthPlace,
-      birthDate: patientPersonalData.birthDate,
-      familyCardName: patientPersonalData.familyCardName,
-      religion: patientPersonalData.religion,
-      maritalStatus: patientPersonalData.maritalStatus,
-      job: val,
-    });
+  const PPDjobOnChange = (val) => {
+    setPPD({ ...PPD, job: val });
+  };
+
+  const clearPPDOnClick = () => {
+
+  };
+
+  const PBKDcardNumberOnChange = (val) => {
+    setPBKD({ ...PBKD, cardNumber: val });
+  };
+
+  const PBKDnameOnChange = (val) => {
+    setPBKD({ ...PBKD, name: val });
+  };
+
+  const PBKDbirthDateDateOnChange = (val) => {
+    setPBKD({ ...PBKD, birthDate: {
+      date: val,
+      month: PBKD.birthDate.month,
+      year: PBKD.birthDate.year,
+    }});
+  };
+
+  const PBKDbirthDateMonthOnChange = (val) => {
+    setPBKD({ ...PBKD, birthDate: {
+      date: PBKD.birthDate.date,
+      month: val,
+      year: PBKD.birthDate.year,
+    }});
+  };
+
+  const PBKDbirthDateYearOnChange = (val) => {
+    setPBKD({ ...PBKD, birthDate: {
+      date: PBKD.birthDate.date,
+      month: PBKD.birthDate.month,
+      year: val,
+    }});
+  };
+
+  const PBKDhealthFacilityLevelOnChange = (val) => {
+    setPBKD({ ...PBKD, healthFacilityLevel: val });
+  };
+
+  const PBKDnursingClassOnChange = (val) => {
+    setPBKD({ ...PBKD, nursingClass: val });
+  };
+
+  const PBKDNIKOnChange = (val) => {
+    setPBKD({ ...PBKD, NIK: val });
+  };
+
+  const PBKDaddressOnChange = (val) => {
+    setPBKD({ ...PBKD, address: val });
+  };
+
+  const clearPBKDOnClick = () => {
+
+  };
+
+  const PMpaymentMethodOnChange = (val) => {
+    setPM({ ...PM, paymentMethod: val });
+  };
+
+  const PMJKNOnChange = (val) => {
+    setPM({ ...PM, JKN: val });
+  };
+
+  const PMotherInsuranceOnChange = (val) => {
+    setPM({ ...PM, otherInsurance: val });
+  };
+
+  const PMnumberOnChange = (val) => {
+    setPM({ ...PM, number: val });
+  };
+
+  const clearPMOnClick = () => {
+
   };
 
   return(
@@ -515,27 +462,27 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Data Diri Pasien</h1>
         </div>
-        <button onClick={() => console.log(patientPersonalData)}>show personal data</button>
+        <button onClick={() => console.log(PPD)}>show personal data</button>
 
         <form>
           <div className='form-left'>
             <div className='input'>
               <h2>No. Rekam Medis</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PPDmedicalRecordNumberOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nama</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PPDnameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Jenis Kelamin</h2>
               <div className='input-radiobutton'>
-                <div className='item' onClick={sexMaleOnClick}>
-                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PPDsexOnClick('LAKI-LAKI')}>
+                  <div className={PPD.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Laki-laki</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PPDsexOnClick('PEREMPUAN')}>
+                  <div className={PPD.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Perempuan</h3>
                 </div>
               </div>
@@ -545,47 +492,47 @@ export default function DaftarPasienBaru() {
             </div>
             <div className='input'>
               <h2>Kab. / Kota</h2>
-              <select value={patientPersonalData.address.districtCity} onChange={e => addressDistrictCityOnChange(e.target.value)}>
+              <select value={PPD.address.districtCity} onChange={e => PPDaddressDistrictCityOnChange(e.target.value)}>
                 {addressList.map((dc, index) => <option key={index} value={dc.districtCity}>{dc.districtCity}</option>)}
               </select>
             </div>
             <div className='input'>
               <h2>Kec.</h2>
-              <select value={patientPersonalData.address.subDistrict} onChange={e => addressSubDistrictOnChange(e.target.value)}>
-                {addressList.map(dc => dc.districtCity === patientPersonalData.address.districtCity && dc.subDistricts.map((sd, index) => <option key={index} value={sd.subDistrict}>{sd.subDistrict}</option>))}
+              <select value={PPD.address.subDistrict} onChange={e => PPDaddressSubDistrictOnChange(e.target.value)}>
+                {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map((sd, index) => <option key={index} value={sd.subDistrict}>{sd.subDistrict}</option>))}
               </select>
             </div>
             <div className='input'>
               <h2>Kel. / Desa</h2>
-              <select value={patientPersonalData.address.wardVillage} onChange={e => addressWardVillageOnChange(e.target.value)}>
+              <select value={PPD.address.wardVillage} onChange={e => PPDaddressWardVillageOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH KELURAHAN / DESA)`}</option>
-                {addressList.map(dc => dc.districtCity === patientPersonalData.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === patientPersonalData.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
+                {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === PPD.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
               </select>
             </div>
             <div className='input'>
               <h2>No. Telepon</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PPDphoneNumberOnChange(e.target.value)}></input>
             </div>
           </div>
           <div className='form-right'>
             <div className='input'>
               <h2>Tempat Lahir</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PPDbirthPlaceOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Tanggal Lahir</h2>
               <div className='input-date'>
                 <div className='date'>
-                  <input type='text' placeholder='TGL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TGL' value={PPD.birthDate.date} onChange={e => PPDbirthDateDateOnChange(e.target.value)}></input>
                 </div>
                 <div className='month'>
-                  <select value={patientPersonalData.birthDate.month} onChange={e => birthDateMonthOnChange(e.target.value)}>
+                  <select value={PPD.birthDate.month} onChange={e => PPDbirthDateMonthOnChange(e.target.value)}>
                     <option value='' disabled>{`(BULAN)`}</option>
                     {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
                   </select>
                 </div>
                 <div className='year'>
-                  <input type='text' placeholder='TAHUN' value={patientPersonalData.birthDate.year} onChange={e => birthDateYearOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TAHUN' value={PPD.birthDate.year} onChange={e => PPDbirthDateYearOnChange(e.target.value)}></input>
                 </div>
               </div>
             </div>
@@ -595,31 +542,33 @@ export default function DaftarPasienBaru() {
             </div>
             <div className='input'>
               <h2>Nama KK</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PPDfamilyCardNameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Agama</h2>
-              <select value={patientPersonalData.religion} onChange={e => religionOnChange(e.target.value)}>
+              <select value={PPD.religion} onChange={e => PPDreligionOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH AGAMA)`}</option>
                 {religionList.map((r, index) => <option key={index} value={r}>{r}</option>)}
               </select>
             </div>
             <div className='input'>
               <h2>Status</h2>
-              <select value={patientPersonalData.maritalStatus} onChange={e => maritalStatusOnChange(e.target.value)}>
+              <select value={PPD.maritalStatus} onChange={e => PPDmaritalStatusOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH STATUS KAWIN)`}</option>
                 {maritalStatusList.map((m, index) => <option key={index} value={m}>{m}</option>)}
               </select>
             </div>
             <div className='input'>
               <h2>Pekerjaan</h2>
-              <select value={patientPersonalData.job} onChange={e => jobOnChange(e.target.value)}>
+              <select value={PPD.job} onChange={e => PPDjobOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH PEKERJAAN)`}</option>
                 {jobList.map((j, index) => <option key={index} value={j}>{j}</option>)}
               </select>
             </div>
           </div>
         </form>
+        <div className='button'><button onClick={clearPPDOnClick}>Bersihkan</button></div>
+        
       </div>
 
       {/* Data BPJS/KIS Pasien */}
@@ -627,55 +576,56 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Data BPJS/KIS Pasien</h1>
         </div>
-        <button onClick={() => console.log(`BPJS`)}>show bpjs/kis</button>
+        <button onClick={() => console.log(PBKD)}>show bpjs/kis</button>
 
         <form>
           <div className='form-left'>
             <div className='input'>
               <h2>No. Kartu</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PBKDcardNumberOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nama</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PBKDnameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Tanggal Lahir</h2>
               <div className='input-date'>
                 <div className='date'>
-                  <input type='text' placeholder='TGL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TGL' value={PPD.birthDate.date} onChange={e => PBKDbirthDateDateOnChange(e.target.value)}></input>
                 </div>
                 <div className='month'>
-                  <select value={patientPersonalData.birthDate.month} onChange={e => birthDateMonthOnChange(e.target.value)}>
+                  <select value={PPD.birthDate.month} onChange={e => PBKDbirthDateMonthOnChange(e.target.value)}>
                     <option value='' disabled>{`(BULAN)`}</option>
                     {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
                   </select>
                 </div>
                 <div className='year'>
-                  <input type='text' placeholder='TAHUN' value={patientPersonalData.birthDate.year} onChange={e => birthDateYearOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TAHUN' value={PPD.birthDate.year} onChange={e => PBKDbirthDateYearOnChange(e.target.value)}></input>
                 </div>
               </div>
             </div>
             <div className='input'>
               <h2>Faskes Tingkat I</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PBKDhealthFacilityLevelOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Kelas Rawat</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PBKDnursingClassOnChange(e.target.value)}></input>
             </div>
           </div>
           <div className='form-right'>
             <div className='input'>
               <h2>NIK</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PBKDNIKOnChange(e.target.value)}></input>
             </div>
             <div className='input-textarea'>
               <h2>Alamat</h2>
-              <textarea></textarea>
+              <textarea onChange={e => PBKDaddressOnChange(e.target.value)}></textarea>
             </div>
           </div>
         </form>
+        <div className='button'><button onClick={clearPBKDOnClick}>Bersihkan</button></div>
       </div>
 
       {/* Cara Pembayaran */}
@@ -683,19 +633,19 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Cara Pembayaran</h1>
         </div>
-        <button onClick={() => console.log(patientPersonalData)}>show payment method</button>
+        <button onClick={() => console.log(PM)}>show payment method</button>
 
         <form>
           <div className='form-left'>
             <div className='input'>
               <h2>Cara Pembayaran</h2>
               <div className='input-radiobutton'>
-                <div className='item' onClick={sexMaleOnClick}>
-                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMpaymentMethodOnChange('BIAYA SENDIRI')}>
+                  <div className={PM.paymentMethod === 'BIAYA SENDIRI' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Biaya Sendiri</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMpaymentMethodOnChange('UMUM')}>
+                  <div className={PM.paymentMethod === 'UMUM' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Umum</h3>
                 </div>
               </div>
@@ -703,24 +653,24 @@ export default function DaftarPasienBaru() {
             <div className='input'>
               <h2>JKN</h2>
               <div className='input-radiobutton'>
-                <div className='item' onClick={sexMaleOnClick}>
-                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMJKNOnChange('KM')}>
+                  <div className={PM.JKN === 'KM' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>KM</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMJKNOnChange('KAB')}>
+                  <div className={PM.JKN === 'KAB' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>KAB</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMJKNOnChange('A')}>
+                  <div className={PM.JKN === 'A' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>A</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMJKNOnChange('S')}>
+                  <div className={PM.JKN === 'S' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>S</h3>
                 </div>
-                <div className='item' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                <div className='item' onClick={() => PMJKNOnChange('M')}>
+                  <div className={PM.JKN === 'M' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>M</h3>
                 </div>
               </div>
@@ -729,14 +679,15 @@ export default function DaftarPasienBaru() {
           <div className='form-right'>
             <div className='input'>
               <h2>Asuransi Lainnya</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PMotherInsuranceOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nomor</h2>
-              <input type='text'></input>
+              <input type='text' onChange={e => PMnumberOnChange(e.target.value)}></input>
             </div>
           </div>
         </form>
+        <div className='button'><button onClick={clearPMOnClick}>Bersihkan</button></div>
       </div>
     </main>
   );
