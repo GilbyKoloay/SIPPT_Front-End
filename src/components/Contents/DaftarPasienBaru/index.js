@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // styles
-import './styles.css';
+import '../styles.css';
 
 export default function DaftarPasienBaru() {
   const addressList = [
@@ -510,112 +510,230 @@ export default function DaftarPasienBaru() {
 
   return(
     <main className='daftarPasienBaru'>
-      <div className='con-patientPersonalData'>
-        <div className='con-title'>
+      {/* Data Diri Pasien */}
+      <div className='con'>
+        <div className='title'>
           <h1>Data Diri Pasien</h1>
         </div>
-        <button onClick={() => console.log(patientPersonalData)}>show</button>
+        <button onClick={() => console.log(patientPersonalData)}>show personal data</button>
 
-        <form className='con-form'>
-          <div className='con-form-left'>
-            <div className='con-input'>
+        <form>
+          <div className='form-left'>
+            <div className='input'>
               <h2>No. Rekam Medis</h2>
               <input type='text'></input>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Nama</h2>
               <input type='text'></input>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Jenis Kelamin</h2>
-              <div className='con-input-sex'>
-                <div className='sex' onClick={sexMaleOnClick}>
-                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'sex-dot-selected' : 'sex-dot'} />
+              <div className='input-radiobutton'>
+                <div className='item' onClick={sexMaleOnClick}>
+                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Laki-laki</h3>
                 </div>
-                <div className='sex' onClick={sexFemaleOnClick}>
-                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'sex-dot-selected' : 'sex-dot'} />
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
                   <h3>Perempuan</h3>
                 </div>
               </div>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Alamat:</h2>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Kab. / Kota</h2>
               <select value={patientPersonalData.address.districtCity} onChange={e => addressDistrictCityOnChange(e.target.value)}>
                 {addressList.map((dc, index) => <option key={index} value={dc.districtCity}>{dc.districtCity}</option>)}
               </select>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Kec.</h2>
               <select value={patientPersonalData.address.subDistrict} onChange={e => addressSubDistrictOnChange(e.target.value)}>
                 {addressList.map(dc => dc.districtCity === patientPersonalData.address.districtCity && dc.subDistricts.map((sd, index) => <option key={index} value={sd.subDistrict}>{sd.subDistrict}</option>))}
               </select>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Kel. / Desa</h2>
               <select value={patientPersonalData.address.wardVillage} onChange={e => addressWardVillageOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH KELURAHAN / DESA)`}</option>
                 {addressList.map(dc => dc.districtCity === patientPersonalData.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === patientPersonalData.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
               </select>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>No. Telepon</h2>
               <input type='text'></input>
             </div>
           </div>
-          <div className='con-form-right'>
-            <div className='con-input'>
+          <div className='form-right'>
+            <div className='input'>
               <h2>Tempat Lahir</h2>
               <input type='text'></input>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Tanggal Lahir</h2>
-              <div className='con-input-dateWrap'>
-                <div className='con-input-date'>
+              <div className='input-date'>
+                <div className='date'>
                   <input type='text' placeholder='TGL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
                 </div>
-                <div className='con-input-month'>
+                <div className='month'>
                   <select value={patientPersonalData.birthDate.month} onChange={e => birthDateMonthOnChange(e.target.value)}>
                     <option value='' disabled>{`(BULAN)`}</option>
                     {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
                   </select>
                 </div>
-                <div className='con-input-year'>
+                <div className='year'>
                   <input type='text' placeholder='TAHUN' value={patientPersonalData.birthDate.year} onChange={e => birthDateYearOnChange(e.target.value)}></input>
                 </div>
               </div>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Umur</h2>
               <input type='text' disabled style={{backgroundColor: '#D3D3D3'}}></input>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Nama KK</h2>
               <input type='text'></input>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Agama</h2>
               <select value={patientPersonalData.religion} onChange={e => religionOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH AGAMA)`}</option>
                 {religionList.map((r, index) => <option key={index} value={r}>{r}</option>)}
               </select>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Status</h2>
               <select value={patientPersonalData.maritalStatus} onChange={e => maritalStatusOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH STATUS KAWIN)`}</option>
                 {maritalStatusList.map((m, index) => <option key={index} value={m}>{m}</option>)}
               </select>
             </div>
-            <div className='con-input'>
+            <div className='input'>
               <h2>Pekerjaan</h2>
               <select value={patientPersonalData.job} onChange={e => jobOnChange(e.target.value)}>
                 <option value='' disabled>{`(PILIH PEKERJAAN)`}</option>
                 {jobList.map((j, index) => <option key={index} value={j}>{j}</option>)}
               </select>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {/* Data BPJS/KIS Pasien */}
+      <div className='con'>
+        <div className='title'>
+          <h1>Data BPJS/KIS Pasien</h1>
+        </div>
+        <button onClick={() => console.log(`BPJS`)}>show bpjs/kis</button>
+
+        <form>
+          <div className='form-left'>
+            <div className='input'>
+              <h2>No. Kartu</h2>
+              <input type='text'></input>
+            </div>
+            <div className='input'>
+              <h2>Nama</h2>
+              <input type='text'></input>
+            </div>
+            <div className='input'>
+              <h2>Tanggal Lahir</h2>
+              <div className='input-date'>
+                <div className='date'>
+                  <input type='text' placeholder='TGL' value={patientPersonalData.birthDate.date} onChange={e => birthDateDateOnChange(e.target.value)}></input>
+                </div>
+                <div className='month'>
+                  <select value={patientPersonalData.birthDate.month} onChange={e => birthDateMonthOnChange(e.target.value)}>
+                    <option value='' disabled>{`(BULAN)`}</option>
+                    {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
+                  </select>
+                </div>
+                <div className='year'>
+                  <input type='text' placeholder='TAHUN' value={patientPersonalData.birthDate.year} onChange={e => birthDateYearOnChange(e.target.value)}></input>
+                </div>
+              </div>
+            </div>
+            <div className='input'>
+              <h2>Faskes Tingkat I</h2>
+              <input type='text'></input>
+            </div>
+            <div className='input'>
+              <h2>Kelas Rawat</h2>
+              <input type='text'></input>
+            </div>
+          </div>
+          <div className='form-right'>
+            <div className='input'>
+              <h2>NIK</h2>
+              <input type='text'></input>
+            </div>
+            <div className='input-textarea'>
+              <h2>Alamat</h2>
+              <textarea></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {/* Cara Pembayaran */}
+      <div className='con'>
+        <div className='title'>
+          <h1>Cara Pembayaran</h1>
+        </div>
+        <button onClick={() => console.log(patientPersonalData)}>show payment method</button>
+
+        <form>
+          <div className='form-left'>
+            <div className='input'>
+              <h2>Cara Pembayaran</h2>
+              <div className='input-radiobutton'>
+                <div className='item' onClick={sexMaleOnClick}>
+                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>Biaya Sendiri</h3>
+                </div>
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>Umum</h3>
+                </div>
+              </div>
+            </div>
+            <div className='input'>
+              <h2>JKN</h2>
+              <div className='input-radiobutton'>
+                <div className='item' onClick={sexMaleOnClick}>
+                  <div className={patientPersonalData.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>KM</h3>
+                </div>
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>KAB</h3>
+                </div>
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>A</h3>
+                </div>
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>S</h3>
+                </div>
+                <div className='item' onClick={sexFemaleOnClick}>
+                  <div className={patientPersonalData.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                  <h3>M</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='form-right'>
+            <div className='input'>
+              <h2>Asuransi Lainnya</h2>
+              <input type='text'></input>
+            </div>
+            <div className='input'>
+              <h2>Nomor</h2>
+              <input type='text'></input>
             </div>
           </div>
         </form>

@@ -24,6 +24,9 @@
     cursor: pointer;
     border-top-right-radius: 20px;
 }
+.dashboard .item-selected:last-child {
+    border-bottom: 2px solid black;
+}
 .dashboard .item-selected {
     padding: 20px;
     text-align: center;
@@ -50,15 +53,15 @@
     cursor: pointer;
     border-top-right-radius: 20px;
 }
+.dashboard .item:last-child {
+    border-bottom: 2px solid black;
+}
 .dashboard .item {
     padding: 20px;
     text-align: center;
     font-size: var(--labelFontSize);
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-}
-.dashboard .item:last-child {
-    border-bottom: 2px solid black;
 }
 .dashboard .item:hover {
     background-color: var(--primaryColor);

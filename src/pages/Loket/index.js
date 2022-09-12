@@ -20,7 +20,7 @@ export default function Loket() {
     { name: 'Dasbor', selected: true },
     { name: 'Daftar Pasien Baru', selected: false },
     { name: 'Pasien', selected: false },
-    { name: 'Antrian Poli', selected: false },
+    { name: 'Antrian Poli', selected: false }
   ]);
 
   const dashboardOnClick = (val) => {

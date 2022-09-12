@@ -3,13 +3,18 @@
     padding: 50px;
 }
 
-.con-patientPersonalData {
+.con:first-child {
+    margin-top: 0;
+}
+.con {
+    margin-top: 50px;
     padding: 25px;
     background-color: white;
     border: 1px solid black;
+    border-radius: 10px;
 }
 
-.con-title {
+.con .title {
     padding: 10px;
     border: 1px solid black;
     text-align: center;
@@ -18,33 +23,37 @@
     margin-bottom: 25px;
 }
 
-.con-form {
+.con form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.con-form-left {
+.con .form-left {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding-right: 25px;
 }
 
-.con-form-right {
+.con .form-right {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding-left: 25px;
 }
 
-.con-input {
+.con .input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 15px;
 }
-.con-input:last-child {
+.con .input:last-child {
     margin-bottom: 0;
 }
 
-.con-input input {
+.con .input input {
     padding: 10px;
     width: 100%;
     width: 430px;
@@ -52,40 +61,41 @@
     border: 1px solid black;
     border-radius: 10px;
 }
-.con-input input:active, .con-input input:focus {
+.con .input input:active, .con .input input:focus {
     outline: 2.5px solid var(--primaryColor);
 }
 
-.con-input select:hover {
+.con .input select:hover {
     cursor: pointer;
 }
-.con-input select:focus {
+.con .input select:focus {
     outline: 2.5px solid var(--primaryColor);
 }
 
-.con-input-sex {
+.con .input-radiobutton {
     width: 450px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
 }
-.con-input-sex .sex:hover {
+.con .input-radiobutton .item:hover {
     cursor: pointer;
 }
 
-.con-input .sex {
+.con .input-radiobutton .item {
     display: flex;
     flex: 1;
     align-items: center;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
-}
-.con-input .sex:first-child {
     margin-right: 15px;
 }
+.con .input-radiobutton .item:last-child {
+    margin-right: 0;
+}
 
-.con-input .sex-dot {
+.con .input-radiobutton .item-dot {
     height: 20px;
     width: 20px;
     border: 1px solid black;
@@ -94,7 +104,7 @@
     margin-right: 10px;
 }
 
-.con-input .sex-dot-selected {
+.con .input-radiobutton .item-dot-selected {
     height: 20px;
     width: 20px;
     border: 1px solid black;
@@ -104,11 +114,11 @@
     background-color: var(--primaryColor);
 }
 
-.con-input .sex h2 {
+.con .input-radiobutton .item h2 {
     font-size: var(--inputFontSize);
 }
 
-.con-input select {
+.con .input select {
     width: 452.5px;
     padding: 10px;
     font-size: var(--inputFontSize);
@@ -117,27 +127,39 @@
     border-radius: 10px;
 }
 
-.con-input-dateWrap {
-    width: 450px;
+.con .input-date {
     display: flex;
-    flex-direction: row;
+    width: 450px;
     align-items: center;
+    justify-content: space-between;
 }
 
-.con-input-date input {
+.con .input-date .date input {
     width: 37.5px;
 }
 
-.con-input-month select {
-    margin-left: 15px;
-    margin-right: 15px;
+.con .input-date .month select {
     width: 250px;
 }
 
-.con-input-year input {
+.con .input-date .year input {
     width: 87.5px;
 }
-.con-input-year input::placeholder {
-    color: 'red';
+
+.con .input-textarea {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
 }
 
+.con .input-textarea textarea {
+    width: 430px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: var(--inputFontSize);
+    font-family: OpenSans-regular;
+}
+.con .input-textarea textarea:focus {
+    outline: 2.5px solid var(--primaryColor);
+}
