@@ -13,14 +13,14 @@ export default function Dashboard({ contents, onClick }) {
   return(
     <nav className='dashboard'>
       <div className='items'>
-        <div className='title' onClick={e => onClick(e.target.textContent)}>Dasbor</div>
+        {/* <div className='title' onClick={e => onClick(e.target.textContent)}>Dasbor</div> */}
         {contents && contents.map((c, index) => (
           <div 
             key={index} 
-            className='item' 
+            className={c.selected ? 'item-selected' : 'item'} 
             onClick={e => onClick(e.target.textContent)}
           >
-            {c}
+            {c.name}
           </div>
         ))}
       </div>

@@ -16,14 +16,16 @@ import {
 
 export default function Loket() {
   const [selectedContent, setSelectedContent] = useState('Dashboard');
-  const contents = [
-    'Daftar Pasien Baru',
-    'Pasien',
-    'Antrian Poli',
-  ];
+  const [contents, setContents] = useState([
+    { name: 'Dasbor', selected: true },
+    { name: 'Daftar Pasien Baru', selected: false },
+    { name: 'Pasien', selected: false },
+    { name: 'Antrian Poli', selected: false },
+  ]);
 
   const dashboardOnClick = (val) => {
-    setSelectedContent(val);
+    setContents(contents.map(c => c.name === val ? { name: c.name, selected: true } : { name: c.name, selected: false }));
+    console.log(`contents`, contents);
   };
 
   return(
@@ -31,9 +33,12 @@ export default function Loket() {
       <Header role={'LOKET'} name={'telor'} />
       <div className='dashboard-content'>
         <Dashboard contents={contents} onClick={dashboardOnClick} />
-        {selectedContent === 'Daftar Pasien Baru' && <DaftarPasienBaru />}
-        {selectedContent === 'Pasien' && <Pasien />}
-        {selectedContent === 'Antrian Poli' && <AntrianPoli />}
+        {contents.map(c => (
+          (c.name === 'Daftar Pasien Baru' && c.selected) ? <DaftarPasienBaru /> :
+          (c.name === 'Pasien' && c.selected) ? <Pasien /> :
+          (c.name === 'Antrian Poli' && c.selected) && <AntrianPoli />
+        ))}
+        {contents.forEach(c => console.log(c))}
       </div>
       <Footer />
     </div>
