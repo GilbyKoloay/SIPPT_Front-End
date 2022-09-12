@@ -1,20 +1,26 @@
 // components
 
-import Header from './Header';
-import Dashboard from './Dashboard';
-import Footer from './Footer';
-
 // contents
-import DaftarPasienBaru from './Contents/DaftarPasienBaru';
-import Pasien from './Contents/Pasien';
-import AntrianPoli from './Contents/AntrianPoli';
+import DaftarPasienBaru from './contents/DaftarPasienBaru';
+import Pasien from './contents/Pasien';
+import AntrianPoli from './contents/AntrianPoli';
+
+// molecules
+import Header from './molecules/Header';
+import Dashboard from './molecules/Dashboard';
+import Footer from './molecules/Footer';
+
 
 export {
-  Header,
-  Dashboard,
-  Footer,
-
+  // contents
   DaftarPasienBaru,
   Pasien,
   AntrianPoli,
+
+  // molecules
+  Header,
+  Dashboard,
+  Footer,
+  
+  // atoms
 };

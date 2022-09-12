@@ -3,7 +3,7 @@ import './styles.css';
 
 export default function AntrianPoli() {
   return(
-    <div className='AntrianPoli'>
+    <div className='antrianPoli'>
       <h4>AntrianPoli</h4>
     </div>
   );

@@ -27,15 +27,13 @@ export default function Loket() {
   };
 
   return(
-    <div className='Loket'>
+    <div className='loket'>
       <Header role={'LOKET'} name={'telor'} />
-      <div className='Dashboard-Content'>
+      <div className='dashboard-content'>
         <Dashboard contents={contents} onClick={dashboardOnClick} />
-        <div className='Content'>
-          {selectedContent === 'Daftar Pasien Baru' && <DaftarPasienBaru />}
-          {selectedContent === 'Pasien' && <Pasien />}
-          {selectedContent === 'Antrian Poli' && <AntrianPoli />}
-        </div>
+        {selectedContent === 'Daftar Pasien Baru' && <DaftarPasienBaru />}
+        {selectedContent === 'Pasien' && <Pasien />}
+        {selectedContent === 'Antrian Poli' && <AntrianPoli />}
       </div>
       <Footer />
     </div>

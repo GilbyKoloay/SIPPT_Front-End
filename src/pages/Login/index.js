@@ -45,8 +45,8 @@ export default function Login() {
   };
 
   return(
-    <div className='Login-bg'>
-      <div className='Login'>
+    <div className='login-bg'>
+      <div className='login'>
         <div className='box'>
           <div className='title'>
             <h1>Sistem Informasi Pelayanan</h1>

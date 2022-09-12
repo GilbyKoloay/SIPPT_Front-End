@@ -1,4 +1,4 @@
-.Dashboard {
+.dashboard {
     background-color: var(--secondary);
     width: 275px;
     border: 1px solid black;
@@ -15,7 +15,7 @@
     user-select: none;
 }
 
-.Dashboard .Title {
+.dashboard .title {
     padding: 25px;
     text-align: center;
     font-family: OpenSans-semibold;
@@ -23,28 +23,28 @@
     border-top-right-radius: 20px;
     border-bottom: 1px solid black;
 }
-.Dashboard .Title:hover {
+.dashboard .title:hover {
     background-color: var(--primary);
     cursor: pointer;
     border-top-right-radius: 20px;
 }
 
-.Dashboard .Item {
+.dashboard .item {
     padding: 20px;
     text-align: center;
     font-size: 25px;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
-.Dashboard .Item:last-child {
+.dashboard .item:last-child {
     border-bottom: 2px solid black;
 }
-.Dashboard .Item:hover {
+.dashboard .item:hover {
     background-color: var(--primary);
     cursor: pointer;
 }
 
-.Dashboard .Logout {
+.dashboard .logout {
     font-size: 25px;
     margin-bottom: 50px;
     padding: 20px;
@@ -54,7 +54,7 @@
     border-top: 2px solid black;
     border-bottom: 2px solid black;
 }
-.Dashboard .Logout:hover {
+.dashboard .logout:hover {
     background-color: #FF4747;
     cursor: pointer;
 }

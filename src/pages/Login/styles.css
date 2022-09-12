@@ -1,4 +1,4 @@
-.Login {
+.login {
     background-color: #5F7F5FCC;
     position: absolute;
     top: 0px;
@@ -14,7 +14,7 @@
     -ms-user-select: none;
     user-select: none;
 }
-.Login-bg {
+.login-bg {
     background-image: url('../../assets/images/bgTest.jpg');
     background-color: red;
     position: absolute;
@@ -24,7 +24,7 @@
     right: 0px;
 }
 
-.Login .box {
+.login .box {
     padding: 100px;
     background-color: #C3F3C3BF;
     border-radius: 25px;
@@ -33,7 +33,7 @@
     justify-content: center;
 }
 
-.Login .title {
+.login .title {
     margin-right: 150px;
     font-family: OpenSans-semibold;
     display: flex;
@@ -41,33 +41,33 @@
     justify-content: center;
 }
 
-.Login h1 {
+.login h1 {
     text-align: center;
     font-family: OpenSans-semibold;
 }
 
-.Login .form {
+.login .form {
     display: flex;
 }
 
-.Login form {
+.login form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.Login .input:nth-child(1) {
+.login .input:nth-child(1) {
     margin-bottom: 50px;
 }
-.Login .input-err {
+.login .input-err {
     background-color: var(--inputError);
 }
 
-.Login h2 {
+.login h2 {
     margin-bottom: 15px;
 }
 
-.Login input {
+.login input {
     width: 375px;
     border: 1px solid black;
     box-shadow: 0px 5px 5px 0px #00000040;
@@ -75,11 +75,11 @@
     padding: 10px;
     font-size: var(--inputFontSize);
 }
-.Login input:active, .Login input:focus {
+.login input:active, .login input:focus {
     outline: 2.5px solid var(--primary);
 }
 
-.Login .err-msg {
+.login .err-msg {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +88,7 @@
     font-size: 20px;
 }
 
-.Login button {
+.login button {
     display: block;
     width: 100%;
     background-color: var(--primary);
@@ -99,7 +99,7 @@
     font-family: OpenSans-semibold;
     font-size: var(--buttonFontSize);
 }
-.Login button:hover {
+.login button:hover {
     background-color: var(--primaryHover);
     cursor: pointer;
 }

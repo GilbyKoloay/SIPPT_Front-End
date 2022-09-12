@@ -12,9 +12,10 @@ export default function NotFound() {
   });
 
   return(
-    <div className='NotFound'>
+    <div className='notFound'>
       <h1>Oops!</h1>
       <h3>404 Not Found</h3>
+      <h4>Redirecting...</h4>
     </div>
   );
 }
