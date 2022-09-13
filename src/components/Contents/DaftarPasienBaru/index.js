@@ -380,7 +380,46 @@ export default function DaftarPasienBaru() {
   };
 
   const clearPPDOnClick = () => {
+    setPPD({
+      medicalRecordNumber: '',
+      name: '',
+      sex: '',
+      address: {
+        districtCity: 'MINAHASA UTARA',
+        subDistrict: 'TALAWAAN',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      age: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+    });
 
+    setPPDErr({
+      medicalRecordNumber: false,
+      name: false,
+      sex: false,
+      address: {
+        districtCity: false,
+        subDistrict: false,
+        wardVillage: false,
+      },
+      phoneNumber: false,
+      birthPlace: false,
+      birthDate: false,
+      familyCardNumber: false,
+      religion: false,
+      maritalStatus: false,
+      job: false,
+    });
   };
 
   const PBKDcardNumberOnChange = (val) => {
@@ -432,7 +471,33 @@ export default function DaftarPasienBaru() {
   };
 
   const clearPBKDOnClick = () => {
+    setPBKD({
+      cardNumber: '',
+      name: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    });
 
+    setPBKDErr({
+      cardNumber: false,
+      name: false,
+      birthDate: {
+        date: false,
+        month: false,
+        year: false,
+      },
+      healthFacilityLevel: false,
+      nursingClass: false,
+      NIK: false,
+      address: false,
+    });
   };
 
   const PMpaymentMethodOnChange = (val) => {
@@ -452,7 +517,19 @@ export default function DaftarPasienBaru() {
   };
 
   const clearPMOnClick = () => {
+    setPM({
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    });
 
+    setPMerr({
+      paymentMethod: false,
+      JKN: false,
+      otherInsurance: false,
+      number: false,
+    });
   };
 
   return(
@@ -468,11 +545,11 @@ export default function DaftarPasienBaru() {
           <div className='form-left'>
             <div className='input'>
               <h2>No. Rekam Medis</h2>
-              <input type='text' onChange={e => PPDmedicalRecordNumberOnChange(e.target.value)}></input>
+              <input type='text' value={PPD.medicalRecordNumber} onChange={e => PPDmedicalRecordNumberOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nama</h2>
-              <input type='text' onChange={e => PPDnameOnChange(e.target.value)}></input>
+              <input type='text' value={PPD.name} onChange={e => PPDnameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Jenis Kelamin</h2>
@@ -511,13 +588,13 @@ export default function DaftarPasienBaru() {
             </div>
             <div className='input'>
               <h2>No. Telepon</h2>
-              <input type='text' onChange={e => PPDphoneNumberOnChange(e.target.value)}></input>
+              <input type='text' value={PPD.phoneNumber} onChange={e => PPDphoneNumberOnChange(e.target.value)}></input>
             </div>
           </div>
           <div className='form-right'>
             <div className='input'>
               <h2>Tempat Lahir</h2>
-              <input type='text' onChange={e => PPDbirthPlaceOnChange(e.target.value)}></input>
+              <input type='text' value={PPD.birthPlace} onChange={e => PPDbirthPlaceOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Tanggal Lahir</h2>
@@ -538,11 +615,11 @@ export default function DaftarPasienBaru() {
             </div>
             <div className='input'>
               <h2>Umur</h2>
-              <input type='text' disabled style={{backgroundColor: '#D3D3D3'}}></input>
+              <input type='text' disabled value={PPD.age} style={{backgroundColor: '#D3D3D3'}}></input>
             </div>
             <div className='input'>
               <h2>Nama KK</h2>
-              <input type='text' onChange={e => PPDfamilyCardNameOnChange(e.target.value)}></input>
+              <input type='text' value={PPD.familyCardName} onChange={e => PPDfamilyCardNameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Agama</h2>
@@ -567,7 +644,7 @@ export default function DaftarPasienBaru() {
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={clearPPDOnClick}>Bersihkan</button></div>
+        <div className='button'><button onClick={() => clearPPDOnClick()}>Bersihkan</button></div>
         
       </div>
 
@@ -582,50 +659,50 @@ export default function DaftarPasienBaru() {
           <div className='form-left'>
             <div className='input'>
               <h2>No. Kartu</h2>
-              <input type='text' onChange={e => PBKDcardNumberOnChange(e.target.value)}></input>
+              <input type='text' value={PBKD.cardNumber} onChange={e => PBKDcardNumberOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nama</h2>
-              <input type='text' onChange={e => PBKDnameOnChange(e.target.value)}></input>
+              <input type='text' value={PBKD.name} onChange={e => PBKDnameOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Tanggal Lahir</h2>
               <div className='input-date'>
                 <div className='date'>
-                  <input type='text' placeholder='TGL' value={PPD.birthDate.date} onChange={e => PBKDbirthDateDateOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TGL' value={PBKD.birthDate.date} onChange={e => PBKDbirthDateDateOnChange(e.target.value)}></input>
                 </div>
                 <div className='month'>
-                  <select value={PPD.birthDate.month} onChange={e => PBKDbirthDateMonthOnChange(e.target.value)}>
+                  <select value={PBKD.birthDate.month} onChange={e => PBKDbirthDateMonthOnChange(e.target.value)}>
                     <option value='' disabled>{`(BULAN)`}</option>
                     {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
                   </select>
                 </div>
                 <div className='year'>
-                  <input type='text' placeholder='TAHUN' value={PPD.birthDate.year} onChange={e => PBKDbirthDateYearOnChange(e.target.value)}></input>
+                  <input type='text' placeholder='TAHUN' value={PBKD.birthDate.year} onChange={e => PBKDbirthDateYearOnChange(e.target.value)}></input>
                 </div>
               </div>
             </div>
             <div className='input'>
               <h2>Faskes Tingkat I</h2>
-              <input type='text' onChange={e => PBKDhealthFacilityLevelOnChange(e.target.value)}></input>
+              <input type='text' value={PBKD.healthFacilityLevel} onChange={e => PBKDhealthFacilityLevelOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Kelas Rawat</h2>
-              <input type='text' onChange={e => PBKDnursingClassOnChange(e.target.value)}></input>
+              <input type='text' value={PBKD.nursingClass} onChange={e => PBKDnursingClassOnChange(e.target.value)}></input>
             </div>
           </div>
           <div className='form-right'>
             <div className='input'>
               <h2>NIK</h2>
-              <input type='text' onChange={e => PBKDNIKOnChange(e.target.value)}></input>
+              <input type='text' value={PBKD.NIK} onChange={e => PBKDNIKOnChange(e.target.value)}></input>
             </div>
             <div className='input-textarea'>
               <h2>Alamat</h2>
-              <textarea onChange={e => PBKDaddressOnChange(e.target.value)}></textarea>
+              <textarea value={PBKD.address} onChange={e => PBKDaddressOnChange(e.target.value)}></textarea>
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={clearPBKDOnClick}>Bersihkan</button></div>
+        <div className='button'><button onClick={() => clearPBKDOnClick()}>Bersihkan</button></div>
       </div>
 
       {/* Cara Pembayaran */}
@@ -679,15 +756,15 @@ export default function DaftarPasienBaru() {
           <div className='form-right'>
             <div className='input'>
               <h2>Asuransi Lainnya</h2>
-              <input type='text' onChange={e => PMotherInsuranceOnChange(e.target.value)}></input>
+              <input type='text' value={PM.otherInsurance} onChange={e => PMotherInsuranceOnChange(e.target.value)}></input>
             </div>
             <div className='input'>
               <h2>Nomor</h2>
-              <input type='text' onChange={e => PMnumberOnChange(e.target.value)}></input>
+              <input type='text' value={PM.number} onChange={e => PMnumberOnChange(e.target.value)}></input>
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={clearPMOnClick}>Bersihkan</button></div>
+        <div className='button'><button onClick={() => clearPMOnClick()}>Bersihkan</button></div>
       </div>
     </main>
   );
