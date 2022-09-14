@@ -54,7 +54,7 @@
     margin-bottom: 0;
 }
 
-.con .input-err h4 {
+.con .input-err h4, .con .input-textarea-err h4 {
     margin-top: 2.5px;
     color: var(--errFontColor);
     font-style: italic;
@@ -195,7 +195,7 @@
     background-color: var(--errBgColor);
 }
 
-.con .input-textarea {
+.con .input-textarea, .con .input-textarea-err {
     display: flex;
     flex: 1;
     justify-content: space-between;
@@ -210,8 +210,19 @@
     font-family: OpenSans-regular;
     resize: none;
 }
-.con .input-textarea textarea:focus {
+.con .input-textarea textarea:focus, .con .input-textarea-err textarea:focus {
     outline: 2.5px solid var(--primaryColor);
+}
+
+.con .input-textarea-err textarea {
+    width: 430px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: var(--inputFontSize);
+    font-family: OpenSans-regular;
+    resize: none;
+    background-color: var(--errBgColor);
 }
 
 .con .button-clear {

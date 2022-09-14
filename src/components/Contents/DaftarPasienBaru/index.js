@@ -486,10 +486,12 @@ export default function DaftarPasienBaru() {
 
   const PBKDcardNumberOnChange = (val) => {
     setPBKD({ ...PBKD, cardNumber: val });
+    setPBKDErr({ ...PBKDErr, cardNumber: inputCheck('number', val) });
   };
 
   const PBKDnameOnChange = (val) => {
     setPBKD({ ...PBKD, name: val });
+    setPBKDErr({ ...PBKDErr, name: inputCheck('letter', val) });
   };
 
   const PBKDbirthDateDateOnChange = (val) => {
@@ -497,6 +499,11 @@ export default function DaftarPasienBaru() {
       date: val,
       month: PBKD.birthDate.month,
       year: PBKD.birthDate.year,
+    }});
+    setPBKDErr({ ...PBKDErr, birthDate: {
+      date: inputCheck('number', val),
+      month: PBKDErr.birthDate.month,
+      year: PBKDErr.birthDate.year,
     }});
   };
 
@@ -506,6 +513,11 @@ export default function DaftarPasienBaru() {
       month: val,
       year: PBKD.birthDate.year,
     }});
+    setPBKDErr({ ...PBKDErr, birthDate: {
+      date: PBKDErr.birthDate.date,
+      month: inputCheck('number', val),
+      year: PBKDErr.birthDate.year,
+    }});
   };
 
   const PBKDbirthDateYearOnChange = (val) => {
@@ -514,22 +526,31 @@ export default function DaftarPasienBaru() {
       month: PBKD.birthDate.month,
       year: val,
     }});
+    setPBKDErr({ ...PBKDErr, birthDate: {
+      date: PBKDErr.birthDate.date,
+      month: PBKDErr.birthDate.month,
+      year: inputCheck('number', val),
+    }});
   };
 
   const PBKDhealthFacilityLevelOnChange = (val) => {
     setPBKD({ ...PBKD, healthFacilityLevel: val });
+    setPBKDErr({ ...PBKDErr, healthFacilityLevel: inputCheck('letter', val) });
   };
 
   const PBKDnursingClassOnChange = (val) => {
     setPBKD({ ...PBKD, nursingClass: val });
+    setPBKDErr({ ...PBKDErr, nursingClass: inputCheck('number', val) });
   };
 
   const PBKDNIKOnChange = (val) => {
     setPBKD({ ...PBKD, NIK: val });
+    setPBKDErr({ ...PBKDErr, NIK: inputCheck('number', val) });
   };
 
   const PBKDaddressOnChange = (val) => {
     setPBKD({ ...PBKD, address: val });
+    setPBKDErr({ ...PBKDErr, address: val.trim().length === 0 && ' tidak boleh kosong' });
   };
 
   const clearPBKDOnClick = () => {
@@ -764,48 +785,73 @@ export default function DaftarPasienBaru() {
 
         <form>
           <div className='form-left'>
-            <div className='input'>
+            <div className={PBKDErr.cardNumber ? 'input-err' : 'input'}>
               <h2>No. Kartu</h2>
-              <input type='text' value={PBKD.cardNumber} onChange={e => PBKDcardNumberOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PBKD.cardNumber} onChange={e => PBKDcardNumberOnChange(e.target.value)}></input>
+                {PBKDErr.cardNumber && <h4>No. Kartu {PBKDErr.cardNumber}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PBKDErr.name ? 'input-err' : 'input'}>
               <h2>Nama</h2>
-              <input type='text' value={PBKD.name} onChange={e => PBKDnameOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PBKD.name} onChange={e => PBKDnameOnChange(e.target.value)}></input>
+                {PBKDErr.name && <h4>Nama {PBKDErr.name}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={(PBKDErr.birthDate.date || PBKDErr.birthDate.month || PBKDErr.birthDate.year) ? 'input-err' : 'input'}>
               <h2>Tanggal Lahir</h2>
-              <div className='input-date'>
-                <div className='date'>
-                  <input type='text' placeholder='TGL' value={PBKD.birthDate.date} onChange={e => PBKDbirthDateDateOnChange(e.target.value)}></input>
+              <div>
+                <div className='input-date'>
+                  <div className={PBKDErr.birthDate.date ? 'date-err' : 'date'}>
+                    <input type='text' placeholder='TGL' value={PBKD.birthDate.date} onChange={e => PBKDbirthDateDateOnChange(e.target.value)}></input>
+                  </div>
+                  <div className={PBKDErr.birthDate.month ? 'month-err' : 'month'}>
+                    <select value={PBKD.birthDate.month} onChange={e => PBKDbirthDateMonthOnChange(e.target.value)}>
+                      <option value='' disabled>{`(BULAN)`}</option>
+                      {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
+                    </select>
+                  </div>
+                  <div className={PBKDErr.birthDate.year ? 'year-err' : 'year'}>
+                    <input type='text' placeholder='TAHUN' value={PBKD.birthDate.year} onChange={e => PBKDbirthDateYearOnChange(e.target.value)}></input>
+                  </div>
                 </div>
-                <div className='month'>
-                  <select value={PBKD.birthDate.month} onChange={e => PBKDbirthDateMonthOnChange(e.target.value)}>
-                    <option value='' disabled>{`(BULAN)`}</option>
-                    {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
-                  </select>
-                </div>
-                <div className='year'>
-                  <input type='text' placeholder='TAHUN' value={PBKD.birthDate.year} onChange={e => PBKDbirthDateYearOnChange(e.target.value)}></input>
+                <div>
+                  {PBKDErr.birthDate.date && <h4>Tanggal dari Tanggal Lahir {PBKDErr.birthDate.date}</h4>}
+                  {PBKDErr.birthDate.month && <h4>Bulan dari Tanggal Lahir {PBKDErr.birthDate.month}</h4>}
+                  {PBKDErr.birthDate.year && <h4>Tahun dari Tanggal Lahir {PBKDErr.birthDate.year}</h4>}
                 </div>
               </div>
             </div>
-            <div className='input'>
+            <div className={PBKDErr.healthFacilityLevel ? 'input-err' : 'input'}>
               <h2>Faskes Tingkat I</h2>
-              <input type='text' value={PBKD.healthFacilityLevel} onChange={e => PBKDhealthFacilityLevelOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PBKD.healthFacilityLevel} onChange={e => PBKDhealthFacilityLevelOnChange(e.target.value)}></input>
+                {PBKDErr.healthFacilityLevel && <h4>Faskes Tingkat I {PBKDErr.healthFacilityLevel}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PBKDErr.nursingClass ? 'input-err' : 'input'}>
               <h2>Kelas Rawat</h2>
-              <input type='text' value={PBKD.nursingClass} onChange={e => PBKDnursingClassOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PBKD.nursingClass} onChange={e => PBKDnursingClassOnChange(e.target.value)}></input>
+                {PBKDErr.nursingClass && <h4>Kelas Rawat {PBKDErr.nursingClass}</h4>}
+              </div>
             </div>
           </div>
           <div className='form-right'>
-            <div className='input'>
+            <div className={PBKDErr.NIK ? 'input-err' : 'input'}>
               <h2>NIK</h2>
-              <input type='text' value={PBKD.NIK} onChange={e => PBKDNIKOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PBKD.NIK} onChange={e => PBKDNIKOnChange(e.target.value)}></input>
+                {PBKDErr.NIK && <h4>NIK {PBKDErr.NIK}</h4>}
+              </div>
             </div>
-            <div className='input-textarea'>
+            <div className={PBKDErr.address ? 'input-textarea-err' : 'input-textarea'}>
               <h2>Alamat</h2>
-              <textarea value={PBKD.address} onChange={e => PBKDaddressOnChange(e.target.value)}></textarea>
+              <div>
+                <textarea value={PBKD.address} onChange={e => PBKDaddressOnChange(e.target.value)}></textarea>
+                {PBKDErr.address && <h4>Alamat {PBKDErr.address}</h4>}
+              </div>
             </div>
           </div>
         </form>
