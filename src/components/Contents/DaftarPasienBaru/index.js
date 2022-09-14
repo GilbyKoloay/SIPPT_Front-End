@@ -285,17 +285,17 @@ export default function DaftarPasienBaru() {
     address: '',
   });
   const [PBKDErr, setPBKDErr] = useState({
-    cardNumber: false,
-    name: false,
+    cardNumber: null,
+    name: null,
     birthDate: {
-      date: false,
-      month: false,
-      year: false,
+      date: null,
+      month: null,
+      year: null,
     },
-    healthFacilityLevel: false,
-    nursingClass: false,
-    NIK: false,
-    address: false,
+    healthFacilityLevel: null,
+    nursingClass: null,
+    NIK: null,
+    address: null,
   });
 
   // Payment Method
@@ -306,10 +306,10 @@ export default function DaftarPasienBaru() {
     number: '',
   });
   const [PMerr, setPMerr] = useState({
-    paymentMethod: false,
-    JKN: false,
-    otherInsurance: false,
-    number: false,
+    paymentMethod: null,
+    JKN: null,
+    otherInsurance: null,
+    number: null,
   });
 
   const PPDmedicalRecordNumberOnChange = (val) => {
@@ -422,19 +422,19 @@ export default function DaftarPasienBaru() {
 
   const PPDreligionOnChange = (val) => {
     setPPD({ ...PPD, religion: val });
-    setPPDErr({ ...PPDErr, religion: false });
+    setPPDErr({ ...PPDErr, religion: null });
     // setPPDErr({ ...PPDErr, religion: inputCheck('letter', val) });
   };
 
   const PPDmaritalStatusOnChange = (val) => {
     setPPD({ ...PPD, maritalStatus: val });
-    setPPDErr({ ...PPDErr, maritalStatus: false });
+    setPPDErr({ ...PPDErr, maritalStatus: null });
     // setPPDErr({ ...PPDErr, maritalStatus: inputCheck('letter', val) });
   };
   
   const PPDjobOnChange = (val) => {
     setPPD({ ...PPD, job: val });
-    setPPDErr({ ...PPDErr, job: false });
+    setPPDErr({ ...PPDErr, job: null });
     // setPPDErr({ ...PPDErr, job: inputCheck('letter', val) });
   };
 
@@ -462,25 +462,25 @@ export default function DaftarPasienBaru() {
       job: '',
     });
     setPPDErr({
-      medicalRecordNumber: false,
-      name: false,
-      sex: false,
+      medicalRecordNumber: null,
+      name: null,
+      sex: null,
       address: {
-        districtCity: false,
-        subDistrict: false,
-        wardVillage: false,
+        districtCity: null,
+        subDistrict: null,
+        wardVillage: null,
       },
-      phoneNumber: false,
-      birthPlace: false,
+      phoneNumber: null,
+      birthPlace: null,
       birthDate: {
-        date: false,
-        month: false,
-        year: false,
+        date: null,
+        month: null,
+        year: null,
       },
-      familyCardName: false,
-      religion: false,
-      maritalStatus: false,
-      job: false,
+      familyCardName: null,
+      religion: null,
+      maritalStatus: null,
+      job: null,
     });
   };
 
@@ -569,34 +569,38 @@ export default function DaftarPasienBaru() {
     });
 
     setPBKDErr({
-      cardNumber: false,
-      name: false,
+      cardNumber: null,
+      name: null,
       birthDate: {
-        date: false,
-        month: false,
-        year: false,
+        date: null,
+        month: null,
+        year: null,
       },
-      healthFacilityLevel: false,
-      nursingClass: false,
-      NIK: false,
-      address: false,
+      healthFacilityLevel: null,
+      nursingClass: null,
+      NIK: null,
+      address: null,
     });
   };
 
   const PMpaymentMethodOnChange = (val) => {
     setPM({ ...PM, paymentMethod: val });
+    setPMerr({ ...PMerr, paymentMethod: null });
   };
 
   const PMJKNOnChange = (val) => {
     setPM({ ...PM, JKN: val });
+    setPMerr({ ...PMerr, JKN: null });
   };
 
   const PMotherInsuranceOnChange = (val) => {
     setPM({ ...PM, otherInsurance: val });
+    setPMerr({ ...PMerr, otherInsurance: inputCheck('letter', val) });
   };
 
   const PMnumberOnChange = (val) => {
     setPM({ ...PM, number: val });
+    setPMerr({ ...PMerr, number: inputCheck('number', val) });
   };
 
   const clearPMOnClick = () => {
@@ -608,10 +612,10 @@ export default function DaftarPasienBaru() {
     });
 
     setPMerr({
-      paymentMethod: false,
-      JKN: false,
-      otherInsurance: false,
-      number: false,
+      paymentMethod: null,
+      JKN: null,
+      otherInsurance: null,
+      number: null,
     });
   };
 
@@ -867,53 +871,65 @@ export default function DaftarPasienBaru() {
 
         <form>
           <div className='form-left'>
-            <div className='input'>
+            <div className={PMerr.paymentMethod ? 'input-err' : 'input'}>
               <h2>Cara Pembayaran</h2>
-              <div className='input-radiobutton'>
-                <div className='item' onClick={() => PMpaymentMethodOnChange('BIAYA SENDIRI')}>
-                  <div className={PM.paymentMethod === 'BIAYA SENDIRI' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>Biaya Sendiri</h3>
+              <div>
+                <div className='input-radiobutton'>
+                  <div className='item' onClick={() => PMpaymentMethodOnChange('BIAYA SENDIRI')}>
+                    <div className={PM.paymentMethod === 'BIAYA SENDIRI' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>Biaya Sendiri</h3>
+                  </div>
+                  <div className='item' onClick={() => PMpaymentMethodOnChange('UMUM')}>
+                    <div className={PM.paymentMethod === 'UMUM' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>Umum</h3>
+                  </div>
                 </div>
-                <div className='item' onClick={() => PMpaymentMethodOnChange('UMUM')}>
-                  <div className={PM.paymentMethod === 'UMUM' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>Umum</h3>
-                </div>
+                {PMerr.paymentMethod && <h4>Cara Pembayaran {PMerr.paymentMethod}</h4>}
               </div>
             </div>
-            <div className='input'>
+            <div className={PMerr.JKN ? 'input-err' : 'input'}>
               <h2>JKN</h2>
-              <div className='input-radiobutton'>
-                <div className='item' onClick={() => PMJKNOnChange('KM')}>
-                  <div className={PM.JKN === 'KM' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>KM</h3>
+              <div>
+                <div className='input-radiobutton'>
+                  <div className='item' onClick={() => PMJKNOnChange('KM')}>
+                    <div className={PM.JKN === 'KM' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>KM</h3>
+                  </div>
+                  <div className='item' onClick={() => PMJKNOnChange('KAB')}>
+                    <div className={PM.JKN === 'KAB' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>KAB</h3>
+                  </div>
+                  <div className='item' onClick={() => PMJKNOnChange('A')}>
+                    <div className={PM.JKN === 'A' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>A</h3>
+                  </div>
+                  <div className='item' onClick={() => PMJKNOnChange('S')}>
+                    <div className={PM.JKN === 'S' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>S</h3>
+                  </div>
+                  <div className='item' onClick={() => PMJKNOnChange('M')}>
+                    <div className={PM.JKN === 'M' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>M</h3>
+                  </div>
                 </div>
-                <div className='item' onClick={() => PMJKNOnChange('KAB')}>
-                  <div className={PM.JKN === 'KAB' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>KAB</h3>
-                </div>
-                <div className='item' onClick={() => PMJKNOnChange('A')}>
-                  <div className={PM.JKN === 'A' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>A</h3>
-                </div>
-                <div className='item' onClick={() => PMJKNOnChange('S')}>
-                  <div className={PM.JKN === 'S' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>S</h3>
-                </div>
-                <div className='item' onClick={() => PMJKNOnChange('M')}>
-                  <div className={PM.JKN === 'M' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>M</h3>
-                </div>
+                {PMerr.JKN && <h4>JKN {PMerr.JKN}</h4>}
               </div>
             </div>
           </div>
           <div className='form-right'>
-            <div className='input'>
+            <div className={PMerr.otherInsurance ? 'input-err' : 'input'}>
               <h2>Asuransi Lainnya</h2>
-              <input type='text' value={PM.otherInsurance} onChange={e => PMotherInsuranceOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PM.otherInsurance} onChange={e => PMotherInsuranceOnChange(e.target.value)}></input>
+                {PMerr.otherInsurance && <h4>Asuransi Lainnya {PMerr.otherInsurance}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PMerr.number ? 'input-err' : 'input'}>
               <h2>Nomor</h2>
-              <input type='text' value={PM.number} onChange={e => PMnumberOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PM.number} onChange={e => PMnumberOnChange(e.target.value)}></input>
+                {PMerr.number && <h4>Nomor {PMerr.number}</h4>}
+              </div>
             </div>
           </div>
         </form>
