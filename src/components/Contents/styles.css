@@ -43,15 +43,22 @@
     padding-left: 25px;
 }
 
-.con .input {
+.con .input, .con .input-err {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
 }
-.con .input:last-child {
+.con .input:last-child, .con .input-err:last-child {
     margin-bottom: 0;
+}
+
+.con .input-err h4 {
+    margin-top: 2.5px;
+    color: var(--errFontColor);
+    font-style: italic;
+    width: 450px;
 }
 
 .con .input input {
@@ -62,14 +69,24 @@
     border: 1px solid black;
     border-radius: 10px;
 }
-.con .input input:active, .con .input input:focus {
+.con .input input:active, .con .input input:focus, .con .input-err input:active, .con .input-err input:focus {
     outline: 2.5px solid var(--primaryColor);
 }
 
-.con .input select:hover {
+.con .input-err input {
+    padding: 10px;
+    width: 100%;
+    width: 430px;
+    font-size: var(--inputFontSize);
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: var(--errBgColor);
+}
+
+.con .input select:hover, .con .input-err select:hover {
     cursor: pointer;
 }
-.con .input select:focus {
+.con .input select:focus, .con .input-err select:focus {
     outline: 2.5px solid var(--primaryColor);
 }
 
@@ -128,7 +145,20 @@
     border-radius: 10px;
 }
 
-.con .input-date {
+.con .input-err select {
+    width: 452.5px;
+    padding: 10px;
+    font-size: var(--inputFontSize);
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: var(--errBgColor);
+}
+.con .input-err select:focus {
+    background-color: white;
+}
+
+.con .input-date{
     display: flex;
     width: 450px;
     align-items: center;
@@ -137,14 +167,32 @@
 
 .con .input-date .date input {
     width: 37.5px;
+    background-color: white;
+}
+
+.con .input-date .date-err input {
+    width: 37.5px;
+    background-color: var(--errBgColor);
 }
 
 .con .input-date .month select {
     width: 250px;
+    background-color: white;
+}
+
+.con .input-date .month-err select {
+    width: 250px;
+    background-color: var(--errBgColor);
 }
 
 .con .input-date .year input {
     width: 87.5px;
+    background-color: white;
+}
+
+.con .input-date .year-err input {
+    width: 87.5px;
+    background-color: var(--errBgColor);
 }
 
 .con .input-textarea {
@@ -166,13 +214,13 @@
     outline: 2.5px solid var(--primaryColor);
 }
 
-.con .button {
+.con .button-clear {
     display: flex;
     justify-content: end;
     margin-top: 25px;
 }
 
-.con .button button {
+.con .button-clear button {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 100px;
@@ -182,7 +230,7 @@
     border: 1px solid black;
     border-radius: 10px;
 }
-.con .button button:hover {
+.con .button-clear button:hover {
     background-color: var(--tertiaryColorHover);
     cursor: pointer;
 }

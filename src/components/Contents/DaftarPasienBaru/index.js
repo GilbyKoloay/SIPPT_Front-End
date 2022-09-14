@@ -3,6 +3,19 @@ import { useState } from 'react';
 // styles
 import '../styles.css';
 
+// input checking
+const inputCheck = (type, val) => {
+  if(val.trim().length === 0) {
+    return ' tidak boleh kosong';
+  }
+  else if(type === 'letter') {
+    return /^[A-Za-z\s]*$/.test(val) ? null : ' hanya boleh mengandung huruf saja';
+  }
+  else if(type === 'number') {
+    return /^\d+$/.test(val) ? null : ' hanya boleh mengandung angka saja';
+  }
+};
+
 export default function DaftarPasienBaru() {
   const addressList = [
     { districtCity: 'BOLAANG MONGONDOW', subDistricts: [
@@ -236,21 +249,25 @@ export default function DaftarPasienBaru() {
     job: '',
   });
   const [PPDErr, setPPDErr] = useState({
-    medicalRecordNumber: false,
-    name: false,
-    sex: false,
+    medicalRecordNumber: null,
+    name: null,
+    sex: null,
     address: {
-      districtCity: false,
-      subDistrict: false,
-      wardVillage: false,
+      districtCity: null,
+      subDistrict: null,
+      wardVillage: null,
     },
-    phoneNumber: false,
-    birthPlace: false,
-    birthDate: false,
-    familyCardNumber: false,
-    religion: false,
-    maritalStatus: false,
-    job: false,
+    phoneNumber: null,
+    birthPlace: null,
+    birthDate: {
+      date: null,
+      month: null,
+      year: null,
+    },
+    familyCardName: null,
+    religion: null,
+    maritalStatus: null,
+    job: null,
   });
 
   // Patient's BPJS/KIS Data
@@ -297,14 +314,17 @@ export default function DaftarPasienBaru() {
 
   const PPDmedicalRecordNumberOnChange = (val) => {
     setPPD({ ...PPD, medicalRecordNumber: val });
+    setPPDErr({ ...PPDErr, medicalRecordNumber: inputCheck('number', val) });
   };
   
   const PPDnameOnChange = (val) => {
     setPPD({ ...PPD, name: val });;
+    setPPDErr({ ...PPDErr, name: inputCheck('letter', val) });
   };
 
   const PPDsexOnClick = (val) => {
     setPPD({ ...PPD, sex: val });
+    setPPDErr({ ...PPDErr, sex: null });
   };
 
   const PPDaddressDistrictCityOnChange = (val) => {
@@ -312,6 +332,11 @@ export default function DaftarPasienBaru() {
       districtCity: val,
       subDistrict: '',
       wardVillage: '',
+    }});
+    setPPDErr({ ...PPDErr, address: {
+      districtCity: null,
+      subDistrict: ' tidak boleh kosong',
+      wardVillage: ' tidak boleh kosong',
     }});
   };
 
@@ -321,6 +346,11 @@ export default function DaftarPasienBaru() {
       subDistrict: val,
       wardVillage: '',
     }});
+    setPPDErr({ ...PPDErr, address: {
+      districtCity: null,
+      subDistrict: null,
+      wardVillage: ' tidak boleh kosong',
+    }});
   };
 
   const PPDaddressWardVillageOnChange = (val) => {
@@ -329,14 +359,21 @@ export default function DaftarPasienBaru() {
       subDistrict: PPD.address.subDistrict,
       wardVillage: val,
     }});
+    setPPDErr({ ...PPDErr, address: {
+      districtCity: null,
+      subDistrict: null,
+      wardVillage: null,
+    }});
   };
 
   const PPDphoneNumberOnChange = (val) => {
     setPPD({ ...PPD, phoneNumber: val });
+    setPPDErr({ ...PPDErr, phoneNumber: inputCheck('number', val) });
   };
 
   const PPDbirthPlaceOnChange = (val) => {
     setPPD({ ...PPD, birthPlace: val });
+    setPPDErr({ ...PPDErr, birthPlace: inputCheck('letter', val) })
   }
 
   const PPDbirthDateDateOnChange = (val) => {
@@ -344,6 +381,11 @@ export default function DaftarPasienBaru() {
       date: val,
       month: PPD.birthDate.month,
       year: PPD.birthDate.year,
+    }});
+    setPPDErr({ ...PPDErr, birthDate: {
+      date: inputCheck('number', val),
+      month: PPDErr.birthDate.month,
+      year: PPDErr.birthDate.year,
     }});
   };
 
@@ -353,6 +395,11 @@ export default function DaftarPasienBaru() {
       month: val,
       year: PPD.birthDate.year
     }});
+    setPPDErr({ ...PPDErr, birthDate: {
+      date: PPDErr.birthDate.date,
+      month: inputCheck('number', val),
+      year: PPDErr.birthDate.year,
+    }});
   };
 
   const PPDbirthDateYearOnChange = (val) => {
@@ -361,22 +408,34 @@ export default function DaftarPasienBaru() {
       month: PPD.birthDate.month,
       year: val,
     }});
+    setPPDErr({ ...PPDErr, birthDate: {
+      date: PPDErr.birthDate.date,
+      month: PPDErr.birthDate.month,
+      year: inputCheck('number', val),
+    }});
   };
 
   const PPDfamilyCardNameOnChange = (val) => {
     setPPD({ ...PPD, familyCardName: val });
+    setPPDErr({ ...PPDErr, familyCardName: inputCheck('letter', val) });
   };
 
   const PPDreligionOnChange = (val) => {
     setPPD({ ...PPD, religion: val });
+    setPPDErr({ ...PPDErr, religion: false });
+    // setPPDErr({ ...PPDErr, religion: inputCheck('letter', val) });
   };
 
   const PPDmaritalStatusOnChange = (val) => {
     setPPD({ ...PPD, maritalStatus: val });
+    setPPDErr({ ...PPDErr, maritalStatus: false });
+    // setPPDErr({ ...PPDErr, maritalStatus: inputCheck('letter', val) });
   };
   
   const PPDjobOnChange = (val) => {
     setPPD({ ...PPD, job: val });
+    setPPDErr({ ...PPDErr, job: false });
+    // setPPDErr({ ...PPDErr, job: inputCheck('letter', val) });
   };
 
   const clearPPDOnClick = () => {
@@ -402,7 +461,6 @@ export default function DaftarPasienBaru() {
       maritalStatus: '',
       job: '',
     });
-
     setPPDErr({
       medicalRecordNumber: false,
       name: false,
@@ -414,8 +472,12 @@ export default function DaftarPasienBaru() {
       },
       phoneNumber: false,
       birthPlace: false,
-      birthDate: false,
-      familyCardNumber: false,
+      birthDate: {
+        date: false,
+        month: false,
+        year: false,
+      },
+      familyCardName: false,
       religion: false,
       maritalStatus: false,
       job: false,
@@ -532,6 +594,10 @@ export default function DaftarPasienBaru() {
     });
   };
 
+  const submitButtonOnClick = () => {
+    console.log(`clicked`);
+  };
+
   return(
     <main className='daftarPasienBaru'>
       {/* Data Diri Pasien */}
@@ -543,25 +609,34 @@ export default function DaftarPasienBaru() {
 
         <form>
           <div className='form-left'>
-            <div className='input'>
+            <div className={PPDErr.medicalRecordNumber ? 'input-err' : 'input'}>
               <h2>No. Rekam Medis</h2>
-              <input type='text' value={PPD.medicalRecordNumber} onChange={e => PPDmedicalRecordNumberOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PPD.medicalRecordNumber} onChange={e => PPDmedicalRecordNumberOnChange(e.target.value)}></input>
+                {PPDErr.medicalRecordNumber && <h4>No. Rekam Medis {PPDErr.medicalRecordNumber}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.name ? 'input-err' : 'input'}>
               <h2>Nama</h2>
-              <input type='text' value={PPD.name} onChange={e => PPDnameOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PPD.name} onChange={e => PPDnameOnChange(e.target.value)}></input>
+                {PPDErr.name && <h4>Nama {PPDErr.name}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.sex ? 'input-err' : 'input'}>
               <h2>Jenis Kelamin</h2>
-              <div className='input-radiobutton'>
-                <div className='item' onClick={() => PPDsexOnClick('LAKI-LAKI')}>
-                  <div className={PPD.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>Laki-laki</h3>
+              <div>
+                <div className='input-radiobutton'>
+                  <div className='item' onClick={() => PPDsexOnClick('LAKI-LAKI')}>
+                    <div className={PPD.sex === 'LAKI-LAKI' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>Laki-laki</h3>
+                  </div>
+                  <div className='item' onClick={() => PPDsexOnClick('PEREMPUAN')}>
+                    <div className={PPD.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
+                    <h3>Perempuan</h3>
+                  </div>
                 </div>
-                <div className='item' onClick={() => PPDsexOnClick('PEREMPUAN')}>
-                  <div className={PPD.sex === 'PEREMPUAN' ? 'item-dot-selected' : 'item-dot'} />
-                  <h3>Perempuan</h3>
-                </div>
+                {PPDErr.sex && <h4>Jenis Kelamin tidak boleh kosong</h4>}
               </div>
             </div>
             <div className='input'>
@@ -573,43 +648,63 @@ export default function DaftarPasienBaru() {
                 {addressList.map((dc, index) => <option key={index} value={dc.districtCity}>{dc.districtCity}</option>)}
               </select>
             </div>
-            <div className='input'>
+            <div className={PPDErr.address.subDistrict ? 'input-err' : 'input'}>
               <h2>Kec.</h2>
-              <select value={PPD.address.subDistrict} onChange={e => PPDaddressSubDistrictOnChange(e.target.value)}>
-                {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map((sd, index) => <option key={index} value={sd.subDistrict}>{sd.subDistrict}</option>))}
-              </select>
+              <div>
+                <select value={PPD.address.subDistrict} onChange={e => PPDaddressSubDistrictOnChange(e.target.value)}>
+                <option value='' disabled>{`(PILIH KECAMATAN)`}</option>
+                  {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map((sd, index) => <option key={index} value={sd.subDistrict}>{sd.subDistrict}</option>))}
+                </select>
+                {PPDErr.address.subDistrict && <h4>Kec. {PPDErr.address.subDistrict}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.address.wardVillage ? 'input-err' : 'input'}>
               <h2>Kel. / Desa</h2>
-              <select value={PPD.address.wardVillage} onChange={e => PPDaddressWardVillageOnChange(e.target.value)}>
-                <option value='' disabled>{`(PILIH KELURAHAN / DESA)`}</option>
-                {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === PPD.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
-              </select>
+              <div>
+                <select value={PPD.address.wardVillage} onChange={e => PPDaddressWardVillageOnChange(e.target.value)}>
+                  <option value='' disabled>{`(PILIH KELURAHAN / DESA)`}</option>
+                  {addressList.map(dc => dc.districtCity === PPD.address.districtCity && dc.subDistricts.map(sd => sd.subDistrict === PPD.address.subDistrict && sd.wardsVillages.map((wv, index) => <option key={index} value={wv}>{wv}</option>)))}
+                </select>
+                {PPDErr.address.wardVillage && <h4>Kel. / Desa {PPDErr.address.wardVillage}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.phoneNumber ? 'input-err' : 'input'}>
               <h2>No. Telepon</h2>
-              <input type='text' value={PPD.phoneNumber} onChange={e => PPDphoneNumberOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PPD.phoneNumber} onChange={e => PPDphoneNumberOnChange(e.target.value)}></input>
+                {PPDErr.phoneNumber && <h4>No. Telepon {PPDErr.phoneNumber}</h4>}
+              </div>
             </div>
           </div>
           <div className='form-right'>
-            <div className='input'>
+            <div className={PPDErr.birthPlace ? 'input-err' : 'input'}>
               <h2>Tempat Lahir</h2>
-              <input type='text' value={PPD.birthPlace} onChange={e => PPDbirthPlaceOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PPD.birthPlace} onChange={e => PPDbirthPlaceOnChange(e.target.value)}></input>
+                {PPDErr.birthPlace && <h4>Tempat Lahir {PPDErr.birthPlace}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={(PPDErr.birthDate.date || PPDErr.birthDate.month || PPDErr.birthDate.year) ? 'input-err' : 'input'}>
               <h2>Tanggal Lahir</h2>
-              <div className='input-date'>
-                <div className='date'>
-                  <input type='text' placeholder='TGL' value={PPD.birthDate.date} onChange={e => PPDbirthDateDateOnChange(e.target.value)}></input>
+              <div>
+                <div className='input-date'>
+                  <div className={PPDErr.birthDate.date ? 'date-err' : 'date'}>
+                    <input type='text' placeholder='TGL' value={PPD.birthDate.date} onChange={e => PPDbirthDateDateOnChange(e.target.value)}></input>
+                  </div>
+                  <div className={PPDErr.birthDate.month ? 'month-err' : 'month'}>
+                    <select value={PPD.birthDate.month} onChange={e => PPDbirthDateMonthOnChange(e.target.value)}>
+                      <option value='' disabled>{`(BULAN)`}</option>
+                      {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
+                    </select>
+                  </div>
+                  <div className={PPDErr.birthDate.year ? 'year-err' : 'year'}>
+                    <input type='text' placeholder='TAHUN' value={PPD.birthDate.year} onChange={e => PPDbirthDateYearOnChange(e.target.value)}></input>
+                  </div>
                 </div>
-                <div className='month'>
-                  <select value={PPD.birthDate.month} onChange={e => PPDbirthDateMonthOnChange(e.target.value)}>
-                    <option value='' disabled>{`(BULAN)`}</option>
-                    {monthList.map((m, index) => <option key={index} value={index+1}>{index+1} / {m}</option>)}
-                  </select>
-                </div>
-                <div className='year'>
-                  <input type='text' placeholder='TAHUN' value={PPD.birthDate.year} onChange={e => PPDbirthDateYearOnChange(e.target.value)}></input>
+                <div>
+                  {PPDErr.birthDate.date && <h4>Tanggal dari Tanggal Lahir {PPDErr.birthDate.date}</h4>}
+                  {PPDErr.birthDate.month && <h4>Bulan dari Tanggal Lahir {PPDErr.birthDate.month}</h4>}
+                  {PPDErr.birthDate.year && <h4>Tahun dari Tanggal Lahir {PPDErr.birthDate.year}</h4>}
                 </div>
               </div>
             </div>
@@ -617,34 +712,46 @@ export default function DaftarPasienBaru() {
               <h2>Umur</h2>
               <input type='text' disabled value={PPD.age} style={{backgroundColor: '#D3D3D3'}}></input>
             </div>
-            <div className='input'>
+            <div className={PPDErr.familyCardName ? 'input-err' : 'input'}>
               <h2>Nama KK</h2>
-              <input type='text' value={PPD.familyCardName} onChange={e => PPDfamilyCardNameOnChange(e.target.value)}></input>
+              <div>
+                <input type='text' value={PPD.familyCardName} onChange={e => PPDfamilyCardNameOnChange(e.target.value)}></input>
+                {PPDErr.familyCardName && <h4>Nama Kartu Keluarga {PPDErr.familyCardName}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.religion ? 'input-err' : 'input'}>
               <h2>Agama</h2>
-              <select value={PPD.religion} onChange={e => PPDreligionOnChange(e.target.value)}>
-                <option value='' disabled>{`(PILIH AGAMA)`}</option>
-                {religionList.map((r, index) => <option key={index} value={r}>{r}</option>)}
-              </select>
+              <div>
+                <select value={PPD.religion} onChange={e => PPDreligionOnChange(e.target.value)}>
+                  <option value='' disabled>{`(PILIH AGAMA)`}</option>
+                  {religionList.map((r, index) => <option key={index} value={r}>{r}</option>)}
+                </select>
+                {PPDErr.religion && <h4>Agama {PPDErr.religion}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.maritalStatus ? 'input-err' : 'input'}>
               <h2>Status</h2>
-              <select value={PPD.maritalStatus} onChange={e => PPDmaritalStatusOnChange(e.target.value)}>
-                <option value='' disabled>{`(PILIH STATUS KAWIN)`}</option>
-                {maritalStatusList.map((m, index) => <option key={index} value={m}>{m}</option>)}
-              </select>
+              <div>
+                <select value={PPD.maritalStatus} onChange={e => PPDmaritalStatusOnChange(e.target.value)}>
+                  <option value='' disabled>{`(PILIH STATUS KAWIN)`}</option>
+                  {maritalStatusList.map((m, index) => <option key={index} value={m}>{m}</option>)}
+                </select>
+                {PPDErr.maritalStatus && <h4>Status {PPDErr.maritalStatus}</h4>}
+              </div>
             </div>
-            <div className='input'>
+            <div className={PPDErr.job ? 'input-err' : 'input'}>
               <h2>Pekerjaan</h2>
-              <select value={PPD.job} onChange={e => PPDjobOnChange(e.target.value)}>
-                <option value='' disabled>{`(PILIH PEKERJAAN)`}</option>
-                {jobList.map((j, index) => <option key={index} value={j}>{j}</option>)}
-              </select>
+              <div>
+                <select value={PPD.job} onChange={e => PPDjobOnChange(e.target.value)}>
+                  <option value='' disabled>{`(PILIH PEKERJAAN)`}</option>
+                  {jobList.map((j, index) => <option key={index} value={j}>{j}</option>)}
+                </select>
+                {PPDErr.job && <h4>Pekerjaan {PPDErr.job}</h4>}
+              </div>
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={() => clearPPDOnClick()}>Bersihkan</button></div>
+        <div className='button-clear'><button onClick={() => clearPPDOnClick()}>Bersihkan</button></div>
         
       </div>
 
@@ -702,7 +809,7 @@ export default function DaftarPasienBaru() {
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={() => clearPBKDOnClick()}>Bersihkan</button></div>
+        <div className='button-clear'><button onClick={() => clearPBKDOnClick()}>Bersihkan</button></div>
       </div>
 
       {/* Cara Pembayaran */}
@@ -764,8 +871,9 @@ export default function DaftarPasienBaru() {
             </div>
           </div>
         </form>
-        <div className='button'><button onClick={() => clearPMOnClick()}>Bersihkan</button></div>
+        <div className='button-clear'><button onClick={() => clearPMOnClick()}>Bersihkan</button></div>
       </div>
+      <div className='button-submit'><button onClick={() => submitButtonOnClick()}>Submit</button></div>
     </main>
   );
 }
