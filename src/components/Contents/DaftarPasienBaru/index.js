@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // styles
 import '../styles.css';
@@ -242,32 +242,32 @@ export default function DaftarPasienBaru() {
       month: '',
       year: '',
     },
-    age: '',
+    age: '- Tahun',
     familyCardName: '',
     religion: '',
     maritalStatus: '',
     job: '',
   });
   const [PPDErr, setPPDErr] = useState({
-    medicalRecordNumber: null,
-    name: null,
-    sex: null,
+    medicalRecordNumber: ' tidak boleh kosong',
+    name: ' tidak boleh kosong',
+    sex: ' tidak boleh kosong',
     address: {
       districtCity: null,
       subDistrict: null,
-      wardVillage: null,
+      wardVillage: ' tidak boleh kosong',
     },
-    phoneNumber: null,
-    birthPlace: null,
+    phoneNumber: ' tidak boleh kosong',
+    birthPlace: ' tidak boleh kosong',
     birthDate: {
-      date: null,
-      month: null,
-      year: null,
+      date: ' tidak boleh kosong',
+      month: ' tidak boleh kosong',
+      year: ' tidak boleh kosong',
     },
-    familyCardName: null,
-    religion: null,
-    maritalStatus: null,
-    job: null,
+    familyCardName: ' tidak boleh kosong',
+    religion: ' tidak boleh kosong',
+    maritalStatus: ' tidak boleh kosong',
+    job: ' tidak boleh kosong',
   });
 
   // Patient's BPJS/KIS Data
@@ -285,17 +285,17 @@ export default function DaftarPasienBaru() {
     address: '',
   });
   const [PBKDErr, setPBKDErr] = useState({
-    cardNumber: null,
-    name: null,
+    cardNumber: ' tidak boleh kosong',
+    name: ' tidak boleh kosong',
     birthDate: {
-      date: null,
-      month: null,
-      year: null,
+      date: ' tidak boleh kosong',
+      month: ' tidak boleh kosong',
+      year: ' tidak boleh kosong',
     },
-    healthFacilityLevel: null,
-    nursingClass: null,
-    NIK: null,
-    address: null,
+    healthFacilityLevel: ' tidak boleh kosong',
+    nursingClass: ' tidak boleh kosong',
+    NIK: ' tidak boleh kosong',
+    address: ' tidak boleh kosong',
   });
 
   // Payment Method
@@ -306,11 +306,17 @@ export default function DaftarPasienBaru() {
     number: '',
   });
   const [PMerr, setPMerr] = useState({
-    paymentMethod: null,
-    JKN: null,
-    otherInsurance: null,
-    number: null,
+    paymentMethod: ' tidak boleh kosong',
+    JKN: ' tidak boleh kosong',
+    otherInsurance: ' tidak boleh kosong',
+    number: ' tidak boleh kosong',
   });
+
+  const [submitButton, setSubmitButton] = useState(true);
+
+  useEffect(() => {
+    checkAllInput();
+  }, [PPD, PPDErr, PBKD, PBKDErr, PM, PMerr]);
 
   const PPDmedicalRecordNumberOnChange = (val) => {
     setPPD({ ...PPD, medicalRecordNumber: val });
@@ -376,12 +382,39 @@ export default function DaftarPasienBaru() {
     setPPDErr({ ...PPDErr, birthPlace: inputCheck('letter', val) })
   }
 
+  const PPDageCalculate = (birthDate, birthMonth, birthYear) => {
+    let CurrentDate = {
+      date: new Date().getDate(),
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
+    };
+    CurrentDate = new Date(`${CurrentDate.month}/${CurrentDate.date}/${CurrentDate.year}`);
+    const BirthDate = new Date(`${birthMonth}/${birthDate}/${birthYear}`);
+
+    let age = CurrentDate.getFullYear() - BirthDate.getFullYear();
+    let m = CurrentDate.getMonth() - BirthDate.getMonth();
+    if(m < 0 || (m === 0 && CurrentDate.getDate() < BirthDate.getDate())) {
+      age--;
+    }
+    
+    return isNaN(age) ? '' : Math.round(age);
+  };
+
   const PPDbirthDateDateOnChange = (val) => {
-    setPPD({ ...PPD, birthDate: {
-      date: val,
-      month: PPD.birthDate.month,
-      year: PPD.birthDate.year,
-    }});
+    let setAge = '- Tahun';
+    if(!inputCheck('number', val) && PPDErr.birthDate.month === null && PPDErr.birthDate.year === null) {
+      setAge = `${PPDageCalculate(val, PPD.birthDate.month, PPD.birthDate.year)} - Tahun`;
+    }
+
+    setPPD({
+      ...PPD,
+      birthDate: {
+        date: val,
+        month: PPD.birthDate.month,
+        year: PPD.birthDate.year,
+      },
+      age: setAge,
+    });
     setPPDErr({ ...PPDErr, birthDate: {
       date: inputCheck('number', val),
       month: PPDErr.birthDate.month,
@@ -390,11 +423,20 @@ export default function DaftarPasienBaru() {
   };
 
   const PPDbirthDateMonthOnChange = (val) => {
-    setPPD({ ...PPD, birthDate: {
-      date: PPD.birthDate.date,
-      month: val,
-      year: PPD.birthDate.year
-    }});
+    let setAge = '- Tahun';
+    if(PPDErr.birthDate.date === null && !inputCheck('number', val) && PPDErr.birthDate.year === null) {
+      setAge = `${PPDageCalculate(PPD.birthDate.date, val, PPD.birthDate.year)} - Tahun`;
+    }
+
+    setPPD({
+      ...PPD,
+      birthDate: {
+        date: PPD.birthDate.date,
+        month: val,
+        year: PPD.birthDate.year,
+      },
+      age: setAge,
+    });
     setPPDErr({ ...PPDErr, birthDate: {
       date: PPDErr.birthDate.date,
       month: inputCheck('number', val),
@@ -403,11 +445,20 @@ export default function DaftarPasienBaru() {
   };
 
   const PPDbirthDateYearOnChange = (val) => {
-    setPPD({ ...PPD, birthDate: {
-      date: PPD.birthDate.date,
-      month: PPD.birthDate.month,
-      year: val,
-    }});
+    let setAge = '- Tahun';
+    if(PPDErr.birthDate.date === null && PPDErr.birthDate.month === null && !inputCheck('number', val)) {
+      setAge = `${PPDageCalculate(PPD.birthDate.date, PPD.birthDate.month, val)} - Tahun`;
+    }
+
+    setPPD({
+      ...PPD,
+      birthDate: {
+        date: PPD.birthDate.date,
+        month: PPD.birthDate.month,
+        year: val,
+      },
+      age: setAge,
+    });
     setPPDErr({ ...PPDErr, birthDate: {
       date: PPDErr.birthDate.date,
       month: PPDErr.birthDate.month,
@@ -619,8 +670,78 @@ export default function DaftarPasienBaru() {
     });
   };
 
+  const checkAllInput = () => {
+    let valid = true;
+
+    // Patient Personal Data
+    for(const val of Object.values(PPD)) {
+      if(val === '') {
+        valid = false;
+      }
+    }
+    for(const val of Object.values(PPDErr)) {
+      if(typeof(val) === typeof('')) {
+        valid = false;
+      }
+      else if(val !== null && typeof(val) === typeof({})) {
+        for(const childVal of Object.values(val)) {
+          if(typeof(childVal) === typeof('')) {
+            valid = false;
+          }
+        }
+      }
+    }
+
+    // Patient BPJS/KIS Data
+    for(const val of Object.values(PBKD)) {
+      if(val === '') {
+        valid = false;
+      }
+    }
+    for(const val of Object.values(PBKDErr)) {
+      if(typeof(val) === typeof('')) {
+        valid = false;
+      }
+      else if(val !== null && typeof(val) === typeof({})) {
+        for(const childVal of Object.values(val)) {
+          if(typeof(childVal) === typeof('')) {
+            valid = false;
+          }
+        }
+      }
+    }
+
+    // Payment Method
+    for(const val of Object.values(PM)) {
+      if(val === '') {
+        valid = false;
+      }
+    }
+    for(const val of Object.values(PMerr)) {
+      if(typeof(val) === typeof('')) {
+        valid = false;
+      }
+      else if(val !== null && typeof(val) === typeof({})) {
+        for(const childVal of Object.values(val)) {
+          if(typeof(childVal) === typeof('')) {
+            valid = false;
+          }
+        }
+      }
+    }
+
+    setSubmitButton(valid);
+  };
+
   const submitButtonOnClick = () => {
-    console.log(`clicked`);
+    checkAllInput();
+
+    if(submitButton) {
+      console.log(`create new patient`);
+    }
+    else {
+      console.log(`unable to create new patient`);
+    }
   };
 
   return(
@@ -630,7 +751,7 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Data Diri Pasien</h1>
         </div>
-        <button onClick={() => console.log(PPD)}>show personal data</button>
+        <button onClick={() => console.log(PPD, PPDErr)}>show personal data</button>
 
         <form>
           <div className='form-left'>
@@ -785,7 +906,7 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Data BPJS/KIS Pasien</h1>
         </div>
-        <button onClick={() => console.log(PBKD)}>show bpjs/kis</button>
+        <button onClick={() => console.log(PBKD, PBKDErr)}>show bpjs/kis</button>
 
         <form>
           <div className='form-left'>
@@ -867,7 +988,7 @@ export default function DaftarPasienBaru() {
         <div className='title'>
           <h1>Cara Pembayaran</h1>
         </div>
-        <button onClick={() => console.log(PM)}>show payment method</button>
+        <button onClick={() => console.log(PM, PMerr)}>show payment method</button>
 
         <form>
           <div className='form-left'>
@@ -935,7 +1056,8 @@ export default function DaftarPasienBaru() {
         </form>
         <div className='button-clear'><button onClick={() => clearPMOnClick()}>Bersihkan</button></div>
       </div>
-      <div className='button-submit'><button onClick={() => submitButtonOnClick()}>Submit</button></div>
+      {submitButton && <div className='button-submit'><button onClick={() => submitButtonOnClick()}>Daftar Pasien Baru</button></div>}
+      {!submitButton && <div className='button-submit-err'><button>Tidak dapat mendaftar pasien baru karena data tidak valid</button></div>}
     </main>
   );
 }

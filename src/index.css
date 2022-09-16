@@ -28,7 +28,7 @@
     --inputDisabledColor: #D3D3D3;
     --placeholderColor: #888888;
 
-    --primaryColorHover: #66CC55;
+    --primaryColorHover: #55CC55;
     --secondaryColorHover: #A1D1A1;
     --tertiaryColorHover: #3D5D3D;
 
@@ -45,9 +45,6 @@ html {
 
 * {
     margin: 0;
-}
-*::placeholder {
-    color: 'red';
 }
 
 body {

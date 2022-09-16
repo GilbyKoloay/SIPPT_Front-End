@@ -184,6 +184,9 @@
     width: 250px;
     background-color: var(--errBgColor);
 }
+.con .input-date .month-err select:focus {
+    background-color: white;
+}
 
 .con .input-date .year input {
     width: 87.5px;
@@ -227,7 +230,7 @@
 
 .con .button-clear {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 25px;
 }
 
@@ -243,5 +246,39 @@
 }
 .con .button-clear button:hover {
     background-color: var(--tertiaryColorHover);
+    cursor: pointer;
+}
+
+.daftarPasienBaru .button-submit, .daftarPasienBaru .button-submit-err {
+    margin-top: 50px;
+    display: flex;
+}
+
+.daftarPasienBaru .button-submit button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: var(--inputFontSize);
+    background-color: var(--primaryColor);
+    cursor: pointer;
+}
+.daftarPasienBaru .button-submit button:hover {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: var(--inputFontSize);
+    background-color: var(--primaryColorHover);
+    cursor: pointer;
+}
+
+.daftarPasienBaru .button-submit-err button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: var(--inputFontSize);
+    background-color: var(--errBgColor);
     cursor: pointer;
 }
