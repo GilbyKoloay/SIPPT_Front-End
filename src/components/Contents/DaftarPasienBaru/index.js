@@ -391,21 +391,25 @@ export default function DaftarPasienBaru() {
     CurrentDate = new Date(`${CurrentDate.month}/${CurrentDate.date}/${CurrentDate.year}`);
     const BirthDate = new Date(`${birthMonth}/${birthDate}/${birthYear}`);
 
+    if(BirthDate > CurrentDate) {
+      return '-';
+    }
+
     let age = CurrentDate.getFullYear() - BirthDate.getFullYear();
     let m = CurrentDate.getMonth() - BirthDate.getMonth();
     if(m < 0 || (m === 0 && CurrentDate.getDate() < BirthDate.getDate())) {
       age--;
     }
     
-    return isNaN(age) ? '' : Math.round(age);
+    return isNaN(age) ? '-' : Math.round(age);
   };
 
   const PPDbirthDateDateOnChange = (val) => {
     let setAge = '- Tahun';
     if(!inputCheck('number', val) && PPDErr.birthDate.month === null && PPDErr.birthDate.year === null) {
-      setAge = `${PPDageCalculate(val, PPD.birthDate.month, PPD.birthDate.year)} - Tahun`;
+      setAge = `${PPDageCalculate(val, PPD.birthDate.month, PPD.birthDate.year)} Tahun`;
     }
-
+    console.log(`date val = ${val}`);
     setPPD({
       ...PPD,
       birthDate: {
@@ -416,6 +420,7 @@ export default function DaftarPasienBaru() {
       age: setAge,
     });
     setPPDErr({ ...PPDErr, birthDate: {
+      // date: (inputCheck('number', val) === null) ? ((setAge === '- Tahun') && 'tidak valid (hanya boleh 1 sampai 31 saja)') : (inputCheck('number', val)),
       date: inputCheck('number', val),
       month: PPDErr.birthDate.month,
       year: PPDErr.birthDate.year,
@@ -425,9 +430,9 @@ export default function DaftarPasienBaru() {
   const PPDbirthDateMonthOnChange = (val) => {
     let setAge = '- Tahun';
     if(PPDErr.birthDate.date === null && !inputCheck('number', val) && PPDErr.birthDate.year === null) {
-      setAge = `${PPDageCalculate(PPD.birthDate.date, val, PPD.birthDate.year)} - Tahun`;
+      setAge = `${PPDageCalculate(PPD.birthDate.date, val, PPD.birthDate.year)} Tahun`;
     }
-
+    console.log(`month val = ${val}`);
     setPPD({
       ...PPD,
       birthDate: {
@@ -447,9 +452,11 @@ export default function DaftarPasienBaru() {
   const PPDbirthDateYearOnChange = (val) => {
     let setAge = '- Tahun';
     if(PPDErr.birthDate.date === null && PPDErr.birthDate.month === null && !inputCheck('number', val)) {
-      setAge = `${PPDageCalculate(PPD.birthDate.date, PPD.birthDate.month, val)} - Tahun`;
+      if(parseInt(val) >= 1900 && parseInt(val) <= new Date().getFullYear()) {
+        setAge = `${PPDageCalculate(PPD.birthDate.date, PPD.birthDate.month, val)} Tahun`;
+      }
     }
-
+    console.log(`year val = ${val}`);
     setPPD({
       ...PPD,
       birthDate: {
