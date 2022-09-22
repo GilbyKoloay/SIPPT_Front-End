@@ -14,7 +14,8 @@ import {
   AntrianPoli,
 } from '../../components';
 
-export default function Loket() {
+export default function Loket({ props }) {
+  const { __token } = props;
   const [selectedContent, setSelectedContent] = useState('Dashboard');
   const [contents, setContents] = useState([
     { name: 'Dasbor', selected: true },

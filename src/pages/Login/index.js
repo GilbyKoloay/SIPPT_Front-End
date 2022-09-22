@@ -9,7 +9,8 @@ import {
   Loket,
 } from '../index';
 
-export default function Login() {
+export default function Login({ props }) {
+  const { __setToken } = props;
   const [username, setUsername] = useState('');
   const [usernameErr, setUsernameErr] = useState(false);
   const [password, setPassword] = useState('');
@@ -37,6 +38,7 @@ export default function Login() {
     if(json.status === `success`) {
       setErrMsg('');
 
+      __setToken(json.data.token);
       (json.data.role === 'LOKET') && navigate('/loket');
     }
     else {
