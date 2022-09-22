@@ -15,8 +15,8 @@ export default function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/login' element={<Login props={ { __setToken } } />} />
-          <Route path='/loket' element={<Loket props={ { __token } } />} />
+          <Route path='/login' element={<Login props={ { __token, __setToken } } />} />
+          <Route path='/loket' element={__token ? <Loket props={ { __token, __setToken } } /> : <NotFound />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

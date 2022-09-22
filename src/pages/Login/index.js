@@ -10,7 +10,7 @@ import {
 } from '../index';
 
 export default function Login({ props }) {
-  const { __setToken } = props;
+  const { __token, __setToken } = props;
   const [username, setUsername] = useState('');
   const [usernameErr, setUsernameErr] = useState(false);
   const [password, setPassword] = useState('');
@@ -20,6 +20,7 @@ export default function Login({ props }) {
 
   const LoginOnClick = async (e) => {
     e.preventDefault();
+    console.log(__token);
     
     // const res = await fetch(`${process.env.REACT_APP_API}/login`, {
     const res = await fetch(`http://localhost:4000/api/login`, {

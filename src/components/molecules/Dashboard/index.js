@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 // styles
 import './styles.css';
 
-export default function Dashboard({ contents, onClick }) {
+export default function Dashboard({ __setToken, contents, onClick, }) {
   const navigate = useNavigate();
 
   const LogoutOnClick = () => {
+    __setToken(null);
     navigate('/login');
   };
 

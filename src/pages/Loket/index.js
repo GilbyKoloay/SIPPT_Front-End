@@ -15,7 +15,7 @@ import {
 } from '../../components';
 
 export default function Loket({ props }) {
-  const { __token } = props;
+  const { __token, __setToken } = props;
   const [selectedContent, setSelectedContent] = useState('Dashboard');
   const [contents, setContents] = useState([
     { name: 'Dasbor', selected: true },
@@ -32,7 +32,7 @@ export default function Loket({ props }) {
     <div className='loket'>
       <Header role={'LOKET'} name={'telor'} />
       <div className='dashboard-content'>
-        <Dashboard contents={contents} onClick={dashboardOnClick} />
+        <Dashboard __setToken={__setToken} contents={contents} onClick={dashboardOnClick} />
         {contents.map((c, index) => (
           (c.name === 'Daftar Pasien Baru' && c.selected) ? <DaftarPasienBaru key={index} /> :
           (c.name === 'Pasien' && c.selected) ? <Pasien key={index} /> :
