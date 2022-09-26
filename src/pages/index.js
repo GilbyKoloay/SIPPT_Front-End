@@ -5,7 +5,7 @@ import Loket from './Loket';
 import NotFound from './NotFound';
 
 export {
-    Login,
-    Loket,
-    NotFound,
+  Login,
+  Loket,
+  NotFound,
 };
