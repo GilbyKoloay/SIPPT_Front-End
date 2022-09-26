@@ -7,13 +7,14 @@ import './styles.css';
 // images
 import { KabMinut } from '../../assets/images';
 
-export default function Login() {
+export default function Login({ props }) {
+  const { __setUser } = props;
+
   const [username, setUsername] = useState('');
   const [usernameErr, setUsernameErr] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordErr, setPasswordErr] = useState(false);
   const [errMsg, setErrMsg] = useState('');
-  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
 
@@ -36,14 +37,14 @@ export default function Login() {
       setPassword('');
       setUsernameErr(false);
       setPasswordErr(false);
-      setUser(res.data);
+      __setUser(res.data);
       
-      (res.data.role) === 'ADMINISTRATOR' && navigate('/administrator', {state: user});
-      (res.data.role) === 'LOKET' && navigate('/loket', {state: user});
-      (res.data.role) === 'POLI UMUM' && navigate('/poliUmum', {state: user});
-      (res.data.role) === 'POLI GIGI' && navigate('/poliGigi', {state: user});
-      (res.data.role) === 'POLI KIA' && navigate('/poliKIA', {state: user});
-      (res.data.role) === 'APOTEK' && navigate('/apotek', {state: user});
+      (res.data.role) === 'ADMINISTRATOR' && navigate('/administrator');
+      (res.data.role) === 'LOKET' && navigate('/loket');
+      (res.data.role) === 'POLI UMUM' && navigate('/poliUmum');
+      (res.data.role) === 'POLI GIGI' && navigate('/poliGigi');
+      (res.data.role) === 'POLI KIA' && navigate('/poliKIA');
+      (res.data.role) === 'APOTEK' && navigate('/apotek');
     }
     if(res.status === 'error') {
       setErrMsg(res.msg);
