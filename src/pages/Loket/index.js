@@ -25,6 +25,7 @@ export default function Loket({ props }) {
   ]);
 
   const dashboardOnClick = (val) => {
+    console.log(__token);
     setContents(contents.map(c => c.name === val ? { name: c.name, selected: true } : { name: c.name, selected: false }));
   };
 
