@@ -13,3 +13,6 @@
     border: 1px solid black;
     border-radius: 10px;
 }
+.Select select:active, .Select select:focus {
+    outline: 2.5px solid var(--primaryColor);
+}

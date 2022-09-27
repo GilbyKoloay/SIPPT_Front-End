@@ -1,0 +1,18 @@
+.buttonClear {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.buttonClear button {
+    margin-top: 35px;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    padding-left: 75px;
+    padding-right: 75px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.buttonClear button:hover {
+    cursor: pointer;
+}

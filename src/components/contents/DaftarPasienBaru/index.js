@@ -7,6 +7,7 @@ import {
   TextInput,
   Select,
   DateInput,
+  ButtonClear,
 } from '../../atoms';
 
 export default function DaftarPasienBaru() {
@@ -34,6 +35,7 @@ export default function DaftarPasienBaru() {
             <Select props={{label: 'Pekerjaan'}} />
           </div>
         </form>
+        <ButtonClear props={{label: "Bersihkan"}} />
       </div>
     </main>
   );
