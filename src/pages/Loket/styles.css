@@ -1,4 +1,22 @@
 .loket {
     display: flex;
     flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dashboard-main {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.footer {
+    height: 50px;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
