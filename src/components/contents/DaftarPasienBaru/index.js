@@ -8,6 +8,7 @@ import {
   Select,
   DateInput,
   ButtonClear,
+  TextAreaInput,
 } from '../../atoms';
 
 export default function DaftarPasienBaru() {
@@ -50,7 +51,7 @@ export default function DaftarPasienBaru() {
           </div>
           <div className='form'>
             <TextInput props={{label: "NIK"}} />
-            <TextInput props={{label: "Alamat"}} />
+            <TextAreaInput props={{label: "Alamat"}} />
           </div>
         </form>
         <ButtonClear />

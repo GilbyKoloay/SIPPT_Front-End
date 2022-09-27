@@ -1,0 +1,20 @@
+.atom-textAreaInput {
+    display: flex;
+    flex: 1;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    
+    border: 1px solid red;
+}
+
+.atom-textAreaInput textarea {
+    height: 50%;
+    width: 375px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 7.5px;
+}
+.atom-textAreaInput textarea:active, .atom-textAreaInput textarea:focus {
+    outline: 2.5px solid var(--primaryColor);
+}
