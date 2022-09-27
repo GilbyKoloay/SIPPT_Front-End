@@ -1,0 +1,23 @@
+.DateInput {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    
+    border: 1px solid red;
+}
+
+.DateInput input, .DateInput select {
+    padding: 7.5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.DateInput input:active, .DateInput input:focus, .DateInput select:active, .DateInput select:focus {
+    outline: 2.5px solid var(--primaryColor);
+}
+
+.DateInput .month {
+    margin-left: 15px;
+    margin-right: 15px;
+}

@@ -6,6 +6,7 @@ import {
   Title,
   TextInput,
   Select,
+  DateInput,
 } from '../../atoms';
 
 export default function DaftarPasienBaru() {
@@ -25,7 +26,7 @@ export default function DaftarPasienBaru() {
           </div>
           <div className='form'>
             <TextInput props={{label: 'Tempat Lahir'}} />
-            <TextInput props={{label: 'Tanggal Lahir'}} />
+            <DateInput props={{label: 'Tanggal Lahir'}} />
             <TextInput props={{label: 'Umur', disabled: true}} />
             <TextInput props={{label: 'Nama KK'}} />
             <Select props={{label: 'Agama'}} />
