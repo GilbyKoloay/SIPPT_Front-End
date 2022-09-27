@@ -9,6 +9,13 @@ import {
   Dashboard,
 } from '../../components/molecules';
 
+// contents
+import {
+  DaftarPasienBaru,
+  Pasien,
+  AntrianPoli,
+} from '../../components/contents';
+
 export default function Loket({ props }) {
   const { __user } = props;
   const dashboardList = [
@@ -21,7 +28,7 @@ export default function Loket({ props }) {
   const [dashboard, setDashboard] = useState(dashboardList[0]);
 
   useEffect(() => {
-    console.log(__user);
+    // console.log(__user);
   }, [dashboard]);
 
   return(
@@ -29,7 +36,9 @@ export default function Loket({ props }) {
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
         <Dashboard props={{dashboardList, setDashboard}} />
-        <main>{dashboard.name}</main>
+        {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru />}
+        {(dashboard.name === 'Pasien') && <Pasien />}
+        {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>
       <div className='footer'>Footer</div>
     </div>

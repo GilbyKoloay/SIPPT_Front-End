@@ -3,6 +3,7 @@
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #D3D3D3;
 }
 
 .dashboard-main {
