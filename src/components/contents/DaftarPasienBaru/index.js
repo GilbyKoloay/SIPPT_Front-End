@@ -50,6 +50,22 @@ export default function DaftarPasienBaru() {
           </div>
           <div className='form'>
             <TextInput props={{label: "NIK"}} />
+            <TextInput props={{label: "Alamat"}} />
+          </div>
+        </form>
+        <ButtonClear />
+      </div>
+
+      <div className='contentFull'>
+        <Title props={{title: "Cara Pembayaran"}} />
+        <form>
+          <div className='form'>
+            <TextInput props={{label: "Cara Pembayaran"}} />
+            <TextInput props={{label: "JKN"}} />
+          </div>
+          <div className='form'>
+            <TextInput props={{label: "Asuransi Lainnya"}} />
+            <TextInput props={{label: "Nomor"}} />
           </div>
         </form>
         <ButtonClear />
