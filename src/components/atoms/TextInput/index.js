@@ -5,10 +5,10 @@ export default function TextInput({ props }) {
   const { label, errMsg, disabled } = props;
 
   return(
-    <div className='TextInput'>
+    <div className='atom-textInput'>
       <div className='textLabel'>{label}</div>
       <div className='input'>
-        <input type='text' className={`textInputt${disabled ? '-disabled' : ''} textInput`} disabled={disabled} />
+        <input type='text' className={`textInput`} disabled={disabled} />
         <div className='textErrMsg'>{errMsg}lorem ipsum dolor sit amet consectetur adispicing elit</div>
       </div>
     </div>

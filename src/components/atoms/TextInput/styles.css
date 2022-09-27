@@ -1,4 +1,4 @@
-.TextInput {
+.atom-textInput {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -7,27 +7,23 @@
     border: 1px solid red;
 }
 
-.TextInput .input {
+.atom-textInput .input {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.TextInput .textInputt, .TextInput .textInputt-disabled {
+.atom-textInput input {
     width: 375px;
     padding: 7.5px;
     border: 1px solid black;
     border-radius: 10px;
 }
-.TextInput .textInputt:focus, .TextInput .textInputt:active, .TextInput .textInputt-err:focus, .TextInput .textInputt-err:active {
+.atom-textInput input:focus, .atom-textInput input:active, .atom-textInput .err:focus, .atom-textInput .err:active {
     outline: 2.5px solid var(--primaryColor);
 }
 
-.TextInput .textInputt-disabled {
-    background-color: var(--disabledBgColor);
-}
-
-.TextInput .textInputt-err {
+.atom-textInput .err {
     width: 375px;
     padding: 7.5px;
     border: 1px solid black;
@@ -35,6 +31,10 @@
     background-color: var(--errBgColor);
 }
 
-.TextInput .textErrMsg {
+.atom-textInput input:disabled {
+    background-color: var(--disabledBgColor);
+}
+
+.atom-textInput .textErrMsg {
     /* wrap text */
 }

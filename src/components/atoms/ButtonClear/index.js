@@ -1,12 +1,10 @@
 // styles
 import './styles.css';
 
-export default function ButtonClear({ props }) {
-  const { label } = props;
-
+export default function ButtonClear() {
   return(
-    <div className='buttonClear'>
-      <button className='textInput'>{label}</button>
+    <div className='atom-buttonClear'>
+      <button className='textInput'>Bersihkan</button>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function Select({ props }) {
   const { label, errMsg } = props;
 
   return(
-    <div className='Select'>
+    <div className='atom-select'>
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <select className='textInput' />

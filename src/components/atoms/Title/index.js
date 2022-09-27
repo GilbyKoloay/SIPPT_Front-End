@@ -5,6 +5,6 @@ export default function Title({ props }) {
   const { title } = props;
 
   return(
-    <div className='Title textTitle'>{title}</div>
+    <div className='atom-title textTitle'>{title}</div>
   );
 }

@@ -5,7 +5,7 @@ export default function DateInput({ props }) {
   const { label } = props;
 
   return(
-    <div className='DateInput'>
+    <div className='atom-dateInput'>
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <div>

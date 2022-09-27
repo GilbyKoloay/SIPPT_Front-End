@@ -35,7 +35,24 @@ export default function DaftarPasienBaru() {
             <Select props={{label: 'Pekerjaan'}} />
           </div>
         </form>
-        <ButtonClear props={{label: "Bersihkan"}} />
+        <ButtonClear />
+      </div>
+
+      <div className='contentFull'>
+        <Title props={{title: "Data BPJS/KIS Pasien"}} />
+        <form>
+          <div className='form'>
+            <TextInput props={{label: "No. Kartu"}} />
+            <TextInput props={{label: "Nama"}} />
+            <DateInput props={{label: "Tanggal Lahir"}} />
+            <TextInput props={{label: "Faskes Tingkat I"}} />
+            <TextInput props={{label: "Kelas Rawat"}} />
+          </div>
+          <div className='form'>
+            <TextInput props={{label: "NIK"}} />
+          </div>
+        </form>
+        <ButtonClear />
       </div>
     </main>
   );

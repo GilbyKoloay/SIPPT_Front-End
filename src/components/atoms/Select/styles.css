@@ -1,4 +1,4 @@
-.Select {
+.atom-select {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -7,12 +7,12 @@
     border: 1px solid red;
 }
 
-.Select select {
+.atom-select select {
     width: 375px;
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
 }
-.Select select:active, .Select select:focus {
+.atom-select select:active, .atom-select select:focus {
     outline: 2.5px solid var(--primaryColor);
 }
