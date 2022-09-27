@@ -13,7 +13,7 @@
     justify-content: space-between;
 }
 
-.TextInput .textInputt {
+.TextInput .textInputt, .TextInput .textInputt-disabled {
     width: 375px;
     padding: 7.5px;
     border: 1px solid black;
@@ -21,6 +21,10 @@
 }
 .TextInput .textInputt:focus, .TextInput .textInputt:active, .TextInput .textInputt-err:focus, .TextInput .textInputt-err:active {
     outline: 2.5px solid var(--primaryColor);
+}
+
+.TextInput .textInputt-disabled {
+    background-color: var(--disabledBgColor);
 }
 
 .TextInput .textInputt-err {
