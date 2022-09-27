@@ -1,0 +1,15 @@
+.Select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    border: 1px solid red;
+}
+
+.Select select {
+    width: 375px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+}
