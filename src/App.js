@@ -15,9 +15,9 @@ export default function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-      {console.log(__user)}
+      {/* {console.log(__user)} */}
         <Routes>
-          {(console.log(__user ? true : false))}
+          {/* {(console.log(__user ? true : false))} */}
           <Route path='/login' element={<Login props={{__setUser}} />} />
           <Route path='/loket' element={__user ? <Loket props={{__user}} /> : <NotFound />} />
           <Route path='*' element={<NotFound />} />

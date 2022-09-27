@@ -35,7 +35,7 @@ export default function Loket({ props }) {
     <div className='loket'>
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
-        <Dashboard props={{dashboardList, setDashboard}} />
+        <Dashboard props={{dashboardList, dashboard, setDashboard}} />
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru />}
         {(dashboard.name === 'Pasien') && <Pasien />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
