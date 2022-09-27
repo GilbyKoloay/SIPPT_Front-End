@@ -5,7 +5,7 @@ main {
     margin: 25px;
 }
 
-.content {
+.contentFull {
     display: flex;
     flex-direction: column;
     padding: 25px;
@@ -13,4 +13,19 @@ main {
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 0px 2.5px 5px 2.5px #00000040;
+}
+
+.contentFull form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;    
+}
+
+.contentFull form .form {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+.contentFull form .form:last-child {
+    margin-left: 25px;
 }

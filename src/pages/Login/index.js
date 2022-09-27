@@ -69,11 +69,11 @@ export default function Login({ props }) {
           <form className='right'>
             <div className='input'>
               <div className='textLabel'>Nama Pengguna</div>
-              <input className={`textInput${usernameErr ? ' inputTextErr' : ''}`} onChange={e => setUsername(e.target.value)} />
+              <input type='text' className={`textInput${usernameErr ? ' inputTextErr' : ''}`} onChange={e => setUsername(e.target.value)} />
             </div>
             <div className='input'>
               <div className='textLabel'>Kata Sandi</div>
-              <input className={`textInput${passwordErr ? ' inputTextErr' : ''}`} onChange={e => setPassword(e.target.value)} />
+              <input type='password' className={`textInput${passwordErr ? ' inputTextErr' : ''}`} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className='textErrMsg'>{errMsg}</div>
             <button className='textInput' onClick={e => signInOnClick(e)}>Masuk</button>

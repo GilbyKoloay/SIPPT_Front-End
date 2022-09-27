@@ -1,11 +1,36 @@
 .TextInput {
     display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--secondaryColor);
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    border: 1px solid red;
+}
+
+.TextInput .input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.TextInput .textInputt {
+    width: 375px;
+    padding: 7.5px;
     border: 1px solid black;
     border-radius: 10px;
+}
+.TextInput .textInputt:focus, .TextInput .textInputt:active, .TextInput .textInputt-err:focus, .TextInput .textInputt-err:active {
+    outline: 2.5px solid var(--primaryColor);
+}
+
+.TextInput .textInputt-err {
+    width: 375px;
     padding: 7.5px;
-    margin-bottom: 25px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: var(--errBgColor);
+}
+
+.TextInput .textErrMsg {
+    /* wrap text */
 }
