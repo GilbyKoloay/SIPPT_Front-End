@@ -6,18 +6,39 @@
     border: 1px solid red;
 }
 
+.atom-dateInput .input {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.atom-dateInput .input div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
 .atom-dateInput input, .atom-dateInput select {
+    width: 0px;
     padding: 7.5px;
     border: 1px solid black;
     border-radius: 10px;
     background-color: white;
 }
-
 .atom-dateInput input:active, .atom-dateInput input:focus, .atom-dateInput select:active, .atom-dateInput select:focus {
     outline: 2.5px solid var(--primaryColor);
+}
+
+.atom-dateInput .date {
+    flex: 1;
 }
 
 .atom-dateInput .month {
     margin-left: 15px;
     margin-right: 15px;
+    flex: 5;
+}
+
+.atom-dateInput .year {
+    flex: 2;
 }

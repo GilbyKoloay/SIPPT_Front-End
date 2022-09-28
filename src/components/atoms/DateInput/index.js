@@ -10,7 +10,9 @@ export default function DateInput({ props }) {
       <div className='input'>
         <div>
           <input type='text' className='date textInput' placeholder='TGL' />
-          <select className='month textInput' />
+          <select className='month textInput'>
+            <option>0 / MONTH</option>
+          </select>
           <input type='text' className='year textInput' placeholder='TAHUN' />
         </div>
         <div className='textErrMsg'>error message</div>

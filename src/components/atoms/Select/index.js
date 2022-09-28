@@ -10,9 +10,9 @@ export default function Select({ props }) {
       <div className='input'>
         {/* <select className={`textInput ${'err'}`}> */}
         <select className={`textInput`}>
-          <option value='test'>test1</option>
-          <option value='test'>test2</option>
-          <option value='test'>test3</option>
+          <option value='test'>option 1</option>
+          <option value='test'>option 2</option>
+          <option value='test'>option 3</option>
         </select>
         <div className='textErrMsg'>{errMsg}error messages</div>
       </div>

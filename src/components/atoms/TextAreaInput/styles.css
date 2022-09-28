@@ -8,12 +8,20 @@
     border: 1px solid red;
 }
 
+.atom-textAreaInput .input {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .atom-textAreaInput textarea {
-    height: 50%;
-    width: 375px;
+    flex: 1;
     border: 1px solid black;
     border-radius: 10px;
     padding: 7.5px;
+    font-family: OpenSans-regular;
+    resize: none;
 }
 .atom-textAreaInput textarea:active, .atom-textAreaInput textarea:focus {
     outline: 2.5px solid var(--primaryColor);

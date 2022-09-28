@@ -8,13 +8,14 @@
 }
 
 .atom-textInput .input {
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .atom-textInput input {
-    width: 375px;
+    display: flex;
     padding: 7.5px;
     border: 1px solid black;
     border-radius: 10px;
@@ -36,5 +37,5 @@
 }
 
 .atom-textInput .textErrMsg {
-    /* wrap text */
+    white-space: initial;
 }
