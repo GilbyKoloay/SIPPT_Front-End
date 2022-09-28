@@ -29,6 +29,7 @@
     border: 1px solid black;
     border-right: 0;
     border-top-right-radius: 20px;
+    font-family: OpenSans-semibold;
 }
 .dashboard .item:first-child:hover {
     border-top-right-radius: 20px;
@@ -53,6 +54,7 @@
     border: 1px solid black;
     border-right: 0;
     border-top-right-radius: 20px;
+    font-family: OpenSans-semibold;
 }
 
 .dashboard .logout {
@@ -63,6 +65,7 @@
     padding-right: 10px;
     border: 2px solid black;
     border-right: 0;
+    border-left: 0;
     background-color: #EE7777;
 }
 .dashboard .logout:hover {

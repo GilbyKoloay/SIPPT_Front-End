@@ -12,7 +12,15 @@
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
+    padding: 7.5px;
 }
 .atom-select select:active, .atom-select select:focus {
     outline: 2.5px solid var(--primaryColor);
+}
+.atom-select select:hover {
+    cursor: pointer;
+}
+
+.atom-select .err {
+    background-color: var(--errBgColor);
 }
