@@ -253,10 +253,6 @@ export default function DaftarPasienBaru({ props }) {
     SUNP_paymentMethod_clear,
   } = props;
 
-  // useEffect(() => {
-    
-  // }, [SUNP_personalData]);
-
   return(
     <main>
       <div className='contentFull'>
@@ -296,8 +292,8 @@ export default function DaftarPasienBaru({ props }) {
             }} />
             <Select props={{
               label: 'Kel. / Desa', 
-              options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['KELURAHAN / DESA', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
-              value: SUNP_personalData.address.wardDistrict, 
+              options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
+              value: SUNP_personalData.address.wardVillage, 
               onChange: SUNP_personalData_changeAddressWardVillage, 
               tab: true, 
             }} />

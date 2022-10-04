@@ -86,8 +86,8 @@ export default function Loket({ props }) {
   const SUNP_personalData_changeAddressDistrictCity = (val) => {
     setSUNP_personalData({...SUNP_personalData, address: {
       districtCity: val,
-      subDistrict: SUNP_personalData.address.subDistrict,
-      wardVillage: SUNP_personalData.address.wardVillage,
+      subDistrict: '',
+      wardVillage: '',
     }});
   };
 
@@ -95,7 +95,7 @@ export default function Loket({ props }) {
     setSUNP_personalData({...SUNP_personalData, address: {
       districtCity: SUNP_personalData.address.districtCity,
       subDistrict: val,
-      wardVillage: SUNP_personalData.address.wardVillage,
+      wardVillage: '',
     }});
   };
 
@@ -272,9 +272,9 @@ export default function Loket({ props }) {
 
 
   useEffect(() => {
-    // console.log(SUNP_personalData); // dev
+    console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
-    console.log(SUNP_paymentMethod); // dev
+    // console.log(SUNP_paymentMethod); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
 
 

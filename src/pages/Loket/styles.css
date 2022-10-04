@@ -12,10 +12,6 @@
     flex-direction: row;
 }
 
-.footer {
-    height: 50px;
-}
-
 .main {
     display: flex;
     flex: 1;
