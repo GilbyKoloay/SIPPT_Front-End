@@ -23,9 +23,9 @@ export default function DaftarPasienBaru() {
             <TextInput props={{label: 'Nama'}} />
             <RadioButton props={{label: "Jenis Kelamin", options: ['LAKI-LAKI', 'PEREMPUAN']}} />
             <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
-            <Select props={{label: 'Kab. / Kota', tab: true}} />
+            {/* <Select props={{label: 'Kab. / Kota', tab: true}} />
             <Select props={{label: 'Kec.', tab: true}} />
-            <Select props={{label: 'Kel. / Desa', tab: true}} />
+            <Select props={{label: 'Kel. / Desa', tab: true}} /> */}
             <TextInput props={{label: 'No. Telepon'}} />
           </div>
           <div className='form'>
@@ -33,9 +33,9 @@ export default function DaftarPasienBaru() {
             <DateInput props={{label: 'Tanggal Lahir'}} />
             <TextInput props={{label: 'Umur', disabled: true}} />
             <TextInput props={{label: 'Nama KK'}} />
-            <Select props={{label: 'Agama'}} />
-            <Select props={{label: 'Status'}} />
-            <Select props={{label: 'Pekerjaan'}} />
+            <Select props={{label: 'Agama', values: ['(AGAMA)', 'ISLAM', 'KATOLIK', 'PROTESTAN', 'BUDHA', 'HINDU', 'LAINNYA']}} />
+            <Select props={{label: 'Status', values: ['(STATUS)', 'KAWIN', 'TIDAK KAWIN', 'JANDA/DUDA']}} />
+            <Select props={{label: 'Pekerjaan', values: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR', 'PELAJAR/MAHASISWA', 'LAINNYA']}} />
           </div>
         </form>
         <ButtonClear />

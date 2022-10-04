@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function Select({ props }) {
-  const { label, errMsg, tab } = props;
+  const { label, errMsg, tab, values } = props;
 
   return(
     <div className='atom-select'>
@@ -10,9 +10,9 @@ export default function Select({ props }) {
       <div className='input'>
         {/* <select className={`textInput ${'err'}`}> */}
         <select className={`textInput`}>
-          <option value='test'>option 1</option>
-          <option value='test'>option 2</option>
-          <option value='test'>option 3</option>
+          {values.map((v, index) => (
+            <option key={index} value={v} disabled={(index === 0)}>{v}</option>
+          ))}
         </select>
         {/* <div className='textErrMsg'>error messages</div> */}
         <div className='textErrMsg'>{errMsg}</div>
