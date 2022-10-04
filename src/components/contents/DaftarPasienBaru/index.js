@@ -235,6 +235,7 @@ export default function DaftarPasienBaru({ props }) {
     SUNP_personalData_changeReligion,
     SUNP_personalData_changeMaritalStatus,
     SUNP_personalData_changeJob,
+    SUNP_personalData_clear,
   } = props;
 
   // useEffect(() => {
@@ -250,34 +251,34 @@ export default function DaftarPasienBaru({ props }) {
             <TextInput props={{
               label: 'No. Rekam Medis', 
               value: SUNP_personalData.medicalRecordNumber, 
-              onChange: SUNP_personalData_changeMedicalRecordNumber}} 
-            />
+              onChange: SUNP_personalData_changeMedicalRecordNumber
+            }} />
             <TextInput props={{
               label: 'Nama', 
               value: SUNP_personalData.name, 
-              onChange: SUNP_personalData_changeName}} 
-            />
+              onChange: SUNP_personalData_changeName
+            }} />
             <RadioButton props={{
               label: "Jenis Kelamin", 
               options: ['LAKI-LAKI', 'PEREMPUAN'], 
               value: SUNP_personalData.sex, 
-              onChange: SUNP_personalData_changeSex}} 
-            />
+              onChange: SUNP_personalData_changeSex
+            }} />
             <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
             <Select props={{
               label: 'Kab. / Kota', 
               options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
               value: SUNP_personalData.address.districtCity, 
               onChange: SUNP_personalData_changeAddressDistrictCity, 
-              tab: true}} 
-            />
+              tab: true
+            }} />
             <Select props={{
               label: 'Kec.', 
               options: SUNP_personalData.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
               value: SUNP_personalData.address.subDistrict, 
               onChange: SUNP_personalData_changeAddressSubDistrict, 
-              tab: true}} 
-            />
+              tab: true
+            }} />
             <Select props={{
               label: 'Kel. / Desa', 
               options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['KELURAHAN / DESA', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
@@ -287,15 +288,15 @@ export default function DaftarPasienBaru({ props }) {
             <TextInput props={{
               label: 'No. Telepon', 
               value: SUNP_personalData.phoneNumber, 
-              onChange: SUNP_personalData_changePhoneNumber}} 
-            />
+              onChange: SUNP_personalData_changePhoneNumber
+            }} />
           </div>
           <div className='form'>
             <TextInput props={{
               label: 'Tempat Lahir', 
               value: SUNP_personalData.birthPlace, 
-              onChange: SUNP_personalData_changeBirthPlace}} 
-            />
+              onChange: SUNP_personalData_changeBirthPlace
+            }} />
             <DateInput props={{
               label: 'Tanggal Lahir', 
               value: SUNP_personalData.birthDate, 
@@ -308,34 +309,36 @@ export default function DaftarPasienBaru({ props }) {
               label: 'Umur', 
               value: SUNP_personalData.age, 
               onChange: console.log(`function not yet made`), 
-              disabled: true}} 
-            />
+              disabled: true
+            }} />
             <TextInput props={{
               label: 'Nama KK', 
               value: SUNP_personalData.familyCardNumber, 
-              onChange: SUNP_personalData_changeFamilyCardName}} 
-            />
+              onChange: SUNP_personalData_changeFamilyCardName
+            }} />
             <Select props={{
               label: 'Agama', 
               options: ['(AGAMA)', 'ISLAM', 'KATOLIK', 'PROTESTAN', 'BUDHA', 'HINDU', 'LAINNYA'], 
               value: SUNP_personalData.religion, 
-              onChange: SUNP_personalData_changeReligion}} 
-            />
+              onChange: SUNP_personalData_changeReligion
+            }} />
             <Select props={{
               label: 'Status', 
               options: ['(STATUS)', 'KAWIN', 'TIDAK KAWIN', 'JANDA/DUDA'], 
               value: SUNP_personalData.maritalStatus, 
-              onChange: SUNP_personalData_changeMaritalStatus}} 
-            />
+              onChange: SUNP_personalData_changeMaritalStatus
+            }} />
             <Select props={{
               label: 'Pekerjaan', 
               options: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR', 'PELAJAR/MAHASISWA', 'LAINNYA'], 
               value: SUNP_personalData.job, 
-              onChange: SUNP_personalData_changeJob}} 
-            />
+              onChange: SUNP_personalData_changeJob
+            }} />
           </div>
         </form>
-        <ButtonClear />
+        <ButtonClear props={{
+          onClick: SUNP_personalData_clear, 
+        }} />
       </div>
 
       {/* <div className='contentFull'>

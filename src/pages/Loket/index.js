@@ -25,9 +25,6 @@ export default function Loket({ props }) {
     { id: 4, name: 'Antrian Poli' },
   ];
 
-
-
-  // PAGE
   const [dashboard, setDashboard] = useState(dashboardList[0]);
   const [SUNP_personalData, setSUNP_personalData]= useState({
     medicalRecordNumber: '',
@@ -50,6 +47,19 @@ export default function Loket({ props }) {
     religion: '',
     maritalStatus: '',
     job: '',
+  });
+  const [SUNP_BPJSKISData, setSUNP_BPJSKISData] = useState({
+    cardNumber: '',
+    name: '',
+    birthDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+    healthFacilityLevel: '',
+    nursingClass: '',
+    NIK: '',
+    address: '',
   });
 
 
@@ -138,6 +148,95 @@ export default function Loket({ props }) {
     setSUNP_personalData({...SUNP_personalData, job: val});
   };
 
+  const SUNP_personalData_clear = () => {
+    setSUNP_personalData({
+      medicalRecordNumber: '',
+      name: '',
+      sex: '',
+      address: {
+        districtCity: 'MINAHASA UTARA',
+        subDistrict: 'TALAWAAN',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      age: '',
+      familyCardNumber: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+    });
+  };
+
+  const SUNP_BPJSKISData_changeCardNumber = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, cardNumber: val});
+  };
+
+  const SUNP_BPJSKISData_changeName = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, name: val});
+  };
+
+  const SUNP_BPJSKISData_changeBirthDateDate = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
+      date: val,
+      month: SUNP_BPJSKISData.birthDate.month,
+      year: SUNP_BPJSKISData.birthDate.year,
+    }});
+  };
+
+  const SUNP_BPJSKISData_changeBirthDateMonth = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
+      date: SUNP_BPJSKISData.birthDate.date,
+      month: val,
+      year: SUNP_BPJSKISData.birthDate.year,
+    }});
+  };
+
+  const SUNP_BPJSKISData_changeBirthDateYear = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
+      date: SUNP_BPJSKISData.birthDate.date,
+      month: SUNP_BPJSKISData.birthDate.month,
+      year: val,
+    }});
+  };
+
+  const SUNP_BPJSKISData_changeHealthFacilityLevel = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, healthFacilityLevel: val});
+  };
+
+  const SUNP_BPJSKISData_changeNursingClass = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, nursingClass: val});
+  };
+
+  const SUNP_BPJSKISData_changeNIK = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, NIK: val});
+  };
+
+  const SUNP_BPJSKISData_changeAddress = (val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, address: val});
+  };
+
+  const SUNP_BPJSKISData_clear = () => {
+    setSUNP_BPJSKISData({
+      cardNumber: '',
+      name: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    });
+  };
+
 
 
   useEffect(() => {
@@ -168,6 +267,18 @@ export default function Loket({ props }) {
           SUNP_personalData_changeReligion,
           SUNP_personalData_changeMaritalStatus,
           SUNP_personalData_changeJob,
+          SUNP_personalData_clear,
+          SUNP_BPJSKISData,
+          SUNP_BPJSKISData_changeCardNumber,
+          SUNP_BPJSKISData_changeName,
+          SUNP_BPJSKISData_changeBirthDateDate,
+          SUNP_BPJSKISData_changeBirthDateMonth,
+          SUNP_BPJSKISData_changeBirthDateYear,
+          SUNP_BPJSKISData_changeHealthFacilityLevel,
+          SUNP_BPJSKISData_changeNursingClass,
+          SUNP_BPJSKISData_changeNIK,
+          SUNP_BPJSKISData_changeAddress,
+          SUNP_BPJSKISData_clear,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
