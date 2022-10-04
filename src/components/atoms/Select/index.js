@@ -2,11 +2,11 @@
 import './styles.css';
 
 export default function Select({ props }) {
-  const { label, errMsg } = props;
+  const { label, errMsg, tab } = props;
 
   return(
     <div className='atom-select'>
-      <div className='textLabel'>{label}</div>
+      <div className={`textLabel ${tab && 'tab'}`}>{label}</div>
       <div className='input'>
         {/* <select className={`textInput ${'err'}`}> */}
         <select className={`textInput`}>
@@ -14,7 +14,8 @@ export default function Select({ props }) {
           <option value='test'>option 2</option>
           <option value='test'>option 3</option>
         </select>
-        <div className='textErrMsg'>{errMsg}error messages</div>
+        {/* <div className='textErrMsg'>error messages</div> */}
+        <div className='textErrMsg'>{errMsg}</div>
       </div>
     </div>
   );

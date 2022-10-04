@@ -3,8 +3,10 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 15px;
+}
 
-    border: 1px solid red;
+.atom-select .tab {
+    margin-left: 25px;
 }
 
 .atom-select .input {

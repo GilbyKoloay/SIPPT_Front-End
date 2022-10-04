@@ -19,11 +19,12 @@ export default function DaftarPasienBaru() {
         <form>
           <div className='form'>
             <TextInput props={{label: 'No. Rekam Medis'}} />
+            <TextInput props={{label: 'Nama'}} />
             <TextInput props={{label: 'Jenis Kelamin'}} />
-            <TextInput props={{label: 'Alamat'}} />
-            <Select props={{label: 'Kab. / Kota'}} />
-            <Select props={{label: 'Kec'}} />
-            <Select props={{label: 'Kel. / Desa'}} />
+            <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
+            <Select props={{label: 'Kab. / Kota', tab: true}} />
+            <Select props={{label: 'Kec.', tab: true}} />
+            <Select props={{label: 'Kel. / Desa', tab: true}} />
             <TextInput props={{label: 'No. Telepon'}} />
           </div>
           <div className='form'>

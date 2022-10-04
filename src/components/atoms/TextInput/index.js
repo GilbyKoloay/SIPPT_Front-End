@@ -9,7 +9,8 @@ export default function TextInput({ props }) {
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <input type='text' className={`textInput`} disabled={disabled} />
-        <div className='textErrMsg'>{errMsg}lorem ipsum dolor sit amet consectetur adispicing elit</div>
+        {/* <div className='textErrMsg'>lorem ipsum dolor sit amet consectetur adispicing elit</div> */}
+        <div className='textErrMsg'>{errMsg}</div>
       </div>
     </div>
   );

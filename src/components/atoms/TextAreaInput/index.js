@@ -9,7 +9,8 @@ export default function TextAreaInput({ props }) {
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <textarea className='textInput'></textarea>
-        <div className='textErrMsg'>{errMsg} error messages</div>
+        {/* <div className='textErrMsg'>error messages</div> */}
+        <div className='textErrMsg'>{errMsg}</div>
       </div>
     </div>
   );

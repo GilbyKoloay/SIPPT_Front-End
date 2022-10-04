@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function DateInput({ props }) {
-  const { label } = props;
+  const { label, errMsg } = props;
 
   return(
     <div className='atom-dateInput'>
@@ -15,7 +15,8 @@ export default function DateInput({ props }) {
           </select>
           <input type='text' className='year textInput' placeholder='TAHUN' />
         </div>
-        <div className='textErrMsg'>error message</div>
+        {/* <div className='textErrMsg'>error message</div> */}
+        <div className='textErrMsg'>{errMsg}</div>
       </div>
     </div>
   );
