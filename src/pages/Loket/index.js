@@ -272,8 +272,9 @@ export default function Loket({ props }) {
 
   useEffect(() => {
     // console.log(SUNP_personalData); // dev
-    console.log(SUNP_BPJSKISData); // dev
-  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData]);
+    // console.log(SUNP_BPJSKISData); // dev
+    console.log(SUNP_paymentMethod); // dev
+  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
 
 
 

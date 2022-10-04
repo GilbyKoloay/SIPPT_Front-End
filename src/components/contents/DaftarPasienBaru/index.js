@@ -247,6 +247,12 @@ export default function DaftarPasienBaru({ props }) {
     SUNP_BPJSKISData_changeNIK,
     SUNP_BPJSKISData_changeAddress,
     SUNP_BPJSKISData_clear,
+    SUNP_paymentMethod,
+    SUNP_paymentMethod_changePaymentMethod,
+    SUNP_paymentMethod_changeJKN,
+    SUNP_paymentMethod_changeOtherInsurance,
+    SUNP_paymentMethod_changeNumber,
+    SUNP_paymentMethod_clear,
   } = props;
 
   // useEffect(() => {
@@ -404,10 +410,33 @@ export default function DaftarPasienBaru({ props }) {
         <Title props={{title: "Cara Pembayaran"}} />
         <form>
           <div className='form'>
-            
+            <RadioButton props={{
+              label: 'Cara Pembayaran', 
+              options: ['BIAYA SENDIRI', 'UMUM'], 
+              value: SUNP_paymentMethod.paymentMethod, 
+              onChange: SUNP_paymentMethod_changePaymentMethod, 
+            }} />
+            <RadioButton props={{
+              label: 'JKN', 
+              options: ['KM', 'KAB', 'A', 'S', 'M'], 
+              value: SUNP_paymentMethod.JKN, 
+              onChange: SUNP_paymentMethod_changeJKN, 
+            }} />
+          </div>
+          <div className='form'>
+            <TextInput props={{
+              label: 'Asuransi Lainnya', 
+              value: SUNP_paymentMethod.otherInsurance, 
+              onChange: SUNP_paymentMethod_changeOtherInsurance, 
+            }} />
+            <TextInput props={{
+              label: 'Nomor', 
+              value: SUNP_paymentMethod.number, 
+              onChange: SUNP_paymentMethod_changeNumber, 
+            }} />
           </div>
         </form>
-        <ButtonClear />
+        <ButtonClear props={{onClick: SUNP_paymentMethod_clear}} />
       </div>
     </main>
   );
