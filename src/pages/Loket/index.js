@@ -240,8 +240,9 @@ export default function Loket({ props }) {
 
 
   useEffect(() => {
-    console.log(SUNP_personalData); // dev
-  }, [dashboard, SUNP_personalData]);
+    // console.log(SUNP_personalData); // dev
+    console.log(SUNP_BPJSKISData); // dev
+  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData]);
 
 
 
