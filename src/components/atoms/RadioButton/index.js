@@ -1,7 +1,7 @@
 // styles
 import './styles.css';
 
-export default function RadioButton({props}) {
+export default function RadioButton({ props }) {
   const { label, options, value, onChange, errMsg } = props;
 
   return(

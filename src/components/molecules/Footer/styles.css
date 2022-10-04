@@ -1,0 +1,11 @@
+.footer {
+    background-color: #5F7F5F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.footer div {
+    color: black;
+}

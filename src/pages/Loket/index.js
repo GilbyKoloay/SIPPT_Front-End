@@ -7,6 +7,7 @@ import './styles.css';
 import {
   Header,
   Dashboard,
+  Footer,
 } from '../../components/molecules';
 
 // contents
@@ -322,7 +323,7 @@ export default function Loket({ props }) {
         {(dashboard.name === 'Pasien') && <Pasien />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>
-      <div className='footer'>Footer</div>
+      <Footer props={{text: 'Footer'}} />
     </div>
   );
 }
