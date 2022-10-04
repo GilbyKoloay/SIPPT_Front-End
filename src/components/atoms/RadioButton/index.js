@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function RadioButton({props}) {
-  const { label, errMsg, options } = props;
+  const { label, value, onChange, options, errMsg } = props;
 
   return(
     <div className='atom-radioButton'>
@@ -10,21 +10,14 @@ export default function RadioButton({props}) {
       <div className='input'>
         <div className='options'>
           {options.map((o, index) => (
-            <div key={index} className='option'>
+            <div key={index} className={`option${(value === o) ? '-selected' : ''}`} onClick={e => onChange(o)}>
               <div className='optionCircle' />
               <div className='textInput'>{o}</div>
             </div>
           ))}
-          {/* <div className='option-selected'>
-            <div className='optionCircle' />
-            <div className='textInput'>one</div>
-          </div>
-          <div className='option'>
-            <div className='optionCircle' />
-            <div className='textInput'>two</div>
-          </div> */}
         </div>
-        <div className='textErrMsg'>test</div>
+        {/* <div className='textErrMsg'>test</div> */}
+        <div className='textErrMsg'>{errMsg}</div>
       </div>
     </div>
   );

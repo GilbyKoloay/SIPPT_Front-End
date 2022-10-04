@@ -26,6 +26,7 @@
     display: flex;
     align-items: center;
     margin-right: 15px;
+    cursor: pointer;
 }
 .atom-radioButton .option:last-child, .atom-radioButton .option-selected:last-child {
     margin-right: 0;

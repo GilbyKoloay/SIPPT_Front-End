@@ -249,7 +249,7 @@ export default function DaftarPasienBaru({ props }) {
           <div className='form'>
             <TextInput props={{label: 'No. Rekam Medis', value: SUNP_personalData.medicalRecordNumber, onChange: SUNP_personalData_changeMedicalRecordNumber}} />
             <TextInput props={{label: 'Nama', value: SUNP_personalData.name, onChange: SUNP_personalData_changeName}} />
-            <RadioButton props={{label: "Jenis Kelamin", options: ['LAKI-LAKI', 'PEREMPUAN']}} />
+            <RadioButton props={{label: "Jenis Kelamin", options: ['LAKI-LAKI', 'PEREMPUAN'], value: SUNP_personalData.sex, onChange: SUNP_personalData_changeSex}} />
             <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
             {/* <Select props={{label: 'Kab. / Kota', tab: true}} />
             <Select props={{label: 'Kec.', tab: true}} />
