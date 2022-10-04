@@ -34,8 +34,8 @@ export default function Loket({ props }) {
     name: '',
     sex: '',
     address: {
-      districtCity: '',
-      subDistrict: '',
+      districtCity: 'MINAHASA UTARA',
+      subDistrict: 'TALAWAAN',
       wardVillage: '',
     },
     phoneNumber: '',

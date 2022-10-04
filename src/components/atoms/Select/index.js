@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function Select({ props }) {
-  const { label, value, options, onChange, errMsg, tab } = props;
+  const { label, options, value, onChange, errMsg, tab } = props;
 
   return(
     <div className='atom-select'>

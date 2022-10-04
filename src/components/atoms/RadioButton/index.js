@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function RadioButton({props}) {
-  const { label, value, onChange, options, errMsg } = props;
+  const { label, options, value, onChange, errMsg } = props;
 
   return(
     <div className='atom-radioButton'>
