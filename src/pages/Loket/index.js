@@ -61,6 +61,12 @@ export default function Loket({ props }) {
     NIK: '',
     address: '',
   });
+  const [SUNP_paymentMethod, setSUNP_paymentMethod] = useState({
+    paymentMethod: '',
+    JKN: '',
+    otherInsurance: '',
+    number: '',
+  });
 
 
 
@@ -237,6 +243,31 @@ export default function Loket({ props }) {
     });
   };
 
+  const SUNP_paymentMethod_changePaymentMethod = (val) => {
+    setSUNP_paymentMethod({...SUNP_paymentMethod, paymentMethod: val});
+  };
+
+  const SUNP_paymentMethod_changeJKN = (val) => {
+    setSUNP_paymentMethod({...SUNP_paymentMethod, JKN: val});
+  };
+
+  const SUNP_paymentMethod_changeOtherInsurance = (val) => {
+    setSUNP_paymentMethod({...SUNP_paymentMethod, otherInsurance: val});
+  };
+
+  const SUNP_paymentMethod_changeNumber = (val) => {
+    setSUNP_paymentMethod({...SUNP_paymentMethod, number: val});
+  };
+
+  const SUNP_paymentMethod_clear = () => {
+    setSUNP_paymentMethod({
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    });
+  };
+
 
 
   useEffect(() => {
@@ -280,6 +311,12 @@ export default function Loket({ props }) {
           SUNP_BPJSKISData_changeNIK,
           SUNP_BPJSKISData_changeAddress,
           SUNP_BPJSKISData_clear,
+          SUNP_paymentMethod,
+          SUNP_paymentMethod_changePaymentMethod,
+          SUNP_paymentMethod_changeJKN,
+          SUNP_paymentMethod_changeOtherInsurance,
+          SUNP_paymentMethod_changeNumber,
+          SUNP_paymentMethod_clear,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
