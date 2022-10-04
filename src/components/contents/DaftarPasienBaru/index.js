@@ -21,8 +21,7 @@ export default function DaftarPasienBaru() {
           <div className='form'>
             <TextInput props={{label: 'No. Rekam Medis'}} />
             <TextInput props={{label: 'Nama'}} />
-            {/* <TextInput props={{label: 'Jenis Kelamin'}} /> */}
-            <RadioButton props={{label: "Jenis Kelamin", options:['LAKI-LAKI', 'PEREMPUAN']}} />
+            <RadioButton props={{label: "Jenis Kelamin", options: ['LAKI-LAKI', 'PEREMPUAN']}} />
             <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
             <Select props={{label: 'Kab. / Kota', tab: true}} />
             <Select props={{label: 'Kec.', tab: true}} />
@@ -64,8 +63,8 @@ export default function DaftarPasienBaru() {
         <Title props={{title: "Cara Pembayaran"}} />
         <form>
           <div className='form'>
-            <TextInput props={{label: "Cara Pembayaran"}} />
-            <TextInput props={{label: "JKN"}} />
+            <RadioButton props={{label: "Cara Pembayaran", options: ['Biaya Sendiri', 'Umum']}} />
+            <RadioButton props={{label: "JKN", options: ['KM', 'KAB', 'A', 'S', 'M']}} />
           </div>
           <div className='form'>
             <TextInput props={{label: "Asuransi Lainnya"}} />

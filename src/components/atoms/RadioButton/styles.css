@@ -25,9 +25,10 @@
     flex: 1;
     display: flex;
     align-items: center;
-}
-.atom-radioButton .option:first-child, .atom-radioButton .option-selected:first-child {
     margin-right: 15px;
+}
+.atom-radioButton .option:last-child, .atom-radioButton .option-selected:last-child {
+    margin-right: 0;
 }
 
 .atom-radioButton .optionCircle {

@@ -9,20 +9,20 @@ export default function RadioButton({props}) {
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <div className='options'>
-          {/* {options.map(o => (
+          {options.map(o => (
             <div className='option'>
               <div className='optionCircle' />
               <div className='textInput'>{o}</div>
             </div>
-          ))} */}
-          <div className='option-selected'>
+          ))}
+          {/* <div className='option-selected'>
             <div className='optionCircle' />
             <div className='textInput'>one</div>
           </div>
           <div className='option'>
             <div className='optionCircle' />
             <div className='textInput'>two</div>
-          </div>
+          </div> */}
         </div>
         <div className='textErrMsg'>test</div>
       </div>
