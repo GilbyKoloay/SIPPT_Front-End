@@ -9,8 +9,8 @@ export default function RadioButton({props}) {
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <div className='options'>
-          {options.map(o => (
-            <div className='option'>
+          {options.map((o, index) => (
+            <div key={index} className='option'>
               <div className='optionCircle' />
               <div className='textInput'>{o}</div>
             </div>
