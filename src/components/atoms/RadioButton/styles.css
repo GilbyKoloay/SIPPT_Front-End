@@ -1,0 +1,48 @@
+.atom-radioButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.atom-radioButton .input {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.atom-radioButton .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.atom-radioButton .option, .atom-radioButton .option-selected {
+    padding: 7.5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.atom-radioButton .option:first-child, .atom-radioButton .option-selected:first-child {
+    margin-right: 15px;
+}
+
+.atom-radioButton .optionCircle {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 100%;
+    border: 1px solid black;
+}
+
+.atom-radioButton .option-selected .optionCircle {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 100%;
+    border: 1px solid black;
+    background-color: var(--primaryColor);
+}

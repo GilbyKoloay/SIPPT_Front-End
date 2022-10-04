@@ -6,6 +6,7 @@ import Select from './Select';
 import DateInput from './DateInput';
 import ButtonClear from './ButtonClear';
 import TextAreaInput from './TextAreaInput';
+import RadioButton from './RadioButton';
 
 export {
     Title,
@@ -14,4 +15,5 @@ export {
     DateInput,
     ButtonClear,
     TextAreaInput,
+    RadioButton,
 };
