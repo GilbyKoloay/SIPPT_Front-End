@@ -2,15 +2,15 @@
 import './styles.css';
 
 export default function DateInput({ props }) {
-  const { label, errMsg } = props;
+  const { label, value, onChange, errMsg } = props;
 
   return(
     <div className='atom-dateInput'>
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <div>
-          <input type='text' className='date textInput' placeholder='TGL' />
-          <select className='month textInput'>
+          <input type='text' className='date textInput' value={value.date} onChange={e => onChange.date(e.target.value)} placeholder='TGL' />
+          <select className='month textInput' value={value.month} onChange={e => onChange.month(e.target.value)}>
             <option value='' disabled>{`(BULAN)`}</option>
             <option value={1}>1 / JANUARI</option>
             <option value={2}>2 / FEBRUARI</option>
@@ -25,7 +25,7 @@ export default function DateInput({ props }) {
             <option value={11}>11 / NOVEMBER</option>
             <option value={12}>12 / DESEMBER</option>
           </select>
-          <input type='text' className='year textInput' placeholder='TAHUN' />
+          <input type='text' className='year textInput' value={value.year} onChange={e => onChange.year(e.target.value)} placeholder='TAHUN' />
         </div>
         {/* <div className='textErrMsg'>error message</div> */}
         <div className='textErrMsg'>{errMsg}</div>

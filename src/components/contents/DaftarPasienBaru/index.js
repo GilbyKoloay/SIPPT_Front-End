@@ -258,7 +258,7 @@ export default function DaftarPasienBaru({ props }) {
           </div>
           <div className='form'>
             <TextInput props={{label: 'Tempat Lahir', value: SUNP_personalData.birthPlace, onChange: SUNP_personalData_changeBirthPlace}} />
-            <DateInput props={{label: 'Tanggal Lahir'}} />
+            <DateInput props={{label: 'Tanggal Lahir', value: SUNP_personalData.birthDate, onChange: {date: SUNP_personalData_changeBirthDateDate, month: SUNP_personalData_changeBirthDateMonth, year: SUNP_personalData_changeBirthDateYear}}} />
             <TextInput props={{label: 'Umur', value: SUNP_personalData.age, onChange: console.log(`function not yet made`), disabled: true}} />
             <TextInput props={{label: 'Nama KK', value: SUNP_personalData.familyCardNumber, onChange: SUNP_personalData_changeFamilyCardName}} />
             <Select props={{label: 'Agama', options: ['(AGAMA)', 'ISLAM', 'KATOLIK', 'PROTESTAN', 'BUDHA', 'HINDU', 'LAINNYA'], value: SUNP_personalData.religion, onChange: SUNP_personalData_changeReligion}} />

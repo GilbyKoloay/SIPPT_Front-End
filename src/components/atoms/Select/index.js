@@ -9,9 +9,9 @@ export default function Select({ props }) {
       <div className={`textLabel ${tab && 'tab'}`}>{label}</div>
       <div className='input'>
         {/* <select className={`textInput ${'err'}`}> */}
-        <select className={`textInput`} value={(value === '') ? options[0] : value} onChange={e => onChange(e.target.value)}>
+        <select className={`textInput`} value={value} onChange={e => onChange(e.target.value)}>
           {options.map((o, index) => (
-            <option key={index} value={o} disabled={(index === 0)}>{o}</option>
+            <option key={index} value={(index === 0) ? '' : o} disabled={(index === 0)}>{o}</option>
           ))}
         </select>
         {/* <div className='textErrMsg'>error messages</div> */}
