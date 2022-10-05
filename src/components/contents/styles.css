@@ -27,10 +27,16 @@ main {
     margin-bottom: 25px;
 }
 
-.content form {
+.content form.row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;    
+}
+
+.content form.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .content form .form {
