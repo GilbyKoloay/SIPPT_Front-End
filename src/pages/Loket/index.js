@@ -44,7 +44,7 @@ export default function Loket({ props }) {
       year: '',
     },
     age: '',
-    familyCardNumber: '',
+    familyCardName: '',
     religion: '',
     maritalStatus: '',
     job: '',
@@ -140,7 +140,7 @@ export default function Loket({ props }) {
   };
 
   const SUNP_personalData_changeFamilyCardName = (val) => {
-    setSUNP_personalData({...SUNP_personalData, familyCardNumber: val});
+    setSUNP_personalData({...SUNP_personalData, familyCardName: val});
   };
 
   const SUNP_personalData_changeReligion = (val) => {
@@ -173,7 +173,7 @@ export default function Loket({ props }) {
         year: '',
       },
       age: '',
-      familyCardNumber: '',
+      familyCardName: '',
       religion: '',
       maritalStatus: '',
       job: '',
@@ -293,17 +293,17 @@ export default function Loket({ props }) {
         },
         body: JSON.stringify({
           _employee: __user._id,
-          cardNumber: 1,
-          name: 'one',
+          cardNumber: SUNP_BPJSKISData.cardNumber,
+          name: SUNP_BPJSKISData.name,
           birthDate: {
-            date: 1,
-            month: 2,
-            year: 3,
+            date: SUNP_BPJSKISData.birthDate.date,
+            month: SUNP_BPJSKISData.birthDate.month,
+            year: SUNP_BPJSKISData.birthDate.year,
           },
-          healthFacilityLevel: 'one',
-          nursingClass: 'one',
-          NIK: 1,
-          address: 'one one one',
+          healthFacilityLevel: SUNP_BPJSKISData.healthFacilityLevel,
+          nursingClass: SUNP_BPJSKISData.nursingClass,
+          NIK: SUNP_BPJSKISData.NIK,
+          address: SUNP_BPJSKISData.address,
         }),
       });
       const BPJSres = await BPJSreq.json();
@@ -334,29 +334,29 @@ export default function Loket({ props }) {
             _employee: __user._id,
             _medicalRecord: MRres.data._id,
             _BPJS: BPJSres.data._id,
-            medicalRecordNumber: 10,
-            name: 'one',
-            birthPlace: 'one',
+            medicalRecordNumber: SUNP_personalData.medicalRecordNumber,
+            name: SUNP_personalData.name,
+            birthPlace: SUNP_personalData.birthPlace,
             birthDate: {
-              date: 1,
-              month: 2,
-              year: 3,
+              date: SUNP_personalData.birthDate.date,
+              month: SUNP_personalData.birthDate.month,
+              year: SUNP_personalData.birthDate.year,
             },
-            sex: 'LAKI-LAKI',
-            familyCardName: 'one',
+            sex: SUNP_personalData.sex,
+            familyCardName: SUNP_personalData.familyCardName,
             address: {
-              districtCity: 'one',
-              subDistrict: 'one',
-              wardVillage: 'one',
+              districtCity: SUNP_personalData.address.districtCity,
+              subDistrict: SUNP_personalData.address.subDistrict,
+              wardVillage: SUNP_personalData.address.wardVillage,
             },
-            phoneNumber: 1,
-            religion: 'KRISTEN',
-            maritalStatus: 'KAWIN',
-            job: 'PELAJAR/MAHASISWA',
-            paymentMethod: 'UMUM',
-            JKN: 'KAB',
-            otherInsurance: 'one',
-            number: 1,
+            phoneNumber: SUNP_personalData.phoneNumber,
+            religion: SUNP_personalData.religion,
+            maritalStatus: SUNP_personalData.maritalStatus,
+            job: SUNP_personalData.job,
+            paymentMethod: SUNP_paymentMethod.paymentMethod,
+            JKN: SUNP_paymentMethod.JKN,
+            otherInsurance: SUNP_paymentMethod.otherInsurance,
+            number: SUNP_paymentMethod.number,
           }),
         });
         const res = await req.json();
@@ -388,7 +388,9 @@ export default function Loket({ props }) {
           const BPJSresDel = BPJSreqDel;
         }
         else if(res.status === 'success') {
-          // code if successfully created new data
+          SUNP_personalData_clear();
+          SUNP_BPJSKISData_clear();
+          SUNP_paymentMethod_clear();
         }
       }
     }
