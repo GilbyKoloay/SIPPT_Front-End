@@ -260,7 +260,8 @@ export default function DaftarPasienBaru({ props }) {
               label: "Jenis Kelamin", 
               options: ['LAKI-LAKI', 'PEREMPUAN'], 
               value: SUNP_personalData.sex, 
-              // onChange: SUNP_personalData_changeSex, 
+              change: 'sex', 
+              onChange: SUNP_personalData_onChange, 
             }} />
             <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
             <Select props={{
