@@ -7,6 +7,7 @@ import DateInput from './DateInput';
 import ButtonClear from './ButtonClear';
 import TextAreaInput from './TextAreaInput';
 import RadioButton from './RadioButton';
+import Button from './Button';
 
 export {
     Title,
@@ -16,4 +17,5 @@ export {
     ButtonClear,
     TextAreaInput,
     RadioButton,
+    Button,
 };

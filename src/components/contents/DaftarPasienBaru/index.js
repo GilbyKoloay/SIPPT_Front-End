@@ -225,7 +225,7 @@ export default function DaftarPasienBaru({ props }) {
 
   return(
     <main>
-      <div className='contentFull'>
+      <div className='content'>
         <Title props={{title: "Data Diri Pasien"}} />
         <form>
           <div className='form'>
@@ -334,7 +334,7 @@ export default function DaftarPasienBaru({ props }) {
         <ButtonClear props={{onClick: SUNP_personalData_clear}} />
       </div>
 
-      <div className='contentFull'>
+      <div className='content'>
         <Title props={{title: "Data BPJS/KIS Pasien"}} />
         <form>
           <div className='form'>
@@ -390,7 +390,7 @@ export default function DaftarPasienBaru({ props }) {
         <ButtonClear props={{onClick: SUNP_BPJSKISData_clear}} />
       </div>
 
-      <div className='contentFull'>
+      <div className='content'>
         <Title props={{title: "Cara Pembayaran"}} />
         <form>
           <div className='form'>
