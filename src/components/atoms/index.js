@@ -8,6 +8,7 @@ import ButtonClear from './ButtonClear';
 import TextAreaInput from './TextAreaInput';
 import RadioButton from './RadioButton';
 import Button from './Button';
+import Gap from './Gap';
 
 export {
     Title,
@@ -18,4 +19,5 @@ export {
     TextAreaInput,
     RadioButton,
     Button,
+    Gap,
 };
