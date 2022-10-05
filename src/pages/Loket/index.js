@@ -70,7 +70,11 @@ export default function Loket({ props }) {
   });
   
   const SUNP_personalData_onChange = (prop, val) => {
-    setSUNP_personalData({...SUNP_personalData, [prop]: val})
+    setSUNP_personalData({...SUNP_personalData, [prop]: val});
+    // setSUNP_personalData((typeof(prop) === 'string') ? 
+    //   {...SUNP_personalData, [prop]: val} : 
+    //   {...SUNP_personalData, [prop[0]][prop[1]] : val}
+    // );
   };
 
   const SUNP_personalData_clear = () => {
