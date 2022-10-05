@@ -9,6 +9,7 @@ import TextAreaInput from './TextAreaInput';
 import RadioButton from './RadioButton';
 import Button from './Button';
 import Gap from './Gap';
+import HorLine from './HorLine';
 
 export {
     Title,
@@ -20,4 +21,5 @@ export {
     RadioButton,
     Button,
     Gap,
+    HorLine,
 };

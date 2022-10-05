@@ -5,8 +5,9 @@ import '../styles.css';
 import {
   Title,
   Button,
-  TextInput,
   Gap,
+  HorLine,
+  TextInput,
 } from '../../atoms';
 
 export default function Pasien() {
@@ -20,6 +21,8 @@ export default function Pasien() {
           <Button props={{title: 'Cari Menggunakan Data Diri'}} />
           <Gap props={{height: '15px'}} />
           <Button props={{title: 'Cari Menggunakan BPJS/KIS'}} />
+          <Gap props={{height: '25px'}} />
+          <HorLine />
         </div>
         <div className='content'>right</div>
       </div>

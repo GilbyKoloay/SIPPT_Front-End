@@ -8,10 +8,10 @@ main {
 .contentSplit {
     display: flex;
     justify-content: space-between;
-    
+
     border: 1px solid black;
 }
-.contentSplit :first-child {
+.contentSplit .content:first-child {
     margin-right: 25px;
 }
 
