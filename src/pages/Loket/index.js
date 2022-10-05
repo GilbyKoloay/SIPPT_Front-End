@@ -68,91 +68,9 @@ export default function Loket({ props }) {
     otherInsurance: '',
     number: '',
   });
-
-
-
-  const SUNP_personalData_changeMedicalRecordNumber = (val) => {
-    setSUNP_personalData({...SUNP_personalData, medicalRecordNumber: val});
-  };
-
-  const SUNP_personalData_changeName = (val) => {
-    setSUNP_personalData({...SUNP_personalData, name: val});
-  };
-
-  const SUNP_personalData_changeSex = (val) => {
-    setSUNP_personalData({...SUNP_personalData, sex: val});
-  };
-
-  const SUNP_personalData_changeAddressDistrictCity = (val) => {
-    setSUNP_personalData({...SUNP_personalData, address: {
-      districtCity: val,
-      subDistrict: '',
-      wardVillage: '',
-    }});
-  };
-
-  const SUNP_personalData_changeAddressSubDistrict = (val) => {
-    setSUNP_personalData({...SUNP_personalData, address: {
-      districtCity: SUNP_personalData.address.districtCity,
-      subDistrict: val,
-      wardVillage: '',
-    }});
-  };
-
-  const SUNP_personalData_changeAddressWardVillage = (val) => {
-    setSUNP_personalData({...SUNP_personalData, address: {
-      districtCity: SUNP_personalData.address.districtCity,
-      subDistrict: SUNP_personalData.address.subDistrict,
-      wardVillage: val,
-    }});
-  };
-
-  const SUNP_personalData_changeBirthPlace = (val) => {
-    setSUNP_personalData({...SUNP_personalData, birthPlace: val});
-  };
-
-  const SUNP_personalData_changeBirthDateDate = (val) => {
-    setSUNP_personalData({...SUNP_personalData, birthDate: {
-      date: val,
-      month: SUNP_personalData.birthDate.month,
-      year: SUNP_personalData.birthDate.year,
-    }});
-  };
-
-  const SUNP_personalData_changeBirthDateMonth = (val) => {
-    setSUNP_personalData({...SUNP_personalData, birthDate: {
-      date: SUNP_personalData.birthDate.date,
-      month: val,
-      year: SUNP_personalData.birthDate.year,
-    }});
-  };
-
-  const SUNP_personalData_changeBirthDateYear = (val) => {
-    setSUNP_personalData({...SUNP_personalData, birthDate: {
-      date: SUNP_personalData.birthDate.date,
-      month: SUNP_personalData.birthDate.month,
-      year: val,
-    }});
-  };
-
-  const SUNP_personalData_changePhoneNumber = (val) => {
-    setSUNP_personalData({...SUNP_personalData, phoneNumber: val});
-  };
-
-  const SUNP_personalData_changeFamilyCardName = (val) => {
-    setSUNP_personalData({...SUNP_personalData, familyCardName: val});
-  };
-
-  const SUNP_personalData_changeReligion = (val) => {
-    setSUNP_personalData({...SUNP_personalData, religion: val});
-  };
-
-  const SUNP_personalData_changeMaritalStatus = (val) => {
-    setSUNP_personalData({...SUNP_personalData, maritalStatus: val});
-  };
-
-  const SUNP_personalData_changeJob = (val) => {
-    setSUNP_personalData({...SUNP_personalData, job: val});
+  
+  const SUNP_personalData_onChange = (prop, val) => {
+    setSUNP_personalData({...SUNP_personalData, [prop]: val})
   };
 
   const SUNP_personalData_clear = () => {
@@ -399,7 +317,7 @@ export default function Loket({ props }) {
 
 
   useEffect(() => {
-    // console.log(SUNP_personalData); // dev
+    console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
@@ -412,23 +330,7 @@ export default function Loket({ props }) {
       <div className='dashboard-main'>
         <Dashboard props={{dashboardList, dashboard, setDashboard}} />
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
-          SUNP_personalData,
-          SUNP_personalData_changeMedicalRecordNumber,
-          SUNP_personalData_changeName,
-          SUNP_personalData_changeSex,
-          SUNP_personalData_changeAddressDistrictCity,
-          SUNP_personalData_changeAddressSubDistrict,
-          SUNP_personalData_changeAddressWardVillage,
-          SUNP_personalData_changeBirthPlace,
-          SUNP_personalData_changeBirthDateDate,
-          SUNP_personalData_changeBirthDateMonth,
-          SUNP_personalData_changeBirthDateYear,
-          SUNP_personalData_changePhoneNumber,
-          SUNP_personalData_changeFamilyCardName,
-          SUNP_personalData_changeReligion,
-          SUNP_personalData_changeMaritalStatus,
-          SUNP_personalData_changeJob,
-          SUNP_personalData_clear,
+          SUNP_personalData, SUNP_personalData_onChange, SUNP_personalData_clear,
           SUNP_BPJSKISData,
           SUNP_BPJSKISData_changeCardNumber,
           SUNP_BPJSKISData_changeName,
