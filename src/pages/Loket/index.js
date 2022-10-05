@@ -69,7 +69,7 @@ export default function Loket({ props }) {
     number: '',
   });
   
-  const SUNP_personalData_onChange = (prop, val) => {
+  const SUNP_personalData_change = (prop, val) => {
     setSUNP_personalData({...SUNP_personalData, [prop]: val});
     // setSUNP_personalData((typeof(prop) === 'string') ? 
     //   {...SUNP_personalData, [prop]: val} : 
@@ -102,52 +102,12 @@ export default function Loket({ props }) {
     });
   };
 
-  const SUNP_BPJSKISData_changeCardNumber = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, cardNumber: val});
-  };
-
-  const SUNP_BPJSKISData_changeName = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, name: val});
-  };
-
-  const SUNP_BPJSKISData_changeBirthDateDate = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
-      date: val,
-      month: SUNP_BPJSKISData.birthDate.month,
-      year: SUNP_BPJSKISData.birthDate.year,
-    }});
-  };
-
-  const SUNP_BPJSKISData_changeBirthDateMonth = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
-      date: SUNP_BPJSKISData.birthDate.date,
-      month: val,
-      year: SUNP_BPJSKISData.birthDate.year,
-    }});
-  };
-
-  const SUNP_BPJSKISData_changeBirthDateYear = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, birthDate: {
-      date: SUNP_BPJSKISData.birthDate.date,
-      month: SUNP_BPJSKISData.birthDate.month,
-      year: val,
-    }});
-  };
-
-  const SUNP_BPJSKISData_changeHealthFacilityLevel = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, healthFacilityLevel: val});
-  };
-
-  const SUNP_BPJSKISData_changeNursingClass = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, nursingClass: val});
-  };
-
-  const SUNP_BPJSKISData_changeNIK = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, NIK: val});
-  };
-
-  const SUNP_BPJSKISData_changeAddress = (val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, address: val});
+  const SUNP_BPJSKISData_change = (prop, val) => {
+    setSUNP_BPJSKISData({...SUNP_BPJSKISData, [prop]: val});
+    // setSUNP_BPJSKISData((typeof(prop) === 'string') ? 
+    //   {...SUNP_BPJSKISData, [prop]: val} : 
+    //   {...SUNP_BPJSKISData, [prop[0]][prop[1]] : val}
+    // );
   };
 
   const SUNP_BPJSKISData_clear = () => {
@@ -321,8 +281,8 @@ export default function Loket({ props }) {
 
 
   useEffect(() => {
-    console.log(SUNP_personalData); // dev
-    // console.log(SUNP_BPJSKISData); // dev
+    // console.log(SUNP_personalData); // dev
+    console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
 
@@ -334,18 +294,8 @@ export default function Loket({ props }) {
       <div className='dashboard-main'>
         <Dashboard props={{dashboardList, dashboard, setDashboard}} />
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
-          SUNP_personalData, SUNP_personalData_onChange, SUNP_personalData_clear,
-          SUNP_BPJSKISData,
-          SUNP_BPJSKISData_changeCardNumber,
-          SUNP_BPJSKISData_changeName,
-          SUNP_BPJSKISData_changeBirthDateDate,
-          SUNP_BPJSKISData_changeBirthDateMonth,
-          SUNP_BPJSKISData_changeBirthDateYear,
-          SUNP_BPJSKISData_changeHealthFacilityLevel,
-          SUNP_BPJSKISData_changeNursingClass,
-          SUNP_BPJSKISData_changeNIK,
-          SUNP_BPJSKISData_changeAddress,
-          SUNP_BPJSKISData_clear,
+          SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear,
+          SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
           SUNP_paymentMethod,
           SUNP_paymentMethod_changePaymentMethod,
           SUNP_paymentMethod_changeJKN,
