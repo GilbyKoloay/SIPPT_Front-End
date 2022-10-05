@@ -278,7 +278,7 @@ export default function Loket({ props }) {
     number: '',
   });
   const [P_findPatient, setP_findPatient] = useState({
-    findUse: 'medicalRecordNumber',
+    findUse: 'Cari Menggunakan Nomor Rekam Medis',
     medicalRecordNumber: {
       medicalRecordNumber: '',
     },
@@ -537,6 +537,10 @@ export default function Loket({ props }) {
     }
   };
 
+  const P_findPatient_findUse_change = (val) => {
+    setP_findPatient({...P_findPatient, findUse: val});
+  };
+
   const P_findPatient_findUseMRN_change = (prop, val) => {
     setP_findPatient({...P_findPatient, 
       medicalRecordNumber: {
@@ -552,8 +556,8 @@ export default function Loket({ props }) {
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
 
-    // console.log(P_findPatient.findUse); // dev
-    console.log(P_findPatient.medicalRecordNumber); // dev
+    console.log(P_findPatient.findUse); // dev
+    // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
     // console.log(P_findPatient.BPJSKIS); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod, P_findPatient]);
@@ -574,7 +578,7 @@ export default function Loket({ props }) {
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-          P_findPatient, P_findPatient_findUseMRN_change,
+          P_findPatient, P_findPatient_findUse_change, P_findPatient_findUseMRN_change,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>

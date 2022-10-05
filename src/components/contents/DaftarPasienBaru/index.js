@@ -59,7 +59,7 @@ export default function DaftarPasienBaru({ props }) {
               label: 'Kec.', 
               options: SUNP_personalData.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
               value: SUNP_personalData.address.subDistrict, 
-              // change: '', 
+              // change: ['address', 'subDistrict'], 
               // onChange: SUNP_personalData_change, 
               tab: true, 
             }} />
@@ -67,7 +67,7 @@ export default function DaftarPasienBaru({ props }) {
               label: 'Kel. / Desa', 
               options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
               value: SUNP_personalData.address.wardVillage, 
-              // change: '', 
+              // change: ['address', 'wardVillage'], 
               // onChange: SUNP_personalData_change, 
               tab: true, 
             }} />

@@ -1,0 +1,45 @@
+.atom-buttonList {
+    display: flex;
+    justify-content: space-between;
+}
+
+.atom-buttonList.row {
+    flex-direction: row;
+}
+
+.atom-buttonList.col {
+    flex-direction: column;
+}
+
+.atom-buttonList .option, .atom-buttonList .option-selected {
+    display: flex;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 7.5px;
+    border-radius: 10px;
+}
+.atom-buttonList .option:hover {
+    cursor: pointer;
+    background-color: var(--primaryColor);
+}
+
+.atom-buttonList.row .option, .atom-buttonList.row .option-selected {
+    margin-right: 15px;
+}
+.atom-buttonList.row .option:last-child, .atom-buttonList.row .option-selected:last-child {
+    margin: 0;
+}
+
+.atom-buttonList.col .option, .atom-buttonList.col .option-selected {
+    margin-bottom: 15px;
+}
+.atom-buttonList.col .option:last-child, .atom-buttonList.col .option-selected:last-child {
+    margin: 0;
+}
+
+.atom-buttonList .option-selected {
+    background-color: var(--primaryColor);
+}

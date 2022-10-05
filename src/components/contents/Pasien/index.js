@@ -4,7 +4,7 @@ import '../styles.css';
 // atoms
 import {
   Title,
-  Button,
+  ButtonList,
   Gap,
   HorLine,
   TextInput,
@@ -16,7 +16,7 @@ import {
 export default function Pasien({ props }) {
   const {
     addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-    P_findPatient, P_findPatient_findUseMRN_change,
+    P_findPatient, P_findPatient_findUse_change, P_findPatient_findUseMRN_change,
   } = props;
 
   return(
@@ -24,11 +24,17 @@ export default function Pasien({ props }) {
       <div className='contentSplit'>
         <div className='content'>
           <Title props={{title: 'Cari Pasien'}} />
-          <Button props={{title: 'Cari Menggunakan Nomor Rekam Medis'}} />
+          {/* <ButtonList props={{title: 'Cari Menggunakan Nomor Rekam Medis'}} />
           <Gap props={{height: '15px'}} />
-          <Button props={{title: 'Cari Menggunakan Data Diri'}} />
+          <ButtonList props={{title: 'Cari Menggunakan Data Diri'}} />
           <Gap props={{height: '15px'}} />
-          <Button props={{title: 'Cari Menggunakan BPJS/KIS'}} />
+          <ButtonList props={{title: 'Cari Menggunakan BPJS/KIS'}} /> */}
+          <ButtonList props={{
+            options: ['Cari Menggunakan Nomor Rekam Medis', 'Cari Menggunakan Data Diri', 'Cari Menggunakan BPJS/KIS'], 
+            value: P_findPatient.findUse, 
+            onChange: P_findPatient_findUse_change, 
+            direction: 'col', 
+          }} />
           <Gap props={{height: '25px'}} />
           <HorLine />
           <Gap props={{height: '25px'}} />
