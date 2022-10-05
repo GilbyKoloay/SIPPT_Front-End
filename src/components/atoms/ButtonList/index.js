@@ -7,7 +7,7 @@ export default function ButtonList({ props }) {
   return( 
     <div className={`atom-buttonList ${direction}`}>
       {options.map((o, index) => (
-        <div key={index} className={`option${value === o ? '-selected' : ''}`} onClick={() => onChange(o)}>{o}</div>
+        <div key={index} className={`option${value === o ? '-selected' : ''} textInput`} onClick={() => onChange(o)}>{o}</div>
       ))}
     </div>
   );

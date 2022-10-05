@@ -38,7 +38,7 @@ export default function Pasien({ props }) {
           <Gap props={{height: '25px'}} />
           <HorLine />
           <Gap props={{height: '25px'}} />
-          { // Cari Menggunakan Nomor Rekam Medis
+          { P_findPatient.findUse === 'Cari Menggunakan Nomor Rekam Medis' &&
             <form className='col'>
               <TextInput props={{
                 label: 'No. Rekam Medis', 
@@ -48,7 +48,7 @@ export default function Pasien({ props }) {
               }} />
             </form>
           }
-          { // Cari Menggunakan Data Diri
+          { P_findPatient.findUse === 'Cari Menggunakan Data Diri' &&
             <form className='col'>
               <TextInput props={{
                 label: 'Nama', 
@@ -147,7 +147,7 @@ export default function Pasien({ props }) {
               }} />
             </form>
           }
-          { // Cari Menggunakan BPJS/KIS
+          { P_findPatient.findUse === 'Cari Menggunakan BPJS/KIS' &&
             <form className='col'>
               <TextInput props={{
                 label: 'No. Kartu', 
