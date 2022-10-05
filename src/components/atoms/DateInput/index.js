@@ -10,7 +10,7 @@ export default function DateInput({ props }) {
       <div className='input'>
         <div>
           <input type='text' className='date textInput' value={value.date} onChange={e => onChange.date(e.target.value)} placeholder='TGL' />
-          <select className='month textInput' value={value.month} onChange={e => onChange.month(e.target.value)}>
+          <select className={`month${value.month !== '' ? '-selected' : ''} textInput`} value={value.month} onChange={e => onChange.month(e.target.value)}>
             <option value='' disabled>{`(BULAN)`}</option>
             <option value={1}>1 / JANUARI</option>
             <option value={2}>2 / FEBRUARI</option>

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 // styles
 import '../styles.css';
 
@@ -253,11 +251,8 @@ export default function DaftarPasienBaru({ props }) {
     SUNP_paymentMethod_changeOtherInsurance,
     SUNP_paymentMethod_changeNumber,
     SUNP_paymentMethod_clear,
+    SUNP_submitForm,
   } = props;
-
-  // useEffect(() => {
-    
-  // }, [SUNP_personalData]);
 
   return(
     <main>
@@ -298,8 +293,8 @@ export default function DaftarPasienBaru({ props }) {
             }} />
             <Select props={{
               label: 'Kel. / Desa', 
-              options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['KELURAHAN / DESA', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
-              value: SUNP_personalData.address.wardDistrict, 
+              options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
+              value: SUNP_personalData.address.wardVillage, 
               onChange: SUNP_personalData_changeAddressWardVillage, 
               tab: true, 
             }} />
@@ -326,7 +321,7 @@ export default function DaftarPasienBaru({ props }) {
             <TextInput props={{
               label: 'Umur', 
               value: SUNP_personalData.age, 
-              onChange: console.log(`function not yet made`), 
+              onChange: () => console.log(`function not yet made`), 
               disabled: true, 
             }} />
             <TextInput props={{
@@ -348,7 +343,7 @@ export default function DaftarPasienBaru({ props }) {
             }} />
             <Select props={{
               label: 'Pekerjaan', 
-              options: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR', 'PELAJAR/MAHASISWA', 'LAINNYA'], 
+              options: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR/MAHASISWA', 'LAINNYA'], 
               value: SUNP_personalData.job, 
               onChange: SUNP_personalData_changeJob, 
             }} />
@@ -438,6 +433,8 @@ export default function DaftarPasienBaru({ props }) {
         </form>
         <ButtonClear props={{onClick: SUNP_paymentMethod_clear}} />
       </div>
+      <button className='submitForm textInput' onClick={() => SUNP_submitForm()}>Daftar Pasien Baru</button>
+      {/* <button className='submitForm'>Tidak dapat mendaftar pasien baru karena data tidak valid</button> */}
     </main>
   );
 }

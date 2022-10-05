@@ -12,7 +12,9 @@
     padding-right: 75px;
     border: 1px solid black;
     border-radius: 10px;
+    background-color: var(--neutralColor);
 }
 .atom-buttonClear button:hover {
     cursor: pointer;
+    background-color: var(--neutralColorHover);
 }

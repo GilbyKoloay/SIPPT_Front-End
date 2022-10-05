@@ -35,8 +35,22 @@
     margin-left: 15px;
     margin-right: 15px;
     flex: 5;
+    color: var(--placeholderColor);
 }
 .atom-dateInput .month:hover {
+    cursor: pointer;
+}
+.atom-dateInput .month:focus, .atom-dateInput .month:active {
+    color: black;
+}
+
+.atom-dateInput .month-selected {
+    margin-left: 15px;
+    margin-right: 15px;
+    flex: 5;
+    color: black;
+}
+.atom-dateInput .month-selected:hover {
     cursor: pointer;
 }
 

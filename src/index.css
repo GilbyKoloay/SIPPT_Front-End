@@ -23,16 +23,18 @@
     --primaryColor: #77EE77;
     --secondaryColor: #C3F3C3;
     --tertiaryColor: #5F7F5F;
+    --primaryColorHover: #55CC55;
+    --secondaryColorHover: #A1D1A1;
+    --tertiaryColorHover: #3D5D3D;
 
     --errFontColor: #FF0000;
     --errBgColor: #F3C3C3;
 
-    --disabledBgColor: #D3D3D3;
     --placeholderColor: #888888;
-
-    --primaryColorHover: #55CC55;
-    --secondaryColorHover: #A1D1A1;
-    --tertiaryColorHover: #3D5D3D;
+    --disabledBgColor: #D3D3D3;
+    
+    --neutralColor: #F5F5F5;
+    --neutralColorHover: #D3D3D3;
 }
 
 * {
