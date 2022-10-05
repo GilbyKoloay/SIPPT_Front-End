@@ -269,10 +269,135 @@ export default function Loket({ props }) {
     });
   };
 
+  const SUNP_submitForm = async () => {
+    // create new patient's medical record
+    const MRreq = await fetch(`${process.env.REACT_APP_API}/medicalRecord/create`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+      }),
+    });
+    const MRres = await MRreq.json();
+    
+    if(MRres.status === 'success') {
+      // create new patient's BPJS
+      const BPJSreq = await fetch(`${process.env.REACT_APP_API}/BPJS/create`, {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          cardNumber: 1,
+          name: 'one',
+          birthDate: {
+            date: 1,
+            month: 2,
+            year: 3,
+          },
+          healthFacilityLevel: 'one',
+          nursingClass: 'one',
+          NIK: 1,
+          address: 'one one one',
+        }),
+      });
+      const BPJSres = await BPJSreq.json();
+
+      if(BPJSres.status === 'error') {
+        // delete previously created medical record
+        const MRreqDel = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization' : `Bearer ${__user.__token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            _id: MRres.data._id,
+          }),
+        });
+        const MRresDel = await MRreqDel;
+      }
+      else if(BPJSres.status === 'success') {
+        // create new patient data
+        const req = await fetch(`${process.env.REACT_APP_API}/patient/create`, {
+          method: 'POST',
+          headers: {
+            'Authorization' : `Bearer ${__user.__token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            _employee: __user._id,
+            _medicalRecord: MRres.data._id,
+            _BPJS: BPJSres.data._id,
+            medicalRecordNumber: 10,
+            name: 'one',
+            birthPlace: 'one',
+            birthDate: {
+              date: 1,
+              month: 2,
+              year: 3,
+            },
+            sex: 'LAKI-LAKI',
+            familyCardName: 'one',
+            address: {
+              districtCity: 'one',
+              subDistrict: 'one',
+              wardVillage: 'one',
+            },
+            phoneNumber: 1,
+            religion: 'KRISTEN',
+            maritalStatus: 'KAWIN',
+            job: 'PELAJAR/MAHASISWA',
+            paymentMethod: 'UMUM',
+            JKN: 'KAB',
+            otherInsurance: 'one',
+            number: 1,
+          }),
+        });
+        const res = await req.json();
+
+        if(res.status === 'error') {
+          // delete previously cretated medical record and BPJS
+          const MRreqDel = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization' : `Bearer ${__user.__token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              _id: MRres.data._id,
+            }),
+          });
+          const MRresDel = await MRreqDel;
+
+          const BPJSreqDel = await fetch(`${process.env.REACT_APP_API}/bpjs/delete`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization' : `Bearer ${__user.__token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              _id: BPJSres.data._id,
+            }),
+          });
+          const BPJSresDel = BPJSreqDel;
+        }
+        else if(res.status === 'success') {
+          // code if successfully created new data
+        }
+      }
+    }
+  };
+
 
 
   useEffect(() => {
-    console.log(SUNP_personalData); // dev
+    // console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
@@ -319,6 +444,7 @@ export default function Loket({ props }) {
           SUNP_paymentMethod_changeOtherInsurance,
           SUNP_paymentMethod_changeNumber,
           SUNP_paymentMethod_clear,
+          SUNP_submitForm,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}

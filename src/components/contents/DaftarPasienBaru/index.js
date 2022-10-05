@@ -251,6 +251,7 @@ export default function DaftarPasienBaru({ props }) {
     SUNP_paymentMethod_changeOtherInsurance,
     SUNP_paymentMethod_changeNumber,
     SUNP_paymentMethod_clear,
+    SUNP_submitForm,
   } = props;
 
   return(
@@ -320,7 +321,7 @@ export default function DaftarPasienBaru({ props }) {
             <TextInput props={{
               label: 'Umur', 
               value: SUNP_personalData.age, 
-              onChange: console.log(`function not yet made`), 
+              onChange: () => console.log(`function not yet made`), 
               disabled: true, 
             }} />
             <TextInput props={{
@@ -342,7 +343,7 @@ export default function DaftarPasienBaru({ props }) {
             }} />
             <Select props={{
               label: 'Pekerjaan', 
-              options: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR', 'PELAJAR/MAHASISWA', 'LAINNYA'], 
+              options: ['(PEKERJAAN)', 'ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR/MAHASISWA', 'LAINNYA'], 
               value: SUNP_personalData.job, 
               onChange: SUNP_personalData_changeJob, 
             }} />
@@ -432,6 +433,8 @@ export default function DaftarPasienBaru({ props }) {
         </form>
         <ButtonClear props={{onClick: SUNP_paymentMethod_clear}} />
       </div>
+      <button className='submitForm textInput' onClick={() => SUNP_submitForm()}>Daftar Pasien Baru</button>
+      {/* <button className='submitForm'>Tidak dapat mendaftar pasien baru karena data tidak valid</button> */}
     </main>
   );
 }
