@@ -277,10 +277,64 @@ export default function Loket({ props }) {
     otherInsurance: '',
     number: '',
   });
-  const [P_findPatient_MRN, setP_findPatient_MRN] = useState({
-    medicalRecordNumber: '',
+  const [P_findPatient, setP_findPatient] = useState({
+    findUse: 'medicalRecordNumber',
+    medicalRecordNumber: {
+      medicalRecordNumber: '',
+    },
+    personalData: {
+      name: '',
+      sex: '',
+      address: {
+        districtCity: '',
+        subDistrict: '',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      ageOpt: 'Sama dengan',
+      age: '',
+      ageSec: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    },
+    BPJSKIS: {
+      cardNumber: '',
+      name: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    },
   });
-  // const [P_findPatient_personalData]
   
   const SUNP_personalData_change = (prop, val) => {
     setSUNP_personalData({...SUNP_personalData, [prop]: val});
@@ -483,13 +537,26 @@ export default function Loket({ props }) {
     }
   };
 
+  const P_findPatient_findUseMRN_change = (prop, val) => {
+    setP_findPatient({...P_findPatient, 
+      medicalRecordNumber: {
+        [prop]: val,
+      },
+    });
+  };
+
 
 
   useEffect(() => {
     // console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
-  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
+
+    // console.log(P_findPatient.findUse); // dev
+    console.log(P_findPatient.medicalRecordNumber); // dev
+    // console.log(P_findPatient.personalData); // dev
+    // console.log(P_findPatient.BPJSKIS); // dev
+  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod, P_findPatient]);
 
 
 
@@ -507,6 +574,7 @@ export default function Loket({ props }) {
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+          P_findPatient, P_findPatient_findUseMRN_change,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>
