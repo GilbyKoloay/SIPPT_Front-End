@@ -219,12 +219,7 @@ export default function DaftarPasienBaru({ props }) {
   const {
     SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear,
     SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
-    SUNP_paymentMethod,
-    SUNP_paymentMethod_changePaymentMethod,
-    SUNP_paymentMethod_changeJKN,
-    SUNP_paymentMethod_changeOtherInsurance,
-    SUNP_paymentMethod_changeNumber,
-    SUNP_paymentMethod_clear,
+    SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
     SUNP_submitForm,
   } = props;
 
@@ -309,7 +304,7 @@ export default function DaftarPasienBaru({ props }) {
             }} />
             <TextInput props={{
               label: 'Nama KK', 
-              value: SUNP_personalData.familyCardNumber, 
+              value: SUNP_personalData.familyCardName, 
               change: 'familyCardName', 
               onChange: SUNP_personalData_change,
             }} />
@@ -403,25 +398,29 @@ export default function DaftarPasienBaru({ props }) {
               label: 'Cara Pembayaran', 
               options: ['BIAYA SENDIRI', 'UMUM'], 
               value: SUNP_paymentMethod.paymentMethod, 
-              onChange: SUNP_paymentMethod_changePaymentMethod, 
+              change: 'paymentMethod', 
+              onChange: SUNP_paymentMethod_change, 
             }} />
             <RadioButton props={{
               label: 'JKN', 
               options: ['KM', 'KAB', 'A', 'S', 'M'], 
               value: SUNP_paymentMethod.JKN, 
-              onChange: SUNP_paymentMethod_changeJKN, 
+              change: 'JKN', 
+              onChange: SUNP_paymentMethod_change, 
             }} />
           </div>
           <div className='form'>
             <TextInput props={{
               label: 'Asuransi Lainnya', 
               value: SUNP_paymentMethod.otherInsurance, 
-              onChange: SUNP_paymentMethod_changeOtherInsurance, 
+              change: 'otherInsurance', 
+              onChange: SUNP_paymentMethod_change, 
             }} />
             <TextInput props={{
               label: 'Nomor', 
               value: SUNP_paymentMethod.number, 
-              onChange: SUNP_paymentMethod_changeNumber, 
+              change: 'number', 
+              onChange: SUNP_paymentMethod_change, 
             }} />
           </div>
         </form>

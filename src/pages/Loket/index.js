@@ -126,20 +126,12 @@ export default function Loket({ props }) {
     });
   };
 
-  const SUNP_paymentMethod_changePaymentMethod = (val) => {
-    setSUNP_paymentMethod({...SUNP_paymentMethod, paymentMethod: val});
-  };
-
-  const SUNP_paymentMethod_changeJKN = (val) => {
-    setSUNP_paymentMethod({...SUNP_paymentMethod, JKN: val});
-  };
-
-  const SUNP_paymentMethod_changeOtherInsurance = (val) => {
-    setSUNP_paymentMethod({...SUNP_paymentMethod, otherInsurance: val});
-  };
-
-  const SUNP_paymentMethod_changeNumber = (val) => {
-    setSUNP_paymentMethod({...SUNP_paymentMethod, number: val});
+  const SUNP_paymentMethod_change = (prop, val) => {
+    setSUNP_paymentMethod({...SUNP_paymentMethod, [prop]: val});
+    // setSUNP_paymentMethod((typeof(prop) === 'string') ? 
+    //   {...SUNP_paymentMethod, [prop]: val} : 
+    //   {...SUNP_paymentMethod, [prop[0]][prop[1]] : val}
+    // );
   };
 
   const SUNP_paymentMethod_clear = () => {
@@ -281,8 +273,8 @@ export default function Loket({ props }) {
 
 
   useEffect(() => {
-    // console.log(SUNP_personalData); // dev
-    console.log(SUNP_BPJSKISData); // dev
+    console.log(SUNP_personalData); // dev
+    // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
 
@@ -296,12 +288,7 @@ export default function Loket({ props }) {
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
           SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear,
           SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
-          SUNP_paymentMethod,
-          SUNP_paymentMethod_changePaymentMethod,
-          SUNP_paymentMethod_changeJKN,
-          SUNP_paymentMethod_changeOtherInsurance,
-          SUNP_paymentMethod_changeNumber,
-          SUNP_paymentMethod_clear,
+          SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
           SUNP_submitForm,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien />}
