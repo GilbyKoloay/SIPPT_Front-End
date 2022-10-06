@@ -16,7 +16,6 @@ import {
   Pasien,
   AntrianPoli,
 } from '../../components/contents';
-import { useOutlet } from 'react-router-dom';
 
 export default function Loket({ props }) {
   const { __user } = props;
@@ -27,6 +26,18 @@ export default function Loket({ props }) {
     { id: 4, name: 'Antrian Poli' },
   ];
   const addressList = [
+    { districtCity: 'MINAHASA UTARA', subDistricts: [
+      { subDistrict: 'TALAWAAN', wardsVillages: ['KOLONGAN', 'MAPANGET', 'PANIKI ATAS', 'PANIKI BARU', 'PATOKAAN', 'TALAWAAN', 'TEEP WARISA', 'TUMBOHON', 'WARISA', 'WARISA KAMPUNG BARU', 'WINETIN', 'WUSA'], },
+      { subDistrict: 'AIRMADIDI', wardsVillages: ['SAMPIRI', 'SAWANGAN', 'TANGGARI', 'AIRMADIDI ATAS', 'AIRMADIDI BAWAH', 'RAP-RAP', 'SARONGSONG SATU', 'SARONGSONG DUA', 'SUKUR'], },
+      { subDistrict: 'DIMEMBE', wardsVillages: ['DIMEMBE', 'KLABAT', 'LAIKIT', 'LUMPIAS', 'MATUNGKAS', 'PINILIH', 'TATELU RONDOR', 'TATELU SATU', 'TETEY', 'WARUKAPAS', 'WASIAN'], },
+      { subDistrict: 'KALAWAT', wardsVillages: ['KALAWAT', 'KALEOSAN', 'KAWANGKOAN', 'KAWANGKOAN BARU', 'KOLONGAN', 'KOLONGAN TETEMPANGAN', 'KUWIL', 'MAUMBI', 'SUWAAN', 'WATUTUMOU I', 'WATUTUMOU II', 'WATUTUMOU III'], },
+      { subDistrict: 'KAUDITAN', wardsVillages: ['KAASAR', 'KAIMA', 'KAREGESAN', 'KAUDITAN DUA', 'KAUDIATAN SATU', 'KAWILEY', 'LEMBEAN', 'PASLATEN', 'TREMAN', 'TUMALUNTUNG', 'WATUDAMBO', 'WATUDAMBO DUA'], },
+      { subDistrict: 'KEMA', wardsVillages: ['KEMA SATU', 'KEMA DUA', 'KEMA TIGA', 'LANSOT', 'LILANG', 'MAKALISUNG', 'TONTAALETE', 'TONTAALETE ROK-ROK', 'WALEO', 'WALEO DUA'], },
+      { subDistrict: 'LIKUPANG BARAT', wardsVillages: ['AIRBANUA', 'BAHOI', 'BULUTUI', 'GANGGA SATU', 'GANGGA DUA', 'JAYAKARSA', 'KINABUHUTAN', 'MALIAMBAO', 'MUBUNE', 'MUNTE', 'PALAES', 'PAPUTUNGAN', 'SEREY', 'SONSILO', 'TALISE', 'TAMBUN', 'TANAH PUTIH', 'TARABITAN', 'TERMAAL', 'WAWUNIAN'], },
+      { subDistrict: 'LIKUPANG SELATAN', wardsVillages: ['BATU', 'KAWERUAN', 'KOKOLEH SATU', 'KOKOLEH DUA', 'PASLATEN', 'WANGURER', 'WEROT'], },
+      { subDistrict: 'LIKUPANG TIMUR', wardsVillages: ['EHE', 'KAHUKU', 'KALINAUN', 'KINUNANG', 'LIBAS', 'LIKUPANG', 'LIKUPANG SATU', 'LIKUPANG DUA', 'LIKUPANG KAMPUNG AMBONG', 'MAEN', 'MARINSOW', 'PINENEK', 'PULISAN', 'RESETLEMEN', 'RINONDORAN', 'SARAWET', 'WINERU', 'WINURI'], },
+      { subDistrict: 'WORI', wardsVillages: ['BUDO', 'BULO', 'DARUNU', 'KIMA BAJO', 'KULU', 'LANSA', 'LANTUNG', 'MANTEHAGE BANGO', 'MANTEHAGE BUHIAS', 'MANTEHAGE TANGKAS', 'MANTEHAGE TINONGKO', 'MINAESA', 'NAIN', 'NAIN I', 'PONTO', 'TALAWAAN ATAS', 'TALAWAAN BANTIK', 'TATAMPI', 'TIWOHO', 'WORI'], },
+    ]},
     { districtCity: 'BOLAANG MONGONDOW', subDistricts: [
       { subDistrict: 'BILALANG', wardsVillages: ['APADO', 'BILALANG III', 'BILALANG III UTARA', 'BILALANG IV', 'BILALANG BARU', 'KOLINGANGAAN', 'TUDUAOG', 'TUDUAOG BARU'], },
       { subDistrict: 'BOLAANG', wardsVillages: ['BANGOMOLUNOW', 'INOBONTO SATU', 'INOBONTO DUA', 'KOMANGAAN', 'LANGAGON', 'LANGAGON SATU', 'LANGAGON DUA', 'SOLIMANDUNGAN BARU', 'SOLIMANDUNGAN SATU', 'SOLIMANDUNGAN DUA', 'INOBONTO'], },
@@ -180,18 +191,6 @@ export default function Loket({ props }) {
       { subDistrict: 'TOULUAAN', wardsVillages: ['LOBU', 'LOBU ATAS', 'LOBU DUA', 'LOBU KOTA', 'LOBU SATU', 'RANOKETANG ATAS', 'RANOKETANG ATAS SATU', 'TOUNDANOU', 'TOUNDANOU ATAS', 'TOUNDANOU SATU'], },
       { subDistrict: 'TOULUAAN SELATAN', wardsVillages: ['BANGA', 'BUNAG', 'KALAIT', 'KALAIT DUA', 'KALAIT SATU', 'KALAIT TIGA', 'LOWANTAG', 'RANOAKO', 'SUHUYON', 'TAMBELAN'], },
     ]},
-    { districtCity: 'MINAHASA UTARA', subDistricts: [
-      { subDistrict: 'TALAWAAN', wardsVillages: ['KOLONGAN', 'MAPANGET', 'PANIKI ATAS', 'PANIKI BARU', 'PATOKAAN', 'TALAWAAN', 'TEEP WARISA', 'TUMBOHON', 'WARISA', 'WARISA KAMPUNG BARU', 'WINETIN', 'WUSA'], },
-      { subDistrict: 'AIRMADIDI', wardsVillages: ['SAMPIRI', 'SAWANGAN', 'TANGGARI', 'AIRMADIDI ATAS', 'AIRMADIDI BAWAH', 'RAP-RAP', 'SARONGSONG SATU', 'SARONGSONG DUA', 'SUKUR'], },
-      { subDistrict: 'DIMEMBE', wardsVillages: ['DIMEMBE', 'KLABAT', 'LAIKIT', 'LUMPIAS', 'MATUNGKAS', 'PINILIH', 'TATELU RONDOR', 'TATELU SATU', 'TETEY', 'WARUKAPAS', 'WASIAN'], },
-      { subDistrict: 'KALAWAT', wardsVillages: ['KALAWAT', 'KALEOSAN', 'KAWANGKOAN', 'KAWANGKOAN BARU', 'KOLONGAN', 'KOLONGAN TETEMPANGAN', 'KUWIL', 'MAUMBI', 'SUWAAN', 'WATUTUMOU I', 'WATUTUMOU II', 'WATUTUMOU III'], },
-      { subDistrict: 'KAUDITAN', wardsVillages: ['KAASAR', 'KAIMA', 'KAREGESAN', 'KAUDITAN DUA', 'KAUDIATAN SATU', 'KAWILEY', 'LEMBEAN', 'PASLATEN', 'TREMAN', 'TUMALUNTUNG', 'WATUDAMBO', 'WATUDAMBO DUA'], },
-      { subDistrict: 'KEMA', wardsVillages: ['KEMA SATU', 'KEMA DUA', 'KEMA TIGA', 'LANSOT', 'LILANG', 'MAKALISUNG', 'TONTAALETE', 'TONTAALETE ROK-ROK', 'WALEO', 'WALEO DUA'], },
-      { subDistrict: 'LIKUPANG BARAT', wardsVillages: ['AIRBANUA', 'BAHOI', 'BULUTUI', 'GANGGA SATU', 'GANGGA DUA', 'JAYAKARSA', 'KINABUHUTAN', 'MALIAMBAO', 'MUBUNE', 'MUNTE', 'PALAES', 'PAPUTUNGAN', 'SEREY', 'SONSILO', 'TALISE', 'TAMBUN', 'TANAH PUTIH', 'TARABITAN', 'TERMAAL', 'WAWUNIAN'], },
-      { subDistrict: 'LIKUPANG SELATAN', wardsVillages: ['BATU', 'KAWERUAN', 'KOKOLEH SATU', 'KOKOLEH DUA', 'PASLATEN', 'WANGURER', 'WEROT'], },
-      { subDistrict: 'LIKUPANG TIMUR', wardsVillages: ['EHE', 'KAHUKU', 'KALINAUN', 'KINUNANG', 'LIBAS', 'LIKUPANG', 'LIKUPANG SATU', 'LIKUPANG DUA', 'LIKUPANG KAMPUNG AMBONG', 'MAEN', 'MARINSOW', 'PINENEK', 'PULISAN', 'RESETLEMEN', 'RINONDORAN', 'SARAWET', 'WINERU', 'WINURI'], },
-      { subDistrict: 'WORI', wardsVillages: ['BUDO', 'BULO', 'DARUNU', 'KIMA BAJO', 'KULU', 'LANSA', 'LANTUNG', 'MANTEHAGE BANGO', 'MANTEHAGE BUHIAS', 'MANTEHAGE TANGKAS', 'MANTEHAGE TINONGKO', 'MINAESA', 'NAIN', 'NAIN I', 'PONTO', 'TALAWAAN ATAS', 'TALAWAAN BANTIK', 'TATAMPI', 'TIWOHO', 'WORI'], },
-    ]},
     { districtCity: 'BITUNG', subDistricts: [
       { subDistrict: 'AERTEMBAGA', wardsVillages: ['AERTEMBAGA I', 'AERTEMBAGA II', 'KASAWARI', 'MAKAWIDEY', 'PATETEN I', 'PATETEN II', 'PINANGUNIAN', 'TANDURUSA', 'WINENET I', 'WINENET II'], },
       { subDistrict: 'GIRIAN', wardsVillages: ['GIRIAN ATAS', 'GIRIAN BAWAH', 'GIRIAN INDAH', 'GIRIAN PERMAI', 'GIRIAN WERU I', 'GIRIAN WERU II', 'WANGURER'], },
@@ -300,7 +299,7 @@ export default function Loket({ props }) {
       },
       phoneNumber: '',
       birthPlace: '',
-      birthDateOption: '',
+      birthDateOption: 'Sama dengan',
       birthDate: {
         date: '',
         month: '',
@@ -311,7 +310,7 @@ export default function Loket({ props }) {
         month: '',
         year: '',
       },
-      ageOpt: '',
+      ageOption: 'Sama dengan',
       age: '',
       ageSec: '',
       familyCardName: '',
@@ -326,7 +325,7 @@ export default function Loket({ props }) {
     BPJSKIS: {
       cardNumber: '',
       name: '',
-      birthDateOption: '',
+      birthDateOption: 'Sama dengan',
       birthDate: {
         date: '',
         month: '',
@@ -357,7 +356,6 @@ export default function Loket({ props }) {
   };
 
   const SUNP_personalData_change = (prop, val) => {
-    // setSUNP_personalData({...SUNP_personalData, [prop]: val});
     setSUNP_personalData((typeof(prop) === 'string') ? 
       {...SUNP_personalData, [prop]: val} : 
       {...SUNP_personalData, [prop[0]]: {...SUNP_personalData[prop[0]], [prop[1]]: val}}
@@ -408,11 +406,10 @@ export default function Loket({ props }) {
   };
 
   const SUNP_BPJSKISData_change = (prop, val) => {
-    setSUNP_BPJSKISData({...SUNP_BPJSKISData, [prop]: val});
-    // setSUNP_BPJSKISData((typeof(prop) === 'string') ? 
-    //   {...SUNP_BPJSKISData, [prop]: val} : 
-    //   {...SUNP_BPJSKISData, [prop[0]][prop[1]] : val}
-    // );
+    setSUNP_BPJSKISData((typeof(prop) === 'string') ? 
+      {...SUNP_BPJSKISData, [prop]: val} : 
+      {...SUNP_BPJSKISData, [prop[0]]: {...SUNP_BPJSKISData[prop[0]], [prop[1]]: val}}
+    );
   };
 
   const SUNP_BPJSKISData_clear = () => {
@@ -432,11 +429,10 @@ export default function Loket({ props }) {
   };
 
   const SUNP_paymentMethod_change = (prop, val) => {
-    setSUNP_paymentMethod({...SUNP_paymentMethod, [prop]: val});
-    // setSUNP_paymentMethod((typeof(prop) === 'string') ? 
-    //   {...SUNP_paymentMethod, [prop]: val} : 
-    //   {...SUNP_paymentMethod, [prop[0]][prop[1]] : val}
-    // );
+    setSUNP_paymentMethod((typeof(prop) === 'string') ? 
+      {...SUNP_paymentMethod, [prop]: val} : 
+      {...SUNP_paymentMethod, [prop[0]]: {...SUNP_paymentMethod[prop[0]], [prop[1]]: val}}
+    );
   };
 
   const SUNP_paymentMethod_clear = () => {
@@ -461,6 +457,8 @@ export default function Loket({ props }) {
       }),
     });
     const MRres = await MRreq.json();
+    console.log(`MRres`)
+    console.log(MRres);
     
     if(MRres.status === 'success') {
       // create new patient's BPJS
@@ -486,6 +484,8 @@ export default function Loket({ props }) {
         }),
       });
       const BPJSres = await BPJSreq.json();
+      console.log(`BPJSres`);
+      console.log(BPJSres);
 
       if(BPJSres.status === 'error') {
         // delete previously created medical record
@@ -500,6 +500,8 @@ export default function Loket({ props }) {
           }),
         });
         const MRresDel = await MRreqDel;
+        console.log(`MRresDel`);
+        console.log(MRresDel);
       }
       else if(BPJSres.status === 'success') {
         // create new patient data
@@ -539,6 +541,8 @@ export default function Loket({ props }) {
           }),
         });
         const res = await req.json();
+        console.log(`res`);
+        console.log(res);
 
         if(res.status === 'error') {
           // delete previously cretated medical record and BPJS
@@ -553,6 +557,8 @@ export default function Loket({ props }) {
             }),
           });
           const MRresDel = await MRreqDel;
+          console.log(`MRresDel`);
+          console.log(MRresDel);
 
           const BPJSreqDel = await fetch(`${process.env.REACT_APP_API}/bpjs/delete`, {
             method: 'DELETE',
@@ -565,11 +571,14 @@ export default function Loket({ props }) {
             }),
           });
           const BPJSresDel = BPJSreqDel;
+          console.log(`BPJSresDel`);
+          console.log(BPJSresDel);
         }
         else if(res.status === 'success') {
           SUNP_personalData_clear();
           SUNP_BPJSKISData_clear();
           SUNP_paymentMethod_clear();
+          patients_getAll();
         }
       }
     }
@@ -594,10 +603,34 @@ export default function Loket({ props }) {
   };
 
   const P_findPatient_findUsePD_change = (prop, val) => {
-    setP_findPatient({...P_findPatient, personalData: {
-      ...P_findPatient.personalData,
-      [prop]: val,
-    }});
+    setP_findPatient(typeof(prop) === 'string' ? 
+      {...P_findPatient, personalData: {
+        ...P_findPatient.personalData,
+        [prop]: val,
+      }} :
+      {...P_findPatient, personalData: {
+        ...P_findPatient.personalData,
+        [prop[0]]: {...P_findPatient.personalData[prop[0]], [prop[1]]: val}
+      }}
+    );
+  };
+
+  const P_findPatient_findUsePD_address_change = (prop, val) => {
+    setP_findPatient(
+      (prop === 'districtCity') ? {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }}} : (prop === 'subDistrict') ? {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: P_findPatient.personalData.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }}} : (prop === 'wardVillage') && {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: P_findPatient.personalData.address.districtCity,
+        subDistrict: P_findPatient.personalData.address.subDistrict,
+        wardVillage: val,
+      }}}
+    );
   };
 
   const P_findPatient_findUsePD_clear = (e) => {
@@ -613,7 +646,7 @@ export default function Loket({ props }) {
       },
       phoneNumber: '',
       birthPlace: '',
-      birthDateOption: '',
+      birthDateOption: 'Sama dengan',
       birthDate: {
         date: '',
         month: '',
@@ -624,7 +657,7 @@ export default function Loket({ props }) {
         month: '',
         year: '',
       },
-      ageOpt: '',
+      ageOption: 'Sama dengan',
       age: '',
       ageSec: '',
       familyCardName: '',
@@ -639,10 +672,16 @@ export default function Loket({ props }) {
   };
 
   const P_findPatient_findUseBPJSKIS_change = (prop, val) => {
-    setP_findPatient({...P_findPatient, BPJSKIS: {
-      ...P_findPatient.BPJSKIS,
-      [prop]: val,
-    }});
+    setP_findPatient(typeof(prop) === 'string' ? 
+      {...P_findPatient, BPJSKIS: {
+        ...P_findPatient.BPJSKIS,
+        [prop]: val,
+      }} :
+      {...P_findPatient, BPJSKIS: {
+        ...P_findPatient.BPJSKIS,
+        [prop[0]]: {...P_findPatient.BPJSKIS[prop[0]], [prop[1]]: val}
+      }}
+    );
   };
 
   const P_findPatient_findUseBPJSKIS_clear = (e) => {
@@ -651,7 +690,7 @@ export default function Loket({ props }) {
     setP_findPatient({...P_findPatient, BPJSKIS: {
       cardNumber: '',
       name: '',
-      birthDateOption: '',
+      birthDateOption: 'Sama dengan',
       birthDate: {
         date: '',
         month: '',
@@ -669,20 +708,21 @@ export default function Loket({ props }) {
     }});
   };
 
-  const P_patientsGetAll = async () => {
-    console.log(`get patients`);
-  };
 
 
-
-  // LOKET
+  // Run once when LOKET is loaded
   useEffect(() => {
     patients_getAll();
-  }, [dashboard]);
+  }, []);
+  
+  // LOKET
+  useEffect(() => {
+    
+  }, [dashboard, patients]);
 
   // Sign Up New Patient
   useEffect(() => {
-    console.log(SUNP_personalData); // dev
+    // console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
@@ -692,7 +732,7 @@ export default function Loket({ props }) {
     // console.log(P_findPatient.findUse); // dev
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
-    // console.log(P_findPatient.BPJSKIS); // dev
+    console.log(P_findPatient.BPJSKIS); // dev
   }, [P_findPatient]);
 
 
@@ -715,7 +755,7 @@ export default function Loket({ props }) {
           patients,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
-          P_findPatient_findUsePD_change,P_findPatient_findUsePD_clear,
+          P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
           P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}

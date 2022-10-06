@@ -2,15 +2,15 @@
 import './styles.css';
 
 export default function DateInput({ props }) {
-  const { label, value, change, onChange, errMsg } = props;
+  const { label, value, change, onChange, errMsg, direction } = props;
 
   return(
-    <div className='atom-dateInput'>
+    <div className={`atom-dateInput ${direction}`}>
       <div className='textLabel'>{label}</div>
       <div className='input'>
         <div>
-          <input type='text' className='date textInput' value={value.date} onChange={e => onChange.date(change.date, e.target.value)} placeholder='TGL' />
-          <select className={`month${value.month !== '' ? '-selected' : ''} textInput`} value={value.month} onChange={e => onChange.month(change.month, e.target.value)}>
+          <input type='text' className='date textInput' value={value.date} onChange={e => onChange([change, 'date'], e.target.value)} placeholder='TGL' />
+          <select className={`month${value.month !== '' ? '-selected' : ''} textInput`} value={value.month} onChange={e => onChange([change, 'month'], e.target.value)}>
             <option value='' disabled>{`(BULAN)`}</option>
             <option value={1}>1 / JANUARI</option>
             <option value={2}>2 / FEBRUARI</option>
@@ -25,7 +25,7 @@ export default function DateInput({ props }) {
             <option value={11}>11 / NOVEMBER</option>
             <option value={12}>12 / DESEMBER</option>
           </select>
-          <input type='text' className='year textInput' value={value.year} onChange={e => onChange.year(change.year, e.target.value)} placeholder='TAHUN' />
+          <input type='text' className='year textInput' value={value.year} onChange={e => onChange([change, 'year'], e.target.value)} placeholder='TAHUN' />
         </div>
         {/* <div className='textErrMsg'>error message</div> */}
         <div className='textErrMsg'>{errMsg}</div>

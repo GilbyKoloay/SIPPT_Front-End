@@ -88,16 +88,8 @@ export default function DaftarPasienBaru({ props }) {
             <DateInput props={{
               label: 'Tanggal Lahir', 
               value: SUNP_personalData.birthDate, 
-              change: {
-                date: ['birthDate', 'date'], 
-                month: ['birthDate', 'month'], 
-                year: ['birthDate', 'year'], 
-              },
-              onChange: {
-                date: SUNP_personalData_change, 
-                month: SUNP_personalData_change, 
-                year: SUNP_personalData_change, 
-              }
+              change: 'birthDate', 
+              onChange: SUNP_personalData_change, 
             }} />
             <TextInput props={{
               label: 'Umur', 
@@ -157,12 +149,9 @@ export default function DaftarPasienBaru({ props }) {
             <DateInput props={{
               label: 'Tanggal Lahir', 
               value: SUNP_BPJSKISData.birthDate, 
-              // change: '', 
-              onChange: {
-                // date: SUNP_BPJSKISData_changeBirthDateDate, 
-                // month: SUNP_BPJSKISData_changeBirthDateMonth, 
-                // year: SUNP_BPJSKISData_changeBirthDateYear, 
-            }}} />
+              change: 'birthDate', 
+              onChange: SUNP_BPJSKISData_change, 
+            }} />
             <TextInput props={{
               label: 'Faskes Tingkat I', 
               value: SUNP_BPJSKISData.healthFacilityLevel, 

@@ -14,6 +14,7 @@ import {
   Select,
   TextAreaInput,
   ButtonClear,
+  DateInput,
 } from '../../atoms';
 
 export default function Pasien({ props }) {
@@ -22,7 +23,7 @@ export default function Pasien({ props }) {
     patients,
     P_findPatient, P_findPatient_findUse_change,
     P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
-    P_findPatient_findUsePD_change, P_findPatient_findUsePD_clear,
+    P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
     P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
   } = props;
 
@@ -87,18 +88,24 @@ export default function Pasien({ props }) {
                 label: 'Kab. / Kota', 
                 options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
                 value: P_findPatient.personalData.address.districtCity, 
+                change: 'districtCity', 
+                onChange: P_findPatient_findUsePD_address_change, 
                 tab: true,
               }} />
               <Select props={{
                 label: 'Kec.', 
                 options: P_findPatient.personalData.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_findPatient.personalData.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
                 value: P_findPatient.personalData.address.subDistrict, 
+                change: 'subDistrict', 
+                onChange: P_findPatient_findUsePD_address_change, 
                 tab: true, 
               }} />
               <Select props={{
                 label: 'Kel. / Desa', 
                 options: P_findPatient.personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_findPatient.personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_findPatient.personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
                 value: P_findPatient.personalData.address.wardVillage, 
+                change: 'wardVillage', 
+                onChange: P_findPatient_findUsePD_address_change, 
                 tab: true,
               }} />
               <TextInput props={{
@@ -115,30 +122,46 @@ export default function Pasien({ props }) {
               }} />
               <RadioButton props={{
                 label: 'Tanggal Lahir', 
-                options: ['Sama dengan', 'Sampai / Dari'], 
+                options: ['Sama dengan', 'Dari / Sampai'], 
                 value: P_findPatient.personalData.birthDateOption, 
                 change: 'birthDateOption', 
                 onChange: P_findPatient_findUsePD_change, P_findPatient_findUsePD_clear, 
               }} />
-              <TextInput props={{
-                label: 'Tanggal Lahir', 
+              <DateInput props={{
+                label: P_findPatient.personalData.birthDateOption === 'Sama dengan' ? 'Sama dengan' : 'Dari', 
+                value: P_findPatient.personalData.birthDate, 
+                change: 'birthDate', 
+                onChange: P_findPatient_findUsePD_change, 
+                direction: 'col', 
               }} />
-              <TextInput props={{
-                label: 'Tanggal Lahir', 
-              }} />
+              { P_findPatient.personalData.birthDateOption === 'Dari / Sampai' &&
+                <DateInput props={{
+                  label: 'Sampai', 
+                  value: P_findPatient.personalData.birthDateSec, 
+                  change: 'birthDateSec', 
+                  onChange: P_findPatient_findUsePD_change, 
+                  direction: 'col', 
+                }} />
+              }
               <RadioButton props={{
                 label: 'Umur', 
-                options: ['Sama dengan', 'Sampai / Dari'], 
+                options: ['Sama dengan', 'Dari / Sampai'], 
                 value: P_findPatient.personalData.ageOption, 
                 change: 'ageOption', 
-                onChange: P_findPatient_findUsePD_change, P_findPatient_findUsePD_clear, 
+                onChange: P_findPatient_findUsePD_change, 
               }} />
               <TextInput props={{
                 label: 'Umur', 
+                value: P_findPatient.personalData.ageSec, 
+                onChange: P_findPatient_findUsePD_change, 
               }} />
-              <TextInput props={{
-                label: 'Umur', 
-              }} />
+              { P_findPatient.personalData.ageOption === 'Dari / Sampai' &&
+                <TextInput props={{
+                  label: 'Umur', 
+                  value: P_findPatient.personalData.ageSec, 
+                  onChange: P_findPatient_findUsePD_change, 
+                }} />
+              }
               <TextInput props={{
                 label: 'Nama KK', 
                 value: P_findPatient.personalData.familyCardName, 
@@ -211,17 +234,27 @@ export default function Pasien({ props }) {
               }} />
               <RadioButton props={{
                 label: 'Tanggal Lahir', 
-                options: ['Sama dengan', 'Sampai / Dari'], 
+                options: ['Sama dengan', 'Dari / Sampai'], 
                 value: P_findPatient.BPJSKIS.birthDateOption, 
                 change: 'birthDateOption', 
                 onChange: P_findPatient_findUseBPJSKIS_change, 
               }} />
-              <TextInput props={{
-                label: 'Tanggal Lahir', 
+              <DateInput props={{
+                label: P_findPatient.BPJSKIS.birthDateOption === 'Sama dengan' ? 'Sama dengan' : 'Dari', 
+                value: P_findPatient.BPJSKIS.birthDate, 
+                change: 'birthDate', 
+                onChange: P_findPatient_findUseBPJSKIS_change, 
+                direction: 'col', 
               }} />
-              <TextInput props={{
-                label: 'Tanggal Lahir', 
-              }} />
+              { P_findPatient.BPJSKIS.birthDateOption === 'Dari / Sampai' &&
+                <DateInput props={{
+                  label: 'Sampai', 
+                  value: P_findPatient.BPJSKIS.birthDateSec, 
+                  change: 'birthDateSec', 
+                  onChange: P_findPatient_findUseBPJSKIS_change, 
+                  direction: 'col', 
+                }} />
+              }
               <TextInput props={{
                 label: 'Faskes Tingkat I', 
                 value: P_findPatient.BPJSKIS.healthFacilityLevel, 
@@ -252,7 +285,7 @@ export default function Pasien({ props }) {
         </div>
         <div className='content'>
           <Title props={{title: 'Hasil'}} />
-          <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patients ? patients.length : '0'}</b></div>
+          <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{result_patients ? result_patients.length : '0'}</b></div>
         </div>
       </div>
     </main>

@@ -8,8 +8,6 @@ main {
 .contentSplit {
     display: flex;
     justify-content: space-between;
-
-    border: 1px solid black;
 }
 .contentSplit .content:first-child {
     margin-right: 25px;

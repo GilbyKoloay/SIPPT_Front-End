@@ -4,6 +4,16 @@
     justify-content: space-between;
 }
 
+.atom-dateInput.col {
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.atom-dateInput.col .textLabel {
+    width: 400px;
+    margin-bottom: 5px;
+}
+
 .atom-dateInput .input {
     width: 400px;
     display: flex;
