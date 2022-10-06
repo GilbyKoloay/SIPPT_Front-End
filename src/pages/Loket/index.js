@@ -292,7 +292,7 @@ export default function Loket({ props }) {
       },
       phoneNumber: '',
       birthPlace: '',
-      birthDateOption: 'Sama dengan',
+      birthDateOption: '',
       birthDate: {
         date: '',
         month: '',
@@ -303,7 +303,7 @@ export default function Loket({ props }) {
         month: '',
         year: '',
       },
-      ageOpt: 'Sama dengan',
+      ageOpt: '',
       age: '',
       ageSec: '',
       familyCardName: '',
@@ -318,7 +318,7 @@ export default function Loket({ props }) {
     BPJSKIS: {
       cardNumber: '',
       name: '',
-      birthDateOption: 'Sama dengan',
+      birthDateOption: '',
       birthDate: {
         date: '',
         month: '',
@@ -542,11 +542,93 @@ export default function Loket({ props }) {
   };
 
   const P_findPatient_findUseMRN_change = (prop, val) => {
-    setP_findPatient({...P_findPatient, 
-      medicalRecordNumber: {
-        [prop]: val,
+    setP_findPatient({...P_findPatient, medicalRecordNumber: {
+      [prop]: val,
+    }});
+  };
+
+  const P_findPatient_findUseMRN_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, medicalRecordNumber: {
+      medicalRecordNumber: '',
+    }});
+  };
+
+  const P_findPatient_findUsePD_change = (prop, val) => {
+    setP_findPatient({...P_findPatient, personalData: {
+      ...P_findPatient.personalData,
+      [prop]: val,
+    }});
+  };
+
+  const P_findPatient_findUsePD_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, personalData: {
+      name: '',
+      sex: '',
+      address: {
+        districtCity: '',
+        subDistrict: '',
+        wardVillage: '',
       },
-    });
+      phoneNumber: '',
+      birthPlace: '',
+      birthDateOption: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      ageOpt: '',
+      age: '',
+      ageSec: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    }});
+  };
+
+  const P_findPatient_findUseBPJSKIS_change = (prop, val) => {
+    setP_findPatient({...P_findPatient, BPJSKIS: {
+      ...P_findPatient.BPJSKIS,
+      [prop]: val,
+    }});
+  };
+
+  const P_findPatient_findUseBPJSKIS_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, BPJSKIS: {
+      cardNumber: '',
+      name: '',
+      birthDateOption: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    }});
   };
 
 
@@ -556,10 +638,10 @@ export default function Loket({ props }) {
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
 
-    console.log(P_findPatient.findUse); // dev
+    // console.log(P_findPatient.findUse); // dev
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
-    // console.log(P_findPatient.BPJSKIS); // dev
+    console.log(P_findPatient.BPJSKIS); // dev
   }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod, P_findPatient]);
 
 
@@ -578,7 +660,10 @@ export default function Loket({ props }) {
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-          P_findPatient, P_findPatient_findUse_change, P_findPatient_findUseMRN_change,
+          P_findPatient, P_findPatient_findUse_change,
+          P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
+          P_findPatient_findUsePD_change,P_findPatient_findUsePD_clear,
+          P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>
