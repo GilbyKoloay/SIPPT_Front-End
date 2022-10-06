@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 // styles
 import '../styles.css';
 
@@ -17,11 +19,28 @@ import {
 export default function Pasien({ props }) {
   const {
     addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+    patients,
     P_findPatient, P_findPatient_findUse_change,
     P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
     P_findPatient_findUsePD_change, P_findPatient_findUsePD_clear,
     P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
   } = props;
+
+
+
+  const [result_patients, setResult_patients] = useState(null);
+
+
+
+  const filterByMRN = () => {
+    
+  };
+  
+  useEffect(() => {
+
+  }, [P_findPatient]);
+
+
 
   return(
     <main>
@@ -66,19 +85,19 @@ export default function Pasien({ props }) {
               <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
               <Select props={{
                 label: 'Kab. / Kota', 
-                options: ['(KABUPATEN / KOTA)'], 
+                options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
                 value: P_findPatient.personalData.address.districtCity, 
                 tab: true,
               }} />
               <Select props={{
                 label: 'Kec.', 
-                options: ['(KECAMATAN)'], 
+                options: P_findPatient.personalData.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_findPatient.personalData.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
                 value: P_findPatient.personalData.address.subDistrict, 
                 tab: true, 
               }} />
               <Select props={{
                 label: 'Kel. / Desa', 
-                options: ['(KELURAHAN / DESA)'], 
+                options: P_findPatient.personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_findPatient.personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_findPatient.personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
                 value: P_findPatient.personalData.address.wardVillage, 
                 tab: true,
               }} />
@@ -232,7 +251,8 @@ export default function Pasien({ props }) {
           }
         </div>
         <div className='content'>
-          right
+          <Title props={{title: 'Hasil'}} />
+          <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patients ? patients.length : '0'}</b></div>
         </div>
       </div>
     </main>

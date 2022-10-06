@@ -15,7 +15,7 @@ import {
 export default function DaftarPasienBaru({ props }) {
   const {
     addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-    SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear,
+    SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear, SUNP_personalData_address_change,
     SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
     SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
     SUNP_submitForm,
@@ -51,24 +51,24 @@ export default function DaftarPasienBaru({ props }) {
               label: 'Kab. / Kota', 
               options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
               value: SUNP_personalData.address.districtCity, 
-              // change: ['address', 'districtCity'], 
-              // onChange: SUNP_personalData_change, 
+              change: 'districtCity', 
+              onChange: SUNP_personalData_address_change, 
               tab: true, 
             }} />
             <Select props={{
               label: 'Kec.', 
               options: SUNP_personalData.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
               value: SUNP_personalData.address.subDistrict, 
-              // change: ['address', 'subDistrict'], 
-              // onChange: SUNP_personalData_change, 
+              change: 'subDistrict', 
+              onChange: SUNP_personalData_address_change, 
               tab: true, 
             }} />
             <Select props={{
               label: 'Kel. / Desa', 
               options: SUNP_personalData.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === SUNP_personalData.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === SUNP_personalData.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
               value: SUNP_personalData.address.wardVillage, 
-              // change: ['address', 'wardVillage'], 
-              // onChange: SUNP_personalData_change, 
+              change: 'wardVillage', 
+              onChange: SUNP_personalData_address_change, 
               tab: true, 
             }} />
             <TextInput props={{
@@ -88,11 +88,17 @@ export default function DaftarPasienBaru({ props }) {
             <DateInput props={{
               label: 'Tanggal Lahir', 
               value: SUNP_personalData.birthDate, 
+              change: {
+                date: ['birthDate', 'date'], 
+                month: ['birthDate', 'month'], 
+                year: ['birthDate', 'year'], 
+              },
               onChange: {
-                // date: SUNP_personalData_changeBirthDateDate, 
-                // month: SUNP_personalData_changeBirthDateMonth, 
-                // year: SUNP_personalData_changeBirthDateYear, 
-            }}} />
+                date: SUNP_personalData_change, 
+                month: SUNP_personalData_change, 
+                year: SUNP_personalData_change, 
+              }
+            }} />
             <TextInput props={{
               label: 'Umur', 
               value: SUNP_personalData.age, 

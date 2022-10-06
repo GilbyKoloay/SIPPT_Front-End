@@ -16,6 +16,7 @@ import {
   Pasien,
   AntrianPoli,
 } from '../../components/contents';
+import { useOutlet } from 'react-router-dom';
 
 export default function Loket({ props }) {
   const { __user } = props;
@@ -235,7 +236,11 @@ export default function Loket({ props }) {
   const paymentMethodList = ['BIAYA SENDIRI', 'UMUM'];
   const JKNList = ['KM', 'KAB', 'A', 'S', 'M'];
 
+
+
   const [dashboard, setDashboard] = useState(dashboardList[0]);
+  const [patients, setPatients] = useState(null);
+
   const [SUNP_personalData, setSUNP_personalData]= useState({
     medicalRecordNumber: '',
     name: '',
@@ -258,6 +263,7 @@ export default function Loket({ props }) {
     maritalStatus: '',
     job: '',
   });
+
   const [SUNP_BPJSKISData, setSUNP_BPJSKISData] = useState({
     cardNumber: '',
     name: '',
@@ -271,12 +277,14 @@ export default function Loket({ props }) {
     NIK: '',
     address: '',
   });
+
   const [SUNP_paymentMethod, setSUNP_paymentMethod] = useState({
     paymentMethod: '',
     JKN: '',
     otherInsurance: '',
     number: '',
   });
+
   const [P_findPatient, setP_findPatient] = useState({
     findUse: 'Cari Menggunakan Nomor Rekam Medis',
     medicalRecordNumber: {
@@ -336,12 +344,42 @@ export default function Loket({ props }) {
     },
   });
   
+
+
+  const patients_getAll = async () => {
+    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+    
+    (res.status === 'success') && setPatients(res.data);
+  };
+
   const SUNP_personalData_change = (prop, val) => {
-    setSUNP_personalData({...SUNP_personalData, [prop]: val});
-    // setSUNP_personalData((typeof(prop) === 'string') ? 
-    //   {...SUNP_personalData, [prop]: val} : 
-    //   {...SUNP_personalData, [prop[0]][prop[1]] : val}
-    // );
+    // setSUNP_personalData({...SUNP_personalData, [prop]: val});
+    setSUNP_personalData((typeof(prop) === 'string') ? 
+      {...SUNP_personalData, [prop]: val} : 
+      {...SUNP_personalData, [prop[0]]: {...SUNP_personalData[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const SUNP_personalData_address_change = (prop, val) => {
+    setSUNP_personalData(
+      (prop === 'districtCity') ? {...SUNP_personalData, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }} : (prop === 'subDistrict') ? {...SUNP_personalData, address: {
+        districtCity: SUNP_personalData.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }} : (prop === 'wardVillage') && {...SUNP_personalData, address: {
+        districtCity: SUNP_personalData.address.districtCity,
+        subDistrict: SUNP_personalData.address.subDistrict,
+        wardVillage: val,
+      }}
+    );
   };
 
   const SUNP_personalData_clear = () => {
@@ -631,18 +669,31 @@ export default function Loket({ props }) {
     }});
   };
 
+  const P_patientsGetAll = async () => {
+    console.log(`get patients`);
+  };
 
 
+
+  // LOKET
   useEffect(() => {
-    // console.log(SUNP_personalData); // dev
+    patients_getAll();
+  }, [dashboard]);
+
+  // Sign Up New Patient
+  useEffect(() => {
+    console.log(SUNP_personalData); // dev
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
+  }, [SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
 
+  // Patient
+  useEffect(() => {
     // console.log(P_findPatient.findUse); // dev
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
-    console.log(P_findPatient.BPJSKIS); // dev
-  }, [dashboard, SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod, P_findPatient]);
+    // console.log(P_findPatient.BPJSKIS); // dev
+  }, [P_findPatient]);
 
 
 
@@ -650,16 +701,18 @@ export default function Loket({ props }) {
     <div className='loket'>
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
+        <button onClick={() => console.log(patients)}>SEE PATIENTS</button>
         <Dashboard props={{dashboardList, dashboard, setDashboard}} />
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-          SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear,
+          SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear, SUNP_personalData_address_change,
           SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
           SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
           SUNP_submitForm,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+          patients,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
           P_findPatient_findUsePD_change,P_findPatient_findUsePD_clear,
