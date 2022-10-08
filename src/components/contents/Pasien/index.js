@@ -306,15 +306,15 @@ export default function Pasien({ props }) {
       { P_patient.data && <div className='content'>
         <Title props={{title: P_patient.data.name}} />
         <ButtonList props={{
-          options: ['Data Diri', 'BPJS/KIS', 'Pembayaran', 'Rekam Medis', 'Poli'], 
+          options: ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli'], 
           value: P_patient.option, 
           onChange: P_patient_option_change, 
           direction: 'row', 
         }} />
         { P_patient.option && <div>
-          <Gap props={{height: '15px'}} />
+          <Gap props={{height: '25px'}} />
           <HorLine />
-          <Gap props={{height: '15px'}} />
+          <Gap props={{height: '25px'}} />
         </div> }
 
         { P_patient.option === 'Data Diri' && <form className='row'>
@@ -468,6 +468,39 @@ export default function Pasien({ props }) {
             }} />
           </div>
         </form> }
+
+        { P_patient.option === 'Cara Pembayaran' && <form className='row'>
+          <div className='form'>
+            <RadioButton props={{
+              label: 'Cara Pembayaran', 
+              options: paymentMethodList, 
+              value: P_patient.data.paymentMethod, 
+              change: 'paymentMethod', 
+              // onChange: SUNP_paymentMethod_change, 
+            }} />
+            <RadioButton props={{
+              label: 'JKN', 
+              options: JKNList, 
+              value: P_patient.data.JKN, 
+              change: 'JKN', 
+              // onChange: SUNP_paymentMethod_change, 
+            }} />
+          </div>
+          <div className='form'>
+            <TextInput props={{
+              label: 'Asuransi Lainnya', 
+              value: P_patient.data.otherInsurance, 
+              change: 'otherInsurance', 
+              // onChange: SUNP_paymentMethod_change, 
+            }} />
+            <TextInput props={{
+              label: 'Nomor', 
+              value: P_patient.data.number, 
+              change: 'number', 
+              // onChange: SUNP_paymentMethod_change, 
+            }} />
+          </div>
+        </form>}
       </div> }
     </main>
   );
