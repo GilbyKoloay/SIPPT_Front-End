@@ -499,7 +499,7 @@ export default function Loket({ props }) {
             _id: MRres.data._id,
           }),
         });
-        const MRresDel = await MRreqDel;
+        const MRresDel = await MRreqDel.json();
         console.log(`MRresDel`);
         console.log(MRresDel);
       }
@@ -556,7 +556,7 @@ export default function Loket({ props }) {
               _id: MRres.data._id,
             }),
           });
-          const MRresDel = await MRreqDel;
+          const MRresDel = await MRreqDel.json();
           console.log(`MRresDel`);
           console.log(MRresDel);
 
@@ -570,7 +570,7 @@ export default function Loket({ props }) {
               _id: BPJSres.data._id,
             }),
           });
-          const BPJSresDel = BPJSreqDel;
+          const BPJSresDel = await BPJSreqDel.json();
           console.log(`BPJSresDel`);
           console.log(BPJSresDel);
         }
@@ -708,6 +708,33 @@ export default function Loket({ props }) {
     }});
   };
 
+  const [P_patient, setP_patient] = useState({
+    option: '',
+    data: null,
+    BPJSKIS: null, 
+  });
+
+  const P_patient_option_change = (val) => {
+    setP_patient({...P_patient, option: val});
+  }
+
+  const P_patient_data_change = async (val) => {
+    const req = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    const res = await req.json();
+    setP_patient(
+      (res.status === 'success') ? {...P_patient, BPJSKIS: res.data} :
+      (res.status === 'error') && {...P_patient, BPJSKIS: null}
+    );
+
+    setP_patient({...P_patient, data: val});
+  };
+
 
 
   // Run once when LOKET is loaded
@@ -741,7 +768,6 @@ export default function Loket({ props }) {
     <div className='loket'>
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
-        <button onClick={() => console.log(patients)}>SEE PATIENTS</button>
         <Dashboard props={{dashboardList, dashboard, setDashboard}} />
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
@@ -752,7 +778,7 @@ export default function Loket({ props }) {
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-          patients,
+          patients, P_patient, P_patient_option_change, P_patient_data_change,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
           P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,

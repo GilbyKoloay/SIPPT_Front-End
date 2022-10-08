@@ -7,7 +7,7 @@ export default function Table({ props }) {
     'Nama': '250px',
   };
 
-  const { titles, data } = props;
+  const { titles, selected, data, onClick } = props;
 
   return(
     <div className='atom-table'>
@@ -17,7 +17,7 @@ export default function Table({ props }) {
         ))}
       </div>
       {data.map((d, index) => (
-        <div key={index} className='row'>
+        <div key={index} className={`row ${selected && selected._id === d._id ? 'selected' : ''}`} onClick={() => onClick(d)}>
           <div style={{width: widths['No. Rekam Medis']}}>{d.medicalRecordNumber}</div>
           <div style={{width: widths['Nama']}}>{d.name}</div>
         </div>
