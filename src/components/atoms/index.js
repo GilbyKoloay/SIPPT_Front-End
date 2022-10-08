@@ -10,6 +10,7 @@ import RadioButton from './RadioButton';
 import ButtonList from './ButtonList';
 import Gap from './Gap';
 import HorLine from './HorLine';
+import Table from './Table';
 
 export {
     Title,
@@ -22,4 +23,5 @@ export {
     ButtonList,
     Gap,
     HorLine,
+    Table,
 };

@@ -15,6 +15,7 @@ import {
   TextAreaInput,
   ButtonClear,
   DateInput,
+  Table,
 } from '../../atoms';
 
 export default function Pasien({ props }) {
@@ -29,16 +30,37 @@ export default function Pasien({ props }) {
 
 
 
-  const [result_patients, setResult_patients] = useState(null);
+  const [patients_result, setPatients_result] = useState(null);
 
 
-
+  
   const filterByMRN = () => {
+    P_findPatient.medicalRecordNumber.medicalRecordNumber !== '' ? setPatients_result(patients.filter(p => p.medicalRecordNumber.toString() === P_findPatient.medicalRecordNumber.medicalRecordNumber)) : setPatients_result(patients);
+  };
+
+  const filterByPD = () => {
+    // P_findPatient.name !== '' && setPatients_result(patients.filter(p => p.name.toString() === P_findPatient.personalData.name));
+    // P_findPatient.sex !== '' && setPatients_result(patients.filter(p => p.sex.toString() === P_findPatient.personalData.sex));
+
+    // setPatients_result(patients.map(p => {
+    //   P_findPatient.personalData.name !== '' && 
+    // }));
+  };
+
+  const filterByBPJSKIS = () => {
     
+  };
+
+  const filter = () => {
+    (P_findPatient.findUse === 'Cari Menggunakan Nomor Rekam Medis') && filterByMRN();
+    (P_findPatient.findUse === 'Cari Menggunakan Data Diri') && filterByPD();
+    (P_findPatient.findUse === 'Cari Menggunakan BPJS/KIS') && filterByBPJSKIS();
+    // console.log(patients_result);
   };
   
   useEffect(() => {
-
+    filter();
+    console.log(patients_result);
   }, [P_findPatient]);
 
 
@@ -285,7 +307,11 @@ export default function Pasien({ props }) {
         </div>
         <div className='content'>
           <Title props={{title: 'Hasil'}} />
-          <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{result_patients ? result_patients.length : '0'}</b></div>
+          <div className='textErrMsg' style={{color: 'black', marginBottom: '15px'}}>Total pasien ditemukan: <b>{patients_result ? patients_result.length : '0'}</b></div>
+          <Table props={{
+            titles: ['No. Rekam Medis', 'Nama'], 
+            data: patients_result, 
+          }} />
         </div>
       </div>
     </main>

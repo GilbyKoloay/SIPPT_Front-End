@@ -732,7 +732,7 @@ export default function Loket({ props }) {
     // console.log(P_findPatient.findUse); // dev
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
-    console.log(P_findPatient.BPJSKIS); // dev
+    // console.log(P_findPatient.BPJSKIS); // dev
   }, [P_findPatient]);
 
 

@@ -1,0 +1,49 @@
+/* { */
+    /* overflow-x: auto */
+/* } */
+
+.atom-table {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-x: auto;
+
+    /* border: 2.5px solid blue; */
+}
+
+.atom-table .row.title {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: var(--tertiaryColor);
+}
+.atom-table .row.title:hover {
+    cursor: default;
+    background-color: var(--tertiaryColor);
+}
+
+.atom-table .row {
+    display: flex;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.atom-table .row:last-child {
+    border-end-end-radius: 10px;
+    border-end-start-radius: 10px;
+    border-bottom: 1px solid black;
+}
+.atom-table .row:hover {
+    cursor: pointer;
+    background-color: var(--primaryColor);
+}
+
+.atom-table .row div {
+    padding: 7.5px;
+    color: black;
+    border-right: 1px solid black;
+
+    /* border: 1px solid red; */
+}
+.atom-table .row div:last-child {
+    border: 0;
+}
