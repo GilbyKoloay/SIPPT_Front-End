@@ -419,6 +419,55 @@ export default function Pasien({ props }) {
             }} />
           </div>
         </form> }
+        
+        { P_patient.option === 'BPJS/KIS' && <form className='row'>
+          <div className='form'>
+            <TextInput props={{
+              label: "No. Kartu", 
+              value: P_patient.BPJSKIS.cardNumber, 
+              change: 'cardNumber', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+            <TextInput props={{
+              label: "Nama", 
+              value: P_patient.BPJSKIS.name,
+              change: 'name', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+            <DateInput props={{
+              label: 'Tanggal Lahir', 
+              value: P_patient.BPJSKIS.birthDate, 
+              change: 'birthDate', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+            <TextInput props={{
+              label: 'Faskes Tingkat I', 
+              value: P_patient.BPJSKIS.healthFacilityLevel, 
+              change: 'healthFacilityLevel', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+            <TextInput props={{
+              label: 'Kelas Rawat', 
+              value: P_patient.BPJSKIS.nursingClass, 
+              change: 'nursingClass', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+          </div>
+          <div className='form'>
+            <TextInput props={{
+              label: 'NIK', 
+              value: P_patient.BPJSKIS.NIK, 
+              change: 'NIK', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+            <TextAreaInput props={{
+              label: 'Alamat', 
+              value: P_patient.BPJSKIS.address, 
+              change: 'address', 
+              // onChange: SUNP_BPJSKISData_change, 
+            }} />
+          </div>
+        </form> }
       </div> }
     </main>
   );

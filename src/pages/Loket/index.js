@@ -727,12 +727,11 @@ export default function Loket({ props }) {
       },
     });
     const res = await req.json();
-    setP_patient(
-      (res.status === 'success') ? {...P_patient, BPJSKIS: res.data} :
-      (res.status === 'error') && {...P_patient, BPJSKIS: null}
-    );
 
-    setP_patient({...P_patient, data: val});
+    setP_patient({...P_patient,
+      data: val,
+      BPJSKIS: (res.status === 'success') ? res.data : null,
+    });
   };
 
 
@@ -745,7 +744,7 @@ export default function Loket({ props }) {
   // LOKET
   useEffect(() => {
     
-  }, [dashboard, patients]);
+  }, [dashboard]);
 
   // Sign Up New Patient
   useEffect(() => {
@@ -760,7 +759,8 @@ export default function Loket({ props }) {
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
     // console.log(P_findPatient.BPJSKIS); // dev
-  }, [P_findPatient]);
+    console.log(P_patient); // dev
+  }, [P_findPatient, P_patient]);
 
 
 
