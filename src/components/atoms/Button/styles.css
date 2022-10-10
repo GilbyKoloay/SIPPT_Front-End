@@ -6,8 +6,12 @@
     justify-content: flex-start;
 }
 
+.atom-button.position-center {
+    justify-content: center;
+}
+
 .atom-button.position-right {
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .atom-button button {

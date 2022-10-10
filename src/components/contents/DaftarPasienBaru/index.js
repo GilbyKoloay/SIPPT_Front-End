@@ -7,7 +7,6 @@ import {
   TextInput,
   Select,
   DateInput,
-  ButtonClear,
   TextAreaInput,
   RadioButton,
   Button,
@@ -240,11 +239,11 @@ export default function DaftarPasienBaru({ props }) {
         onClick: SUNP_submitForm, 
         type: 'primary', 
       }} />
-      <Button props={{
+      {/* <Button props={{
         label: 'Tidak dapat mendaftar pasien baru karena data tidak valid', 
         // onClick: , 
         type: 'error', 
-      }} />
+      }} /> */}
     </main>
   );
 }

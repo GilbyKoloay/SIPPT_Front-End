@@ -13,7 +13,6 @@ import {
   RadioButton,
   Select,
   TextAreaInput,
-  ButtonClear,
   DateInput,
   Table,
   Button,
@@ -86,7 +85,12 @@ export default function Pasien({ props }) {
               change: 'medicalRecordNumber', 
               onChange: P_findPatient_findUseMRN_change, 
             }} />
-            <ButtonClear props={{onClick: P_findPatient_findUseMRN_clear}} />
+            <Button props={{
+              label: 'Bersihkan', 
+              onClick: P_findPatient_findUseMRN_clear, 
+              type: 'quaternary', 
+              position: 'right', 
+            }} />
           </form> }
           { P_findPatient.findUse === 'Cari Menggunakan Data Diri' && <form className='col'>
             <TextInput props={{
@@ -230,7 +234,12 @@ export default function Pasien({ props }) {
               change: 'number', 
               onChange: P_findPatient_findUsePD_change, P_findPatient_findUsePD_clear, 
             }} />
-            <ButtonClear props={{onClick: P_findPatient_findUsePD_clear}} />
+            <Button props={{
+              label: 'Bersihkan', 
+              onClick: P_findPatient_findUsePD_clear, 
+              type: 'quaternary', 
+              position: 'right', 
+            }} />
           </form> }
           { P_findPatient.findUse === 'Cari Menggunakan BPJS/KIS' && <form className='col'>
             <TextInput props={{
@@ -290,7 +299,12 @@ export default function Pasien({ props }) {
               change: 'address', 
               onChange: P_findPatient_findUseBPJSKIS_change, 
             }} />
-            <ButtonClear props={{onClick: P_findPatient_findUseBPJSKIS_clear}} />
+            <Button props={{
+              label: 'Bersihkan', 
+              onClick: P_findPatient_findUseBPJSKIS_clear, 
+              type: 'quaternary', 
+              position: 'right', 
+            }} />
           </form> }
         </div>
         <div className='content'>
@@ -298,14 +312,14 @@ export default function Pasien({ props }) {
           <div className='textErrMsg' style={{color: 'black', marginBottom: '15px'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div>
           <Table props={{
             titles: ['No. Rekam Medis', 'Nama'], 
-            selected: P_patient.data, 
+            selected: P_patient.PD_PM, 
             data: patientsResult, 
             onClick: P_patient_data_change, 
           }} />
         </div>
       </div>
-      { P_patient.data && <div className='content'>
-        <Title props={{title: P_patient.data.name}} />
+      { P_patient.PD_PM && <div className='content'>
+        <Title props={{title: P_patient.PD_PM.name}} />
         <ButtonList props={{
           options: ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli'], 
           value: P_patient.option, 
@@ -318,157 +332,173 @@ export default function Pasien({ props }) {
           <Gap props={{height: '25px'}} />
         </div> }
 
-        { P_patient.option === 'Data Diri' && <form className='row'>
-          <div className='form'>
-            <TextInput props={{
-              label: 'No. Rekam Medis', 
-              value: P_patient.data.medicalRecordNumber, 
-              change: 'medicalRecordNumber', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <TextInput props={{
-              label: 'Nama', 
-              value: P_patient.data.name, 
-              change: 'name', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <RadioButton props={{
-              label: "Jenis Kelamin", 
-              options: sexList, 
-              value: P_patient.data.sex, 
-              change: 'sex', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
-            <Select props={{
-              label: 'Kab. / Kota', 
-              options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
-              value: P_patient.data.address.districtCity, 
-              change: 'districtCity', 
-              // onChange: P_patient_option_change, 
-              tab: true, 
-            }} />
-            <Select props={{
-              label: 'Kec.', 
-              options: P_patient.data.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_patient.data.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
-              value: P_patient.data.address.subDistrict, 
-              change: 'subDistrict', 
-              // onChange: P_patient_option_change, 
-              tab: true, 
-            }} />
-            <Select props={{
-              label: 'Kel. / Desa', 
-              options: P_patient.data.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_patient.data.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_patient.data.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
-              value: P_patient.data.address.wardVillage, 
-              change: 'wardVillage', 
-              // onChange: P_patient_option_change, 
-              tab: true, 
-            }} />
-            <TextInput props={{
-              label: 'No. Telepon', 
-              value: P_patient.data.phoneNumber, 
-              change: 'phoneNumber', 
-              // onChange: P_patient_option_change,
-            }} />
-          </div>
-          <div className='form'>
-            <TextInput props={{
-              label: 'Tempat Lahir', 
-              value: P_patient.data.birthPlace, 
-              change: 'birthPlace', 
-              // onChange: P_patient_option_change,
-            }} />
-            <DateInput props={{
-              label: 'Tanggal Lahir', 
-              value: P_patient.data.birthDate, 
-              change: 'birthDate', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <TextInput props={{
-              label: 'Umur', 
-              value: P_patient.data.age, 
-              change: 'age', 
-              onChange: () => console.log(`function not yet made`), 
-              disabled: true, 
-            }} />
-            <TextInput props={{
-              label: 'Nama KK', 
-              value: P_patient.data.familyCardName, 
-              change: 'familyCardName', 
-              // onChange: P_patient_option_change,
-            }} />
-            <Select props={{
-              label: 'Agama', 
-              options: ['(AGAMA)', ...religionList], 
-              value: P_patient.data.religion, 
-              change: 'religion', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <Select props={{
-              label: 'Status', 
-              options: ['(STATUS)', ...maritalStatusList], 
-              value: P_patient.data.maritalStatus, 
-              change: 'maritalStatus', 
-              // onChange: P_patient_option_change, 
-            }} />
-            <Select props={{
-              label: 'Pekerjaan', 
-              options: ['(PEKERJAAN)', ...jobList], 
-              value: P_patient.data.job, 
-              change: 'job', 
-              // onChange: P_patient_option_change, 
-            }} />
-          </div>
-        </form> }
+        { P_patient.option === 'Data Diri' && <div>
+          <form className='row'>
+            <div className='form'>
+              <TextInput props={{
+                label: 'No. Rekam Medis', 
+                value: P_patient.PD_PM.medicalRecordNumber, 
+                change: 'medicalRecordNumber', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <TextInput props={{
+                label: 'Nama', 
+                value: P_patient.PD_PM.name, 
+                change: 'name', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <RadioButton props={{
+                label: "Jenis Kelamin", 
+                options: sexList, 
+                value: P_patient.PD_PM.sex, 
+                change: 'sex', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
+              <Select props={{
+                label: 'Kab. / Kota', 
+                options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
+                value: P_patient.PD_PM.address.districtCity, 
+                change: 'districtCity', 
+                // onChange: P_patient_option_change, 
+                tab: true, 
+              }} />
+              <Select props={{
+                label: 'Kec.', 
+                options: P_patient.PD_PM.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_patient.PD_PM.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
+                value: P_patient.PD_PM.address.subDistrict, 
+                change: 'subDistrict', 
+                // onChange: P_patient_option_change, 
+                tab: true, 
+              }} />
+              <Select props={{
+                label: 'Kel. / Desa', 
+                options: P_patient.PD_PM.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_patient.PD_PM.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_patient.PD_PM.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
+                value: P_patient.PD_PM.address.wardVillage, 
+                change: 'wardVillage', 
+                // onChange: P_patient_option_change, 
+                tab: true, 
+              }} />
+              <TextInput props={{
+                label: 'No. Telepon', 
+                value: P_patient.PD_PM.phoneNumber, 
+                change: 'phoneNumber', 
+                // onChange: P_patient_option_change,
+              }} />
+            </div>
+            <div className='form'>
+              <TextInput props={{
+                label: 'Tempat Lahir', 
+                value: P_patient.PD_PM.birthPlace, 
+                change: 'birthPlace', 
+                // onChange: P_patient_option_change,
+              }} />
+              <DateInput props={{
+                label: 'Tanggal Lahir', 
+                value: P_patient.PD_PM.birthDate, 
+                change: 'birthDate', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <TextInput props={{
+                label: 'Umur', 
+                value: P_patient.PD_PM.age, 
+                change: 'age', 
+                onChange: () => console.log(`function not yet made`), 
+                disabled: true, 
+              }} />
+              <TextInput props={{
+                label: 'Nama KK', 
+                value: P_patient.PD_PM.familyCardName, 
+                change: 'familyCardName', 
+                // onChange: P_patient_option_change,
+              }} />
+              <Select props={{
+                label: 'Agama', 
+                options: ['(AGAMA)', ...religionList], 
+                value: P_patient.PD_PM.religion, 
+                change: 'religion', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <Select props={{
+                label: 'Status', 
+                options: ['(STATUS)', ...maritalStatusList], 
+                value: P_patient.PD_PM.maritalStatus, 
+                change: 'maritalStatus', 
+                // onChange: P_patient_option_change, 
+              }} />
+              <Select props={{
+                label: 'Pekerjaan', 
+                options: ['(PEKERJAAN)', ...jobList], 
+                value: P_patient.PD_PM.job, 
+                change: 'job', 
+                // onChange: P_patient_option_change, 
+              }} />
+            </div>
+          </form>
+          { (__user.role === 'LOKET' || __user.role === 'ADMINISTRATOR') && <Button props={{
+            label: 'Ubah', 
+            // onClick: , 
+            type: 'tertiary', 
+            position: 'right', 
+          }} /> }
+        </div> }
         
-        { P_patient.option === 'BPJS/KIS' && <form className='row'>
-          <div className='form'>
-            <TextInput props={{
-              label: "No. Kartu", 
-              value: P_patient.BPJSKIS.cardNumber, 
-              change: 'cardNumber', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-            <TextInput props={{
-              label: "Nama", 
-              value: P_patient.BPJSKIS.name,
-              change: 'name', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-            <DateInput props={{
-              label: 'Tanggal Lahir', 
-              value: P_patient.BPJSKIS.birthDate, 
-              change: 'birthDate', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-            <TextInput props={{
-              label: 'Faskes Tingkat I', 
-              value: P_patient.BPJSKIS.healthFacilityLevel, 
-              change: 'healthFacilityLevel', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-            <TextInput props={{
-              label: 'Kelas Rawat', 
-              value: P_patient.BPJSKIS.nursingClass, 
-              change: 'nursingClass', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-          </div>
-          <div className='form'>
-            <TextInput props={{
-              label: 'NIK', 
-              value: P_patient.BPJSKIS.NIK, 
-              change: 'NIK', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-            <TextAreaInput props={{
-              label: 'Alamat', 
-              value: P_patient.BPJSKIS.address, 
-              change: 'address', 
-              // onChange: SUNP_BPJSKISData_change, 
-            }} />
-          </div>
-        </form> }
+        { P_patient.option === 'BPJS/KIS' && <div>
+          <form className='row'>
+            <div className='form'>
+              <TextInput props={{
+                label: "No. Kartu", 
+                value: P_patient.BPJSKIS.cardNumber, 
+                change: 'cardNumber', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+              <TextInput props={{
+                label: "Nama", 
+                value: P_patient.BPJSKIS.name,
+                change: 'name', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+              <DateInput props={{
+                label: 'Tanggal Lahir', 
+                value: P_patient.BPJSKIS.birthDate, 
+                change: 'birthDate', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+              <TextInput props={{
+                label: 'Faskes Tingkat I', 
+                value: P_patient.BPJSKIS.healthFacilityLevel, 
+                change: 'healthFacilityLevel', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+              <TextInput props={{
+                label: 'Kelas Rawat', 
+                value: P_patient.BPJSKIS.nursingClass, 
+                change: 'nursingClass', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+            </div>
+            <div className='form'>
+              <TextInput props={{
+                label: 'NIK', 
+                value: P_patient.BPJSKIS.NIK, 
+                change: 'NIK', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+              <TextAreaInput props={{
+                label: 'Alamat', 
+                value: P_patient.BPJSKIS.address, 
+                change: 'address', 
+                // onChange: SUNP_BPJSKISData_change, 
+              }} />
+            </div>
+          </form>
+          { (__user.role === 'LOKET' || __user.role === 'ADMINISTRATOR') && <Button props={{
+            label: 'Ubah', 
+            // onClick: , 
+            type: 'tertiary', 
+            position: 'right', 
+          }} /> }
+        </div> }
 
         { P_patient.option === 'Cara Pembayaran' && <div>
           <form className='row'>
@@ -476,14 +506,14 @@ export default function Pasien({ props }) {
               <RadioButton props={{
                 label: 'Cara Pembayaran', 
                 options: paymentMethodList, 
-                value: P_patient.data.paymentMethod, 
+                value: P_patient.PD_PM.paymentMethod, 
                 change: 'paymentMethod', 
                 // onChange: SUNP_paymentMethod_change, 
               }} />
               <RadioButton props={{
                 label: 'JKN', 
                 options: JKNList, 
-                value: P_patient.data.JKN, 
+                value: P_patient.PD_PM.JKN, 
                 change: 'JKN', 
                 // onChange: SUNP_paymentMethod_change, 
               }} />
@@ -491,38 +521,24 @@ export default function Pasien({ props }) {
             <div className='form'>
               <TextInput props={{
                 label: 'Asuransi Lainnya', 
-                value: P_patient.data.otherInsurance, 
+                value: P_patient.PD_PM.otherInsurance, 
                 change: 'otherInsurance', 
                 // onChange: SUNP_paymentMethod_change, 
               }} />
               <TextInput props={{
                 label: 'Nomor', 
-                value: P_patient.data.number, 
+                value: P_patient.PD_PM.number, 
                 change: 'number', 
                 // onChange: SUNP_paymentMethod_change, 
               }} />
             </div>
           </form>
-          <Button props={{
-            label: 'Primary', 
-            // onClick: , 
-            type: 'primary', 
-          }} />
-          <Button props={{
-            label: 'Secondary', 
-            // onClick: , 
-            type: 'secondary', 
-          }} />
-          <Button props={{
-            label: 'Tertiary', 
+          { (__user.role === 'LOKET' || __user.role === 'ADMINISTRATOR') && <Button props={{
+            label: 'Ubah', 
             // onClick: , 
             type: 'tertiary', 
-          }} />
-          <Button props={{
-            label: 'Quaternary', 
-            // onClick: , 
-            type: 'quaternary', 
-          }} />
+            position: 'right', 
+          }} /> }
         </div>}
       </div> }
     </main>

@@ -718,7 +718,7 @@ export default function Loket({ props }) {
 
   const [P_patient, setP_patient] = useState({
     option: '',
-    data: null,
+    PD_PM: null,
     BPJSKIS: null, 
   });
 
@@ -737,7 +737,7 @@ export default function Loket({ props }) {
     const res = await req.json();
 
     setP_patient({...P_patient,
-      data: val,
+      PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data : null,
     });
   };
