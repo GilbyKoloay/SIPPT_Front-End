@@ -21,7 +21,9 @@ import {
 export default function Pasien({ props }) {
   const {
     __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-    patients, P_patient, P_patient_option_change, P_patient_data_change,
+    patients,
+    P_patient, P_patient_option_change, P_patient_PDPM_change,
+    P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
     P_findPatient, P_findPatient_findUse_change,
     P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
     P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
@@ -60,7 +62,7 @@ export default function Pasien({ props }) {
   
   useEffect(() => {
     filter();
-  }, [P_findPatient, P_patient]);
+  }, [P_findPatient, P_patient, P_patientTemp]);
 
 
 
@@ -314,7 +316,7 @@ export default function Pasien({ props }) {
             titles: ['No. Rekam Medis', 'Nama'], 
             selected: P_patient.PD_PM, 
             data: patientsResult, 
-            onClick: P_patient_data_change, 
+            onClick: P_patient_PDPM_change, 
           }} />
         </div>
       </div>
@@ -337,101 +339,101 @@ export default function Pasien({ props }) {
             <div className='form'>
               <TextInput props={{
                 label: 'No. Rekam Medis', 
-                value: P_patient.PD_PM.medicalRecordNumber, 
+                value: P_patientTemp.PD_PM.medicalRecordNumber, 
                 change: 'medicalRecordNumber', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <TextInput props={{
                 label: 'Nama', 
-                value: P_patient.PD_PM.name, 
+                value: P_patientTemp.PD_PM.name, 
                 change: 'name', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <RadioButton props={{
                 label: "Jenis Kelamin", 
                 options: sexList, 
-                value: P_patient.PD_PM.sex, 
+                value: P_patientTemp.PD_PM.sex, 
                 change: 'sex', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
               <Select props={{
                 label: 'Kab. / Kota', 
                 options: ['(KABUPATEN / KOTA)', ...addressList.map(dc => dc.districtCity)], 
-                value: P_patient.PD_PM.address.districtCity, 
+                value: P_patientTemp.PD_PM.address.districtCity, 
                 change: 'districtCity', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_address_change, 
                 tab: true, 
               }} />
               <Select props={{
                 label: 'Kec.', 
-                options: P_patient.PD_PM.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_patient.PD_PM.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
-                value: P_patient.PD_PM.address.subDistrict, 
+                options: P_patientTemp.PD_PM.address.districtCity === '' ? ['(KECAMATAN)'] : addressList.map(dc => (dc.districtCity === P_patientTemp.PD_PM.address.districtCity) && ['(KECAMATAN)', ...dc.subDistricts.map(sd => sd.subDistrict)]).filter(v => v)[0], 
+                value: P_patientTemp.PD_PM.address.subDistrict, 
                 change: 'subDistrict', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_address_change, 
                 tab: true, 
               }} />
               <Select props={{
                 label: 'Kel. / Desa', 
-                options: P_patient.PD_PM.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_patient.PD_PM.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_patient.PD_PM.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
-                value: P_patient.PD_PM.address.wardVillage, 
+                options: P_patientTemp.PD_PM.address.subDistrict === '' ? ['(KELURAHAN / DESA)'] : addressList.map(dc => (dc.districtCity === P_patientTemp.PD_PM.address.districtCity) && dc.subDistricts.map(sd => (sd.subDistrict === P_patientTemp.PD_PM.address.subDistrict) && ['(KELURAHAN / DESA)', ...sd.wardsVillages.map(wv => wv)]).filter(v => v)[0]).filter(v => v)[0], 
+                value: P_patientTemp.PD_PM.address.wardVillage, 
                 change: 'wardVillage', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_address_change, 
                 tab: true, 
               }} />
               <TextInput props={{
                 label: 'No. Telepon', 
-                value: P_patient.PD_PM.phoneNumber, 
+                value: P_patientTemp.PD_PM.phoneNumber, 
                 change: 'phoneNumber', 
-                // onChange: P_patient_option_change,
+                onChange: P_patientTemp_personalData_change, 
               }} />
             </div>
             <div className='form'>
               <TextInput props={{
                 label: 'Tempat Lahir', 
-                value: P_patient.PD_PM.birthPlace, 
+                value: P_patientTemp.PD_PM.birthPlace, 
                 change: 'birthPlace', 
-                // onChange: P_patient_option_change,
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <DateInput props={{
                 label: 'Tanggal Lahir', 
-                value: P_patient.PD_PM.birthDate, 
+                value: P_patientTemp.PD_PM.birthDate, 
                 change: 'birthDate', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <TextInput props={{
                 label: 'Umur', 
-                value: P_patient.PD_PM.age, 
+                value: P_patientTemp.PD_PM.age, 
                 change: 'age', 
                 onChange: () => console.log(`function not yet made`), 
                 disabled: true, 
               }} />
               <TextInput props={{
                 label: 'Nama KK', 
-                value: P_patient.PD_PM.familyCardName, 
+                value: P_patientTemp.PD_PM.familyCardName, 
                 change: 'familyCardName', 
-                // onChange: P_patient_option_change,
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <Select props={{
                 label: 'Agama', 
                 options: ['(AGAMA)', ...religionList], 
-                value: P_patient.PD_PM.religion, 
+                value: P_patientTemp.PD_PM.religion, 
                 change: 'religion', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <Select props={{
                 label: 'Status', 
                 options: ['(STATUS)', ...maritalStatusList], 
-                value: P_patient.PD_PM.maritalStatus, 
+                value: P_patientTemp.PD_PM.maritalStatus, 
                 change: 'maritalStatus', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
               <Select props={{
                 label: 'Pekerjaan', 
                 options: ['(PEKERJAAN)', ...jobList], 
-                value: P_patient.PD_PM.job, 
+                value: P_patientTemp.PD_PM.job, 
                 change: 'job', 
-                // onChange: P_patient_option_change, 
+                onChange: P_patientTemp_personalData_change, 
               }} />
             </div>
           </form>

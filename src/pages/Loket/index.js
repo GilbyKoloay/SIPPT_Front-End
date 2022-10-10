@@ -722,11 +722,16 @@ export default function Loket({ props }) {
     BPJSKIS: null, 
   });
 
+  const [P_patientTemp, setP_patientTemp] = useState({
+    PD_PM: null,
+    BPJSKIS: null,
+  });
+
   const P_patient_option_change = (val) => {
     setP_patient({...P_patient, option: val});
   }
 
-  const P_patient_data_change = async (val) => {
+  const P_patient_PDPM_change = async (val) => {
     const req = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
       method: 'GET',
       headers: {
@@ -740,8 +745,39 @@ export default function Loket({ props }) {
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data : null,
     });
+
+    setP_patientTemp({
+      PD_PM: val,
+      BPJSKIS: (res.status === 'success') ? res.data: null,
+    });
   };
 
+  const P_patientTemp_personalData_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
+  const P_patientTemp_personalData_address_change = (prop, val) => {
+    setP_patientTemp(
+      (prop === 'districtCity') ? {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }}} :
+      (prop === 'subDistrict') ? {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: P_patientTemp.PD_PM.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }}} :
+      (prop === 'wardVillage') && {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: P_patientTemp.PD_PM.address.districtCity,
+        subDistrict: P_patientTemp.PD_PM.address.subDistrict,
+        wardVillage: val,
+      }}}
+    );
+  };
 
 
   // Run once when LOKET is loaded
@@ -767,8 +803,9 @@ export default function Loket({ props }) {
     // console.log(P_findPatient.medicalRecordNumber); // dev
     // console.log(P_findPatient.personalData); // dev
     // console.log(P_findPatient.BPJSKIS); // dev
-    console.log(P_patient); // dev
-  }, [P_findPatient, P_patient]);
+    // console.log(P_patient); // dev
+    console.log(`P_patientTemp`, P_patientTemp); // dev
+  }, [P_findPatient, P_patient, P_patientTemp]);
 
 
 
@@ -786,7 +823,9 @@ export default function Loket({ props }) {
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
           __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
-          patients, P_patient, P_patient_option_change, P_patient_data_change,
+          patients,
+          P_patient, P_patient_option_change, P_patient_PDPM_change,
+          P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
           P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
