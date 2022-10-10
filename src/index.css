@@ -28,7 +28,9 @@
     --tertiaryColorHover: #3D5D3D;
 
     --errFontColor: #FF0000;
-    --errBgColor: #F3C3C3;
+    --errBgColor: #EE7777;
+    --errBgColorHover: #CC5555;
+    --errInputBgColor: #F3C3C3;
 
     --placeholderColor: #888888;
     --disabledBgColor: #D3D3D3;
@@ -84,5 +86,5 @@ body {
 }
 
 .inputTextErr {
-    background-color: var(--errBgColor);
+    background-color: var(--errInputBgColor);
 }

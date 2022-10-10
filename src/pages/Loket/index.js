@@ -380,7 +380,9 @@ export default function Loket({ props }) {
     );
   };
 
-  const SUNP_personalData_clear = () => {
+  const SUNP_personalData_clear = (e) => {
+    e.preventDefault();
+
     setSUNP_personalData({
       medicalRecordNumber: '',
       name: '',
@@ -412,7 +414,9 @@ export default function Loket({ props }) {
     );
   };
 
-  const SUNP_BPJSKISData_clear = () => {
+  const SUNP_BPJSKISData_clear = (e) => {
+    e.preventDefault();
+    
     setSUNP_BPJSKISData({
       cardNumber: '',
       name: '',
@@ -435,7 +439,9 @@ export default function Loket({ props }) {
     );
   };
 
-  const SUNP_paymentMethod_clear = () => {
+  const SUNP_paymentMethod_clear = (e) => {
+    e.preventDefault();
+    
     setSUNP_paymentMethod({
       paymentMethod: '',
       JKN: '',
@@ -444,7 +450,9 @@ export default function Loket({ props }) {
     });
   };
 
-  const SUNP_submitForm = async () => {
+  const SUNP_submitForm = async (e) => {
+    e.preventDefault();
+
     // create new patient's medical record
     const MRreq = await fetch(`${process.env.REACT_APP_API}/medicalRecord/create`, {
       method: 'POST',
@@ -777,7 +785,7 @@ export default function Loket({ props }) {
           SUNP_submitForm,
         }} />}
         {(dashboard.name === 'Pasien') && <Pasien props={{
-          addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+          __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
           patients, P_patient, P_patient_option_change, P_patient_data_change,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,

@@ -1,0 +1,62 @@
+.atom-button {
+    display: flex;
+}
+
+.atom-button.position-left {
+    justify-content: flex-start;
+}
+
+.atom-button.position-right {
+    justify-content: end;
+}
+
+.atom-button button {
+    background-color: white;
+    padding: 7.5px;
+    border-radius: 10px;
+    min-width: 150px;
+    border: 1px solid black;
+}
+.atom-button button:hover {
+    cursor: pointer;
+}
+
+.atom-button button.type-primary {
+    background-color: var(--primaryColor);
+}
+.atom-button button.type-primary:hover {
+    background-color: var(--primaryColorHover);
+}
+
+.atom-button button.type-secondary {
+    background-color: white;
+}
+.atom-button button.atom-button.type-secondary:hover {
+    background-color: var(--primaryColor);
+}
+
+.atom-button button.type-tertiary {
+    background-color: var(--tertiaryColor);
+    color: white;
+}
+.atom-button button.type-tertiary:hover {
+    background-color: var(--tertiaryColorHover);
+}
+
+.atom-button button.type-quaternary {
+    background-color: var(--neutralColor);
+}
+.atom-button button.type-quaternary:hover {
+    background-color: var(--neutralColorHover);
+}
+
+.atom-button button.type-error {
+    background-color: var(--errBgColor);
+}
+.atom-button button.type-error:hover {
+    background-color: var(--errBgColorHover);
+}
+
+.atom-button button.position-full {
+    width: 100%;
+}

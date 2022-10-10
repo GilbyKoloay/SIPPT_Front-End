@@ -16,11 +16,12 @@ import {
   ButtonClear,
   DateInput,
   Table,
+  Button,
 } from '../../atoms';
 
 export default function Pasien({ props }) {
   const {
-    addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+    __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
     patients, P_patient, P_patient_option_change, P_patient_data_change,
     P_findPatient, P_findPatient_findUse_change,
     P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
@@ -323,13 +324,13 @@ export default function Pasien({ props }) {
               label: 'No. Rekam Medis', 
               value: P_patient.data.medicalRecordNumber, 
               change: 'medicalRecordNumber', 
-              // onChange: P_patient_option_change,
+              // onChange: P_patient_option_change, 
             }} />
             <TextInput props={{
               label: 'Nama', 
               value: P_patient.data.name, 
               change: 'name', 
-              // onChange: P_patient_option_change,
+              // onChange: P_patient_option_change, 
             }} />
             <RadioButton props={{
               label: "Jenis Kelamin", 
@@ -469,38 +470,60 @@ export default function Pasien({ props }) {
           </div>
         </form> }
 
-        { P_patient.option === 'Cara Pembayaran' && <form className='row'>
-          <div className='form'>
-            <RadioButton props={{
-              label: 'Cara Pembayaran', 
-              options: paymentMethodList, 
-              value: P_patient.data.paymentMethod, 
-              change: 'paymentMethod', 
-              // onChange: SUNP_paymentMethod_change, 
-            }} />
-            <RadioButton props={{
-              label: 'JKN', 
-              options: JKNList, 
-              value: P_patient.data.JKN, 
-              change: 'JKN', 
-              // onChange: SUNP_paymentMethod_change, 
-            }} />
-          </div>
-          <div className='form'>
-            <TextInput props={{
-              label: 'Asuransi Lainnya', 
-              value: P_patient.data.otherInsurance, 
-              change: 'otherInsurance', 
-              // onChange: SUNP_paymentMethod_change, 
-            }} />
-            <TextInput props={{
-              label: 'Nomor', 
-              value: P_patient.data.number, 
-              change: 'number', 
-              // onChange: SUNP_paymentMethod_change, 
-            }} />
-          </div>
-        </form>}
+        { P_patient.option === 'Cara Pembayaran' && <div>
+          <form className='row'>
+            <div className='form'>
+              <RadioButton props={{
+                label: 'Cara Pembayaran', 
+                options: paymentMethodList, 
+                value: P_patient.data.paymentMethod, 
+                change: 'paymentMethod', 
+                // onChange: SUNP_paymentMethod_change, 
+              }} />
+              <RadioButton props={{
+                label: 'JKN', 
+                options: JKNList, 
+                value: P_patient.data.JKN, 
+                change: 'JKN', 
+                // onChange: SUNP_paymentMethod_change, 
+              }} />
+            </div>
+            <div className='form'>
+              <TextInput props={{
+                label: 'Asuransi Lainnya', 
+                value: P_patient.data.otherInsurance, 
+                change: 'otherInsurance', 
+                // onChange: SUNP_paymentMethod_change, 
+              }} />
+              <TextInput props={{
+                label: 'Nomor', 
+                value: P_patient.data.number, 
+                change: 'number', 
+                // onChange: SUNP_paymentMethod_change, 
+              }} />
+            </div>
+          </form>
+          <Button props={{
+            label: 'Primary', 
+            // onClick: , 
+            type: 'primary', 
+          }} />
+          <Button props={{
+            label: 'Secondary', 
+            // onClick: , 
+            type: 'secondary', 
+          }} />
+          <Button props={{
+            label: 'Tertiary', 
+            // onClick: , 
+            type: 'tertiary', 
+          }} />
+          <Button props={{
+            label: 'Quaternary', 
+            // onClick: , 
+            type: 'quaternary', 
+          }} />
+        </div>}
       </div> }
     </main>
   );

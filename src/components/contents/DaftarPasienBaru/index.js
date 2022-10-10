@@ -10,6 +10,7 @@ import {
   ButtonClear,
   TextAreaInput,
   RadioButton,
+  Button,
 } from '../../atoms';
 
 export default function DaftarPasienBaru({ props }) {
@@ -127,7 +128,12 @@ export default function DaftarPasienBaru({ props }) {
             }} />
           </div>
         </form>
-        <ButtonClear props={{onClick: SUNP_personalData_clear}} />
+        <Button props={{
+          label: 'Bersihkan', 
+          onClick: SUNP_personalData_clear, 
+          type: 'quaternary', 
+          position: 'right', 
+        }} />
       </div>
 
       <div className='content'>
@@ -180,7 +186,12 @@ export default function DaftarPasienBaru({ props }) {
             }} />
           </div>
         </form>
-        <ButtonClear props={{onClick: SUNP_BPJSKISData_clear}} />
+        <Button props={{
+          label: 'Bersihkan', 
+          onClick: SUNP_BPJSKISData_clear, 
+          type: 'quaternary', 
+          position: 'right', 
+        }} />
       </div>
 
       <div className='content'>
@@ -217,10 +228,23 @@ export default function DaftarPasienBaru({ props }) {
             }} />
           </div>
         </form>
-        <ButtonClear props={{onClick: SUNP_paymentMethod_clear}} />
+        <Button props={{
+          label: 'Bersihkan', 
+          onClick: SUNP_paymentMethod_clear, 
+          type: 'quaternary', 
+          position: 'right', 
+        }} />
       </div>
-      <button className='submitForm textInput' onClick={() => SUNP_submitForm()}>Daftar Pasien Baru</button>
-      {/* <button className='submitForm'>Tidak dapat mendaftar pasien baru karena data tidak valid</button> */}
+      <Button props={{
+        label: 'Daftar Pasien Baru', 
+        onClick: SUNP_submitForm, 
+        type: 'primary', 
+      }} />
+      <Button props={{
+        label: 'Tidak dapat mendaftar pasien baru karena data tidak valid', 
+        // onClick: , 
+        type: 'error', 
+      }} />
     </main>
   );
 }

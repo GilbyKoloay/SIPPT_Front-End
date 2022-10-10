@@ -45,14 +45,3 @@ main {
 .content form .form:last-child {
     margin-left: 25px;
 }
-
-main .submitForm {
-    padding: 7.5px 0 7.5px 0;
-    background-color: var(--primaryColor);
-    border: 1px solid black;
-    border-radius: 10px;
-}
-main .submitForm:hover {
-    cursor: pointer;
-    background-color: var(--primaryColorHover);
-}

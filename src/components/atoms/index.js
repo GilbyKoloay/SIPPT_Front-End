@@ -11,6 +11,7 @@ import ButtonList from './ButtonList';
 import Gap from './Gap';
 import HorLine from './HorLine';
 import Table from './Table';
+import Button from './Button';
 
 export {
     Title,
@@ -24,4 +25,5 @@ export {
     Gap,
     HorLine,
     Table,
+    Button,
 };

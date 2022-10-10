@@ -7,6 +7,11 @@ import './styles.css';
 // images
 import { KabMinut } from '../../assets/images';
 
+// atoms
+import {
+  Button,
+} from '../../components/atoms';
+
 export default function Login({ props }) {
   const { __setUser } = props;
 
@@ -76,7 +81,11 @@ export default function Login({ props }) {
               <input type='password' className={`textInput${passwordErr ? ' inputTextErr' : ''}`} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className='textErrMsg'>{errMsg}</div>
-            <button className='textInput' onClick={e => signInOnClick(e)}>Masuk</button>
+            <Button props={{
+              label: 'Masuk', 
+              onClick: signInOnClick, 
+              type: 'primary', 
+            }} />
           </form>
         </div>
       </div>

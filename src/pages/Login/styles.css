@@ -73,14 +73,3 @@
     align-items: center;
     text-align: center;
 }
-
-.login button {
-    padding: 7.5px;
-    background-color: var(--primaryColor);
-    border: 1px solid black;
-    border-radius: 12.5px;
-}
-.login button:hover {
-    background-color: var(--primaryColorHover);
-    cursor: pointer;
-}
