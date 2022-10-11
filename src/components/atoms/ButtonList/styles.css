@@ -3,12 +3,23 @@
     justify-content: space-between;
 }
 
-.atom-buttonList.row {
+.atom-buttonList.direction-row {
     flex-direction: row;
 }
 
-.atom-buttonList.col {
+.atom-buttonList.direction-col {
     flex-direction: column;
+}
+
+.atom-buttonList.align-start {
+    justify-content: flex-start;
+}
+
+.atom-buttonList.align-end {
+    justify-content: flex-end;
+}
+.atom-buttonList.align-end div {
+    flex: 0;
 }
 
 .atom-buttonList .option, .atom-buttonList .option-selected {
@@ -20,23 +31,24 @@
     border: 1px solid black;
     padding: 7.5px;
     border-radius: 10px;
+    min-width: 150px;
 }
 .atom-buttonList .option:hover {
     cursor: pointer;
     background-color: var(--primaryColor);
 }
 
-.atom-buttonList.row .option, .atom-buttonList.row .option-selected {
+.atom-buttonList.direction-row .option, .atom-buttonList.direction-row .option-selected {
     margin-right: 15px;
 }
-.atom-buttonList.row .option:last-child, .atom-buttonList.row .option-selected:last-child {
+.atom-buttonList.direction-row .option:last-child, .atom-buttonList.direction-row .option-selected:last-child {
     margin: 0;
 }
 
-.atom-buttonList.col .option, .atom-buttonList.col .option-selected {
+.atom-buttonList.direction-col .option, .atom-buttonList.direction-col .option-selected {
     margin-bottom: 15px;
 }
-.atom-buttonList.col .option:last-child, .atom-buttonList.col .option-selected:last-child {
+.atom-buttonList.direction-col .option:last-child, .atom-buttonList.direction-col .option-selected:last-child {
     margin: 0;
 }
 

@@ -722,11 +722,6 @@ export default function Loket({ props }) {
     BPJSKIS: null, 
   });
 
-  const [P_patientTemp, setP_patientTemp] = useState({
-    PD_PM: null,
-    BPJSKIS: null,
-  });
-
   const P_patient_option_change = (val) => {
     setP_patient({...P_patient, option: val});
   }
@@ -746,17 +741,57 @@ export default function Loket({ props }) {
       BPJSKIS: (res.status === 'success') ? res.data : null,
     });
 
-    setP_patientTemp({
+    setP_patientTemp({...P_patientTemp, 
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data: null,
     });
   };
+
+  const [P_patientTemp, setP_patientTemp] = useState({
+    personalDataOnChange: false, 
+    PD_PM: null,
+    BPJSKIS: null,
+  });
 
   const P_patientTemp_personalData_change = (prop, val) => {
     setP_patientTemp(typeof(prop) === 'string' ? 
       {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
       {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
     );
+  };
+
+  const P_patientTemp_personalData_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      console.log('simpan');
+      setP_patientTemp({...P_patientTemp, personalDataOnChange: false});
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        personalDataOnChange: false,
+        PD_PM: {
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          sex: P_patient.PD_PM.sex,
+          address: {
+            districtCity: P_patient.PD_PM.address.districtCity,
+            subDistrict: P_patient.PD_PM.address.subDistrict,
+            wardVillage: P_patient.PD_PM.address.wardVillage,
+          },
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: {
+            date: P_patient.PD_PM.birthDate.date,
+            month: P_patient.PD_PM.birthDate.month,
+            year: P_patient.PD_PM.birthDate.year,
+          },
+          familyCardName: P_patient.PD_PM.familyCardName,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+        },
+      });
+    }
   };
 
   const P_patientTemp_personalData_address_change = (prop, val) => {
@@ -825,7 +860,7 @@ export default function Loket({ props }) {
           __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
           patients,
           P_patient, P_patient_option_change, P_patient_PDPM_change,
-          P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
+          setP_patientTemp, P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_change_click, P_patientTemp_personalData_address_change,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
           P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,

@@ -23,7 +23,7 @@ export default function Pasien({ props }) {
     __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
     patients,
     P_patient, P_patient_option_change, P_patient_PDPM_change,
-    P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
+    setP_patientTemp, P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_change_click, P_patientTemp_personalData_address_change,
     P_findPatient, P_findPatient_findUse_change,
     P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
     P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
@@ -74,7 +74,7 @@ export default function Pasien({ props }) {
           <ButtonList props={{
             options: ['Cari Menggunakan Nomor Rekam Medis', 'Cari Menggunakan Data Diri', 'Cari Menggunakan BPJS/KIS'], 
             value: P_findPatient.findUse, 
-            onChange: P_findPatient_findUse_change, 
+            onClick: P_findPatient_findUse_change, 
             direction: 'col', 
           }} />
           <Gap props={{height: '25px'}} />
@@ -325,7 +325,7 @@ export default function Pasien({ props }) {
         <ButtonList props={{
           options: ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli'], 
           value: P_patient.option, 
-          onChange: P_patient_option_change, 
+          onClick: P_patient_option_change, 
           direction: 'row', 
         }} />
         { P_patient.option && <div>
@@ -342,12 +342,14 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.medicalRecordNumber, 
                 change: 'medicalRecordNumber', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <TextInput props={{
                 label: 'Nama', 
                 value: P_patientTemp.PD_PM.name, 
                 change: 'name', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <RadioButton props={{
                 label: "Jenis Kelamin", 
@@ -355,6 +357,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.sex, 
                 change: 'sex', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <div className='textLabel' style={{marginBottom: 15}}>Alamat: </div>
               <Select props={{
@@ -386,6 +389,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.phoneNumber, 
                 change: 'phoneNumber', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
             </div>
             <div className='form'>
@@ -394,6 +398,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.birthPlace, 
                 change: 'birthPlace', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <DateInput props={{
                 label: 'Tanggal Lahir', 
@@ -413,6 +418,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.familyCardName, 
                 change: 'familyCardName', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <Select props={{
                 label: 'Agama', 
@@ -437,12 +443,22 @@ export default function Pasien({ props }) {
               }} />
             </div>
           </form>
-          { (__user.role === 'LOKET' || __user.role === 'ADMINISTRATOR') && <Button props={{
-            label: 'Ubah', 
-            // onClick: , 
-            type: 'tertiary', 
-            position: 'right', 
-          }} /> }
+          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+            (P_patientTemp.personalDataOnChange === false) ?
+            <Button props={{
+              label: 'Ubah', 
+              onClick: () => setP_patientTemp({...P_patientTemp, personalDataOnChange: true}), 
+              type: 'tertiary', 
+              position: 'right', 
+            }} /> :
+            <ButtonList props={{
+              options: ['Simpan Perubahan', 'Batalkan Perubahan'], 
+              value: P_patientTemp.personalDataOnChange, 
+              onClick: P_patientTemp_personalData_change_click,
+              direction: 'row', 
+              align: 'end', 
+            }} />
+          )}
         </div> }
         
         { P_patient.option === 'BPJS/KIS' && <div>
