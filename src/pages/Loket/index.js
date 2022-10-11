@@ -738,6 +738,7 @@ export default function Loket({ props }) {
     setP_patientTemp({
       personalDataOnChange: false,
       BPJSKISOnChange: false,
+      paymentMethodOnChange: false,
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data: null,
     });
@@ -746,6 +747,7 @@ export default function Loket({ props }) {
   const [P_patientTemp, setP_patientTemp] = useState({
     personalDataOnChange: false,
     BPJSKISOnChange: false,
+    paymentMethodOnChange: false,
     PD_PM: null,
     BPJSKIS: null,
   });
@@ -760,6 +762,7 @@ export default function Loket({ props }) {
         ...P_patientTemp,
         personalDataOnChange: false,
         PD_PM: {
+          ...P_patientTemp.PD_PM,
           medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
           name: P_patient.PD_PM.name,
           sex: P_patient.PD_PM.sex,
@@ -798,7 +801,27 @@ export default function Loket({ props }) {
     }
   };
 
-  const P_patientTemp_personalData_change = (prop, val) => {
+  const P_patientTemp_paymentMethod_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      console.log('simpan');
+      setP_patientTemp({...P_patientTemp, paymentMethodOnChange: false});
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        paymentMethodOnChange: false,
+        PD_PM: {
+          ...P_patientTemp.PD_PM,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
+        },
+      });
+    }
+  };
+
+  const P_patientTemp_PD_PM_change = (prop, val) => {
     setP_patientTemp(typeof(prop) === 'string' ? 
       {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
       {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
@@ -826,7 +849,6 @@ export default function Loket({ props }) {
   };
 
   const P_patientTemp_BPJSKIS_change = (prop, val) => {
-    console.log(prop, val);
     setP_patientTemp(typeof(prop) === 'string' ? 
       {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop]: val}} :
       {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop[0]]: {...P_patientTemp.BPJSKIS[prop[0]], [prop[1]]: val}}}
@@ -883,8 +905,9 @@ export default function Loket({ props }) {
           P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
           P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
           P_patientTemp, setP_patientTemp,
-          P_patientTemp_personalData_change_click, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
+          P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
           P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
+          P_patientTemp_paymentMethod_change_click
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>
