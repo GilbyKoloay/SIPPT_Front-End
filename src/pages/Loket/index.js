@@ -681,14 +681,8 @@ export default function Loket({ props }) {
 
   const P_findPatient_findUseBPJSKIS_change = (prop, val) => {
     setP_findPatient(typeof(prop) === 'string' ? 
-      {...P_findPatient, BPJSKIS: {
-        ...P_findPatient.BPJSKIS,
-        [prop]: val,
-      }} :
-      {...P_findPatient, BPJSKIS: {
-        ...P_findPatient.BPJSKIS,
-        [prop[0]]: {...P_findPatient.BPJSKIS[prop[0]], [prop[1]]: val}
-      }}
+      {...P_findPatient, BPJSKIS: {...P_findPatient.BPJSKIS, [prop]: val}} :
+      {...P_findPatient, BPJSKIS: {...P_findPatient.BPJSKIS, [prop[0]]: {...P_findPatient.BPJSKIS[prop[0]], [prop[1]]: val}}}
     );
   };
 
@@ -741,29 +735,25 @@ export default function Loket({ props }) {
       BPJSKIS: (res.status === 'success') ? res.data : null,
     });
 
-    setP_patientTemp({...P_patientTemp, 
+    setP_patientTemp({
+      personalDataOnChange: false,
+      BPJSKISOnChange: false,
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data: null,
     });
   };
 
   const [P_patientTemp, setP_patientTemp] = useState({
-    personalDataOnChange: false, 
+    personalDataOnChange: false,
+    BPJSKISOnChange: false,
     PD_PM: null,
     BPJSKIS: null,
   });
 
-  const P_patientTemp_personalData_change = (prop, val) => {
-    setP_patientTemp(typeof(prop) === 'string' ? 
-      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
-      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
-    );
-  };
-
   const P_patientTemp_personalData_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
       console.log('simpan');
-      setP_patientTemp({...P_patientTemp, personalDataOnChange: false});
+      setP_patientTemp({...P_patientTemp, personalDataOnChange: false,});
     }
     else if(val === 'Batalkan Perubahan') {
       setP_patientTemp({
@@ -794,6 +784,27 @@ export default function Loket({ props }) {
     }
   };
 
+  const P_patientTemp_BPJSKIS_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      console.log('simpan');
+      setP_patientTemp({...P_patientTemp, BPJSKISOnChange: false,});
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        BPJSKISOnChange: false,
+        BPJSKIS: P_patient.BPJSKIS,
+      });
+    }
+  };
+
+  const P_patientTemp_personalData_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
   const P_patientTemp_personalData_address_change = (prop, val) => {
     setP_patientTemp(
       (prop === 'districtCity') ? {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
@@ -814,6 +825,13 @@ export default function Loket({ props }) {
     );
   };
 
+  const P_patientTemp_BPJSKIS_change = (prop, val) => {
+    console.log(prop, val);
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop]: val}} :
+      {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop[0]]: {...P_patientTemp.BPJSKIS[prop[0]], [prop[1]]: val}}}
+    );
+  };
 
   // Run once when LOKET is loaded
   useEffect(() => {
@@ -860,11 +878,13 @@ export default function Loket({ props }) {
           __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
           patients,
           P_patient, P_patient_option_change, P_patient_PDPM_change,
-          setP_patientTemp, P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_change_click, P_patientTemp_personalData_address_change,
           P_findPatient, P_findPatient_findUse_change,
           P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
           P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
           P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
+          P_patientTemp, setP_patientTemp,
+          P_patientTemp_personalData_change_click, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
+          P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>

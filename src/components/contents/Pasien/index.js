@@ -23,11 +23,13 @@ export default function Pasien({ props }) {
     __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
     patients,
     P_patient, P_patient_option_change, P_patient_PDPM_change,
-    setP_patientTemp, P_patientTemp, P_patientTemp_personalData_change, P_patientTemp_personalData_change_click, P_patientTemp_personalData_address_change,
     P_findPatient, P_findPatient_findUse_change,
-    P_findPatient_findUseMRN_clear, P_findPatient_findUseMRN_change,
+    P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
     P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
     P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
+    P_patientTemp, setP_patientTemp,
+    P_patientTemp_personalData_change_click, P_patientTemp_personalData_change, P_patientTemp_personalData_address_change,
+    P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
   } = props;
 
 
@@ -473,56 +475,73 @@ export default function Pasien({ props }) {
             <div className='form'>
               <TextInput props={{
                 label: "No. Kartu", 
-                value: P_patient.BPJSKIS.cardNumber, 
+                value: P_patientTemp.BPJSKIS.cardNumber, 
                 change: 'cardNumber', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
               <TextInput props={{
                 label: "Nama", 
-                value: P_patient.BPJSKIS.name,
+                value: P_patientTemp.BPJSKIS.name,
                 change: 'name', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
               <DateInput props={{
                 label: 'Tanggal Lahir', 
-                value: P_patient.BPJSKIS.birthDate, 
+                value: P_patientTemp.BPJSKIS.birthDate, 
                 change: 'birthDate', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
               <TextInput props={{
                 label: 'Faskes Tingkat I', 
-                value: P_patient.BPJSKIS.healthFacilityLevel, 
+                value: P_patientTemp.BPJSKIS.healthFacilityLevel, 
                 change: 'healthFacilityLevel', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
               <TextInput props={{
                 label: 'Kelas Rawat', 
-                value: P_patient.BPJSKIS.nursingClass, 
+                value: P_patientTemp.BPJSKIS.nursingClass, 
                 change: 'nursingClass', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
             </div>
             <div className='form'>
               <TextInput props={{
                 label: 'NIK', 
-                value: P_patient.BPJSKIS.NIK, 
+                value: P_patientTemp.BPJSKIS.NIK, 
                 change: 'NIK', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
               <TextAreaInput props={{
                 label: 'Alamat', 
-                value: P_patient.BPJSKIS.address, 
+                value: P_patientTemp.BPJSKIS.address, 
                 change: 'address', 
-                // onChange: SUNP_BPJSKISData_change, 
+                onChange: P_patientTemp_BPJSKIS_change, 
+                disabled: !P_patientTemp.BPJSKISOnChange, 
               }} />
             </div>
           </form>
-          { (__user.role === 'LOKET' || __user.role === 'ADMINISTRATOR') && <Button props={{
-            label: 'Ubah', 
-            // onClick: , 
-            type: 'tertiary', 
-            position: 'right', 
-          }} /> }
+          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+            (P_patientTemp.BPJSKISOnChange === false) ?
+            <Button props={{
+              label: 'Ubah', 
+              onClick: () => setP_patientTemp({...P_patientTemp, BPJSKISOnChange: true}), 
+              type: 'tertiary', 
+              position: 'right', 
+            }} /> :
+            <ButtonList props={{
+              options: ['Simpan Perubahan', 'Batalkan Perubahan'], 
+              value: P_patientTemp.BPJSKISOnChange, 
+              onClick: P_patientTemp_BPJSKIS_change_click,
+              direction: 'row', 
+              align: 'end', 
+            }} />
+          )}
         </div> }
 
         { P_patient.option === 'Cara Pembayaran' && <div>

@@ -24,3 +24,7 @@
 .atom-textAreaInput textarea:active, .atom-textAreaInput textarea:focus {
     outline: 2.5px solid var(--primaryColor);
 }
+
+.atom-textAreaInput textarea.disabled {
+    background-color: var(--disabledBgColor);
+}
