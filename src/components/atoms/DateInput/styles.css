@@ -37,6 +37,10 @@
     outline: 2.5px solid var(--primaryColor);
 }
 
+.atom-dateInput .disabled input, .atom-dateInput.col .disabled input, .atom-dateInput .disabled select, .atom-dateInput.col .disabled select {
+    background-color: var(--disabledBgColor);
+}
+
 .atom-dateInput .date {
     flex: 1;
 }

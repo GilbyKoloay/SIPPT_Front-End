@@ -366,6 +366,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.address.districtCity, 
                 change: 'districtCity', 
                 onChange: P_patientTemp_personalData_address_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
                 tab: true, 
               }} />
               <Select props={{
@@ -374,6 +375,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.address.subDistrict, 
                 change: 'subDistrict', 
                 onChange: P_patientTemp_personalData_address_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
                 tab: true, 
               }} />
               <Select props={{
@@ -382,6 +384,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.address.wardVillage, 
                 change: 'wardVillage', 
                 onChange: P_patientTemp_personalData_address_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
                 tab: true, 
               }} />
               <TextInput props={{
@@ -405,6 +408,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.birthDate, 
                 change: 'birthDate', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <TextInput props={{
                 label: 'Umur', 
@@ -426,6 +430,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.religion, 
                 change: 'religion', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <Select props={{
                 label: 'Status', 
@@ -433,6 +438,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.maritalStatus, 
                 change: 'maritalStatus', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
               <Select props={{
                 label: 'Pekerjaan', 
@@ -440,6 +446,7 @@ export default function Pasien({ props }) {
                 value: P_patientTemp.PD_PM.job, 
                 change: 'job', 
                 onChange: P_patientTemp_personalData_change, 
+                disabled: !P_patientTemp.personalDataOnChange, 
               }} />
             </div>
           </form>

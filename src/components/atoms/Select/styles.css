@@ -35,6 +35,10 @@
     cursor: pointer;
 }
 
+.atom-select select.disabled {
+    background-color: var(--disabledBgColor);
+}
+
 .atom-select .err {
     background-color: var(--errBgColor);
 }
