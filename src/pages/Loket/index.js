@@ -754,10 +754,6 @@ export default function Loket({ props }) {
 
   const P_patientTemp_personalData_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
-      console.log('simpan');
-      console.log(`P_patient`, P_patient);
-      console.log(`P_patientTemp`, P_patientTemp);
-
       const req = await fetch(`${process.env.REACT_APP_API}/patient/change`, {
         method: 'PATCH',
         headers: {
@@ -836,8 +832,40 @@ export default function Loket({ props }) {
 
   const P_patientTemp_BPJSKIS_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
-      console.log('simpan');
-      setP_patientTemp({...P_patientTemp, BPJSKISOnChange: false,});
+      console.log();
+      const req = await fetch(`${process.env.REACT_APP_API}/BPJS/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.BPJSKIS._id,
+          cardNumber: P_patientTemp.BPJSKIS.cardNumber,
+          name: P_patientTemp.BPJSKIS.name,
+          birthDate: P_patientTemp.BPJSKIS.birthDate,
+          healthFacilityLevel: P_patientTemp.BPJSKIS.healthFacilityLevel,
+          nursingClass: P_patientTemp.BPJSKIS.nursingClass,
+          NIK: P_patientTemp.BPJSKIS.NIK,
+          address: P_patientTemp.BPJSKIS.address,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, BPJSKIS: {
+          cardNumber: P_patientTemp.BPJSKIS.cardNumber,
+          name: P_patientTemp.BPJSKIS.name,
+          birthDate: P_patientTemp.BPJSKIS.birthDate,
+          healthFacilityLevel: P_patientTemp.BPJSKIS.healthFacilityLevel,
+          nursingClass: P_patientTemp.BPJSKIS.nursingClass,
+          NIK: P_patientTemp.BPJSKIS.NIK,
+          address: P_patientTemp.BPJSKIS.address,
+        }});
+        setP_patientTemp({...P_patientTemp, BPJSKISOnChange: false});
+      }
     }
     else if(val === 'Batalkan Perubahan') {
       setP_patientTemp({
