@@ -796,6 +796,10 @@ export default function Loket({ props }) {
           religion: P_patientTemp.PD_PM.religion,
           maritalStatus: P_patientTemp.PD_PM.maritalStatus,
           job: P_patientTemp.PD_PM.job,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
         }});
         setP_patientTemp({...P_patientTemp, personalDataOnChange: false});
       }
@@ -878,7 +882,55 @@ export default function Loket({ props }) {
 
   const P_patientTemp_paymentMethod_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
-      setP_patientTemp({...P_patientTemp, paymentMethodOnChange: false});
+      const req = await fetch(`${process.env.REACT_APP_API}/patient/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.PD_PM._id,
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: P_patient.PD_PM.birthDate,
+          sex: P_patient.PD_PM.sex,
+          familyCardName: P_patient.PD_PM.familyCardName,
+          address: P_patient.PD_PM.address,
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+          paymentMethod: P_patientTemp.PD_PM.paymentMethod,
+          JKN: P_patientTemp.PD_PM.JKN,
+          otherInsurance: P_patientTemp.PD_PM.otherInsurance,
+          number: P_patientTemp.PD_PM.number,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, PD_PM: {
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: P_patient.PD_PM.birthDate,
+          sex: P_patient.PD_PM.sex,
+          familyCardName: P_patient.PD_PM.familyCardName,
+          address: P_patient.PD_PM.address,
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+          paymentMethod: P_patientTemp.PD_PM.paymentMethod,
+          JKN: P_patientTemp.PD_PM.JKN,
+          otherInsurance: P_patientTemp.PD_PM.otherInsurance,
+          number: P_patientTemp.PD_PM.number,
+        }});
+        setP_patientTemp({...P_patientTemp, paymentMethodOnChange: false});
+      }
     }
     else if(val === 'Batalkan Perubahan') {
       setP_patientTemp({
