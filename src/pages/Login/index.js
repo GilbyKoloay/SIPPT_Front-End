@@ -26,7 +26,7 @@ export default function Login({ props }) {
   const signInOnClick = async (e) => {
     e.preventDefault();
 
-    const req = await fetch('http://localhost:4000/api/login', {
+    const req = await fetch(`${process.env.REACT_APP_API}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

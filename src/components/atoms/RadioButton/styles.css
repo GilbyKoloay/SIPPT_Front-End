@@ -52,3 +52,6 @@
 .atom-radioButton .option.disabled, .atom-radioButton .option-selected.disabled {
     background-color: var(--disabledBgColor);
 }
+.atom-radioButton .option.disabled:hover, .atom-radioButton .option-selected.disabled:hover {
+    cursor: default;
+}

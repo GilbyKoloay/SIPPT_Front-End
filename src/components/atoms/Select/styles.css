@@ -38,6 +38,9 @@
 .atom-select select.disabled {
     background-color: var(--disabledBgColor);
 }
+.atom-select select.disabled:hover {
+    cursor: default;
+}
 
 .atom-select .err {
     background-color: var(--errBgColor);

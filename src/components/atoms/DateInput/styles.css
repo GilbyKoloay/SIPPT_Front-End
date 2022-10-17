@@ -40,6 +40,9 @@
 .atom-dateInput .disabled input, .atom-dateInput.col .disabled input, .atom-dateInput .disabled select, .atom-dateInput.col .disabled select {
     background-color: var(--disabledBgColor);
 }
+.atom-dateInput .disabled select:hover, .atom-dateInput.col .disabled select:hover {
+    cursor: default;
+}
 
 .atom-dateInput .date {
     flex: 1;

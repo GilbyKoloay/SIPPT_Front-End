@@ -342,6 +342,20 @@ export default function Loket({ props }) {
       address: '',
     },
   });
+
+  const [P_patient, setP_patient] = useState({
+    option: '',
+    PD_PM: null,
+    BPJSKIS: null, 
+  });
+
+  const [P_patientTemp, setP_patientTemp] = useState({
+    personalDataOnChange: false,
+    BPJSKISOnChange: false,
+    paymentMethodOnChange: false,
+    PD_PM: null,
+    BPJSKIS: null,
+  });
   
 
 
@@ -381,7 +395,7 @@ export default function Loket({ props }) {
   };
 
   const SUNP_personalData_clear = (e) => {
-    e.preventDefault();
+    (e) && e.preventDefault();
 
     setSUNP_personalData({
       medicalRecordNumber: '',
@@ -415,7 +429,7 @@ export default function Loket({ props }) {
   };
 
   const SUNP_BPJSKISData_clear = (e) => {
-    e.preventDefault();
+    (e) && e.preventDefault();
     
     setSUNP_BPJSKISData({
       cardNumber: '',
@@ -440,7 +454,7 @@ export default function Loket({ props }) {
   };
 
   const SUNP_paymentMethod_clear = (e) => {
-    e.preventDefault();
+    (e) && e.preventDefault();
     
     setSUNP_paymentMethod({
       paymentMethod: '',
@@ -583,9 +597,9 @@ export default function Loket({ props }) {
           console.log(BPJSresDel);
         }
         else if(res.status === 'success') {
-          SUNP_personalData_clear();
-          SUNP_BPJSKISData_clear();
-          SUNP_paymentMethod_clear();
+          SUNP_personalData_clear(null);
+          SUNP_BPJSKISData_clear(null);
+          SUNP_paymentMethod_clear(null);
           patients_getAll();
         }
       }
@@ -710,12 +724,6 @@ export default function Loket({ props }) {
     }});
   };
 
-  const [P_patient, setP_patient] = useState({
-    option: '',
-    PD_PM: null,
-    BPJSKIS: null, 
-  });
-
   const P_patient_option_change = (val) => {
     setP_patient({...P_patient, option: val});
   }
@@ -744,18 +752,57 @@ export default function Loket({ props }) {
     });
   };
 
-  const [P_patientTemp, setP_patientTemp] = useState({
-    personalDataOnChange: false,
-    BPJSKISOnChange: false,
-    paymentMethodOnChange: false,
-    PD_PM: null,
-    BPJSKIS: null,
-  });
-
   const P_patientTemp_personalData_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
       console.log('simpan');
-      setP_patientTemp({...P_patientTemp, personalDataOnChange: false,});
+      console.log(`P_patient`, P_patient);
+      console.log(`P_patientTemp`, P_patientTemp);
+
+      const req = await fetch(`${process.env.REACT_APP_API}/patient/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.PD_PM._id,
+          medicalRecordNumber: P_patientTemp.PD_PM.medicalRecordNumber,
+          name: P_patientTemp.PD_PM.name,
+          birthPlace: P_patientTemp.PD_PM.birthPlace,
+          birthDate: P_patientTemp.PD_PM.birthDate,
+          sex: P_patientTemp.PD_PM.sex,
+          familyCardName: P_patientTemp.PD_PM.familyCardName,
+          address: P_patientTemp.PD_PM.address,
+          phoneNumber: P_patientTemp.PD_PM.phoneNumber,
+          religion: P_patientTemp.PD_PM.religion,
+          maritalStatus: P_patientTemp.PD_PM.maritalStatus,
+          job: P_patientTemp.PD_PM.job,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, PD_PM: {
+          medicalRecordNumber: P_patientTemp.PD_PM.medicalRecordNumber,
+          name: P_patientTemp.PD_PM.name,
+          birthPlace: P_patientTemp.PD_PM.birthPlace,
+          birthDate: P_patientTemp.PD_PM.birthDate,
+          sex: P_patientTemp.PD_PM.sex,
+          familyCardName: P_patientTemp.PD_PM.familyCardName,
+          address: P_patientTemp.PD_PM.address,
+          phoneNumber: P_patientTemp.PD_PM.phoneNumber,
+          religion: P_patientTemp.PD_PM.religion,
+          maritalStatus: P_patientTemp.PD_PM.maritalStatus,
+          job: P_patientTemp.PD_PM.job,
+        }});
+        setP_patientTemp({...P_patientTemp, personalDataOnChange: false});
+      }
     }
     else if(val === 'Batalkan Perubahan') {
       setP_patientTemp({
@@ -803,7 +850,6 @@ export default function Loket({ props }) {
 
   const P_patientTemp_paymentMethod_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
-      console.log('simpan');
       setP_patientTemp({...P_patientTemp, paymentMethodOnChange: false});
     }
     else if(val === 'Batalkan Perubahan') {
@@ -879,7 +925,7 @@ export default function Loket({ props }) {
     // console.log(P_findPatient.personalData); // dev
     // console.log(P_findPatient.BPJSKIS); // dev
     // console.log(P_patient); // dev
-    console.log(`P_patientTemp`, P_patientTemp); // dev
+    // console.log(`P_patientTemp`, P_patientTemp); // dev
   }, [P_findPatient, P_patient, P_patientTemp]);
 
 
