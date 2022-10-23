@@ -603,7 +603,7 @@ export default function Pasien({ props }) {
 
         { P_patient.option === 'Rekam Medis' && <div>
           {/* {(__user.role === 'ADMINISTRATOR' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'KIA') && ( */}
-          {(__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+          {(__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && ( // dev
             <ButtonList props={{
               options: ['Lihat Rekam Medis', 'Tambah Rekam Medis Baru'], 
               value: P_patientTemp.medicalRecordOption, 
@@ -613,70 +613,86 @@ export default function Pasien({ props }) {
           )}
           {(P_patientTemp.medicalRecordOption === 'Tambah Rekam Medis Baru') ? <div>
             <Gap props={{height: 25}} />
-            <form className='row'>
-              <div className='form'>
-                <DateInput props={{
-                  label: 'Tanggal', 
-                  value: P_patientTemp.MR.date, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Tinggi Badan', 
-                  value: P_patientTemp.MR.bodyHeight, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Berat Badan', 
-                  value: P_patientTemp.MR.bodyWeight, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Tensi', 
-                  value: P_patientTemp.MR.tension, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Nadi', 
-                  value: P_patientTemp.MR.pulse, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Respirasi', 
-                  value: P_patientTemp.MR.respiration, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Suhu Badan', 
-                  value: P_patientTemp.MR.bodyTemperature, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextInput props={{
-                  label: 'Laboratorium', 
-                  value: P_patientTemp.MR.laboratorium, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
+            <form className='col'>
+              <div className='row'>
+                <div className='form'>
+                  <DateInput props={{
+                    label: 'Tanggal', 
+                    value: P_patientTemp.MR.date, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Tinggi Badan', 
+                    value: P_patientTemp.MR.bodyHeight, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Berat Badan', 
+                    value: P_patientTemp.MR.bodyWeight, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Tensi', 
+                    value: P_patientTemp.MR.tension, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Nadi', 
+                    value: P_patientTemp.MR.pulse, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Respirasi', 
+                    value: P_patientTemp.MR.respiration, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Suhu Badan', 
+                    value: P_patientTemp.MR.bodyTemperature, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextInput props={{
+                    label: 'Laboratorium', 
+                    value: P_patientTemp.MR.laboratorium, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                </div>
+                <div className='form'>
+                  <TextAreaInput props={{
+                    label: 'Anamnesa', 
+                    value: P_patientTemp.MR.history, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextAreaInput props={{
+                    label: 'Pemeriksaan Fisik', 
+                    value: P_patientTemp.MR.physicalExamination, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextAreaInput props={{
+                    label: 'Diagnosa', 
+                    value: P_patientTemp.MR.diagnosis, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                  <TextAreaInput props={{
+                    label: 'Anjuran', 
+                    value: P_patientTemp.MR.suggestion, 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
+                </div>
               </div>
-              <div className='form'>
-                <TextAreaInput props={{
-                  label: 'Anamnesa', 
-                  value: P_patientTemp.MR.history, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextAreaInput props={{
-                  label: 'Pemeriksaan Fisik', 
-                  value: P_patientTemp.MR.physicalExamination, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextAreaInput props={{
-                  label: 'Diagnosa', 
-                  value: P_patientTemp.MR.diagnosis, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
-                <TextAreaInput props={{
-                  label: 'Anjuran', 
-                  value: P_patientTemp.MR.suggestion, 
-                  onChange: P_patientTemp_MR_change, 
-                }} />
+              <div className='patient-patient-medicalRecord-medicalPrescription'>
+                <div className='textLabel'>Terapi dan Tindakan</div>
+                <div className='find-input'>
+                  <div className='find'>
+                    <div className='textLabel'>Stok obat di apotek</div>
+                    <Gap props={{height: 20}} />
+                    <input className='textInput' type='text' placeholder='Klik untuk mencari obat' />
+                    <Gap props={{height: 15}} />
+                  </div>
+                  <div className='input'>
+                    <div className='textLabel'>Obat untuk pasien</div>
+                  </div>
+                </div>
               </div>
             </form>
           </div> : <div>
