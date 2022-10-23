@@ -353,8 +353,29 @@ export default function Loket({ props }) {
     personalDataOnChange: false,
     BPJSKISOnChange: false,
     paymentMethodOnChange: false,
+    medicalRecordOption: 'Lihat Rekam Medis',
     PD_PM: null,
     BPJSKIS: null,
+    MR: {
+      date: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      bodyHeight: '',
+      bodyWeight: '',
+      tension: '',
+      pulse: '',
+      respiration: '',
+      bodyTemperature: '',
+      laboratorium: '',
+      history: '',
+      physicalExamination: '',
+      diagnosis: '',
+      medicalPrescription: '',
+      suggestion: '',
+      initials: false,
+    },
   });
   
 
@@ -747,8 +768,29 @@ export default function Loket({ props }) {
       personalDataOnChange: false,
       BPJSKISOnChange: false,
       paymentMethodOnChange: false,
+      medicalRecordOption: 'Lihat Rekam Medis',
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data: null,
+      MR: {
+        date: {
+          date: '',
+          month: '',
+          year: '',
+        },
+        bodyHeight: '',
+        bodyWeight: '',
+        tension: '',
+        pulse: '',
+        respiration: '',
+        bodyTemperature: '',
+        laboratorium: '',
+        history: '',
+        physicalExamination: '',
+        diagnosis: '',
+        medicalPrescription: '',
+        suggestion: '',
+        initials: false,
+      },
     });
   };
 
@@ -981,6 +1023,13 @@ export default function Loket({ props }) {
     );
   };
 
+  const P_patientTemp_MR_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, MR: {...P_patientTemp.MR, [prop]: val}} :
+      {...P_patientTemp, MR: {...P_patientTemp.MR, [prop[0]]: {...P_patientTemp.MR[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
   // Run once when LOKET is loaded
   useEffect(() => {
     patients_getAll();
@@ -1033,7 +1082,8 @@ export default function Loket({ props }) {
           P_patientTemp, setP_patientTemp,
           P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
           P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
-          P_patientTemp_paymentMethod_change_click
+          P_patientTemp_paymentMethod_change_click,
+          P_patientTemp_MR_change,
         }} />}
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
       </div>

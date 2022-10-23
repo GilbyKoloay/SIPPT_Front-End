@@ -31,6 +31,7 @@ export default function Pasien({ props }) {
     P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
     P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
     P_patientTemp_paymentMethod_change_click,
+    P_patientTemp_MR_change,
   } = props;
 
 
@@ -598,7 +599,94 @@ export default function Pasien({ props }) {
               align: 'end', 
             }} />
           )}
-        </div>}
+        </div> }
+
+        { P_patient.option === 'Rekam Medis' && <div>
+          {/* {(__user.role === 'ADMINISTRATOR' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'KIA') && ( */}
+          {(__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+            <ButtonList props={{
+              options: ['Lihat Rekam Medis', 'Tambah Rekam Medis Baru'], 
+              value: P_patientTemp.medicalRecordOption, 
+              onClick: () => setP_patientTemp({...P_patientTemp, medicalRecordOption: P_patientTemp.medicalRecordOption === 'Lihat Rekam Medis' ? 'Tambah Rekam Medis Baru' : 'Lihat Rekam Medis'}), 
+              direction: 'row', 
+            }} />
+          )}
+          {(P_patientTemp.medicalRecordOption === 'Tambah Rekam Medis Baru') ? <div>
+            <Gap props={{height: 25}} />
+            <form className='row'>
+              <div className='form'>
+                <DateInput props={{
+                  label: 'Tanggal', 
+                  value: P_patientTemp.MR.date, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Tinggi Badan', 
+                  value: P_patientTemp.MR.bodyHeight, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Berat Badan', 
+                  value: P_patientTemp.MR.bodyWeight, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Tensi', 
+                  value: P_patientTemp.MR.tension, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Nadi', 
+                  value: P_patientTemp.MR.pulse, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Respirasi', 
+                  value: P_patientTemp.MR.respiration, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Suhu Badan', 
+                  value: P_patientTemp.MR.bodyTemperature, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextInput props={{
+                  label: 'Laboratorium', 
+                  value: P_patientTemp.MR.laboratorium, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+              </div>
+              <div className='form'>
+                <TextAreaInput props={{
+                  label: 'Anamnesa', 
+                  value: P_patientTemp.MR.history, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextAreaInput props={{
+                  label: 'Pemeriksaan Fisik', 
+                  value: P_patientTemp.MR.physicalExamination, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextAreaInput props={{
+                  label: 'Diagnosa', 
+                  value: P_patientTemp.MR.diagnosis, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+                <TextAreaInput props={{
+                  label: 'Anjuran', 
+                  value: P_patientTemp.MR.suggestion, 
+                  onChange: P_patientTemp_MR_change, 
+                }} />
+              </div>
+            </form>
+          </div> : <div>
+            tabel
+          </div>}
+        </div> }
+
+        { P_patient.option === 'Poli' && <div>
+          Poli here
+        </div> }
       </div> }
     </main>
   );

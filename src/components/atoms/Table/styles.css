@@ -11,6 +11,13 @@
     /* border: 2.5px solid blue; */
 }
 
+.atom-table .row:nth-child(odd) {
+    background-color: #DDDDDD;
+}
+.atom-table .row:nth-child(even) {
+    background-color: #BBBBBB;
+}
+
 .atom-table .row.title {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
