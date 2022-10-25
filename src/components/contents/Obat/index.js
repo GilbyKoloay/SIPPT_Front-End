@@ -144,10 +144,10 @@ export default function Obat({ props }) {
           }} />
           {/* <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div> */}
           {/* <Gap props={{height: 15}} /> */}
-          <Table props={{
+          {/* <Table props={{
             titles: ['Nama Obat', 'Tipe Obat', 'Unit Obat', 'Nomor Batch'], 
             data: D_drugs, 
-          }} />
+          }} /> */}
         </div> }
         { (D_drug_option === 'Tambah Obat') && <div className='content'>
           <Title props={{

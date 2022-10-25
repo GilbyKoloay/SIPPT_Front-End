@@ -1201,7 +1201,7 @@ export default function Administrator({ props }) {
   // Obat
   useEffect(() => {
     // console.log(D_add); // dev
-    console.log(D_drug_find); // dev
+    // console.log(D_drug_find); // dev
   });
 
   // Patient

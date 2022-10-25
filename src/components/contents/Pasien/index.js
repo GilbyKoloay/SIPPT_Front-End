@@ -318,11 +318,61 @@ export default function Pasien({ props }) {
           <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div>
           <Gap props={{height: 15}} />
           <Table props={{
-            titles: ['No. Rekam Medis', 'Nama'], 
+            // titles: ['No. Rekam Medis', 'Nama'], 
+            titles: ['Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo'], 
             selected: P_patient.PD_PM, 
-            data: patientsResult, 
+            data: patientsResult.map(p => (({
+              medicalRecordNumber,
+              name,
+              sex,
+              address,
+              phoneNumber,
+              birthPlace,
+              birthDate,
+              familyCardName,
+              religion,
+              maritalStatus,
+              job,
+            }) => ({
+              medicalRecordNumber,
+              name,
+              sex,
+              address,
+              phoneNumber,
+              birthPlace,
+              birthDate,
+              familyCardName,
+              religion,
+              maritalStatus,
+              job,
+              }))(p)), 
             onClick: P_patient_PDPM_change, 
           }} />
+          {/* {patientsResult.forEach(i => console.log((({
+            medicalRecordNumber,
+            name,
+            sex,
+            address,
+            phoneNumber,
+            birthPlace,
+            birthDate,
+            familyCardName,
+            religion,
+            maritalStatus,
+            job,
+          }) => ({
+            medicalRecordNumber,
+            name,
+            sex,
+            address,
+            phoneNumber,
+            birthPlace,
+            birthDate,
+            familyCardName,
+            religion,
+            maritalStatus,
+            job,
+          }))(i)))} */}
         </div>
       </div>
       { P_patient.PD_PM && <div className='content'>
