@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // pages
 import {
   Login,
-  Loket,
+  Administrator,
   NotFound,
 } from './pages';
 
@@ -21,7 +21,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/login' element={<Login props={{__setUser}} />} />
-          <Route path='/loket' element={__user ? <Loket props={{__user}} /> : <NotFound />} />
+          <Route path='/Administrator' element={__user ? <Administrator props={{__user}} /> : <NotFound />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

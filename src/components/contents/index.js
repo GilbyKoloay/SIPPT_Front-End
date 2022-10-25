@@ -1,11 +1,19 @@
 // contents
 
-import DaftarPasienBaru from './DaftarPasienBaru';
-import Pasien from './Pasien';
 import AntrianPoli from './AntrianPoli';
+import DaftarPasienBaru from './DaftarPasienBaru';
+import DaftarPegawaiBaru from './DaftarPegawaiBaru';
+import Obat from './Obat';
+import Pasien from './Pasien';
+import PemesananObat from './PemesananObat';
+import Statistik from './Statistik';
 
 export {
-    DaftarPasienBaru,
-    Pasien,
     AntrianPoli,
+    DaftarPasienBaru,
+    DaftarPegawaiBaru,
+    Obat,
+    Pasien,
+    PemesananObat,
+    Statistik,
 };

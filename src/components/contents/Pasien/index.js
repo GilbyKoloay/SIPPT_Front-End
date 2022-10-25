@@ -31,7 +31,7 @@ export default function Pasien({ props }) {
     P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
     P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
     P_patientTemp_paymentMethod_change_click,
-    P_patientTemp_MR_change,
+    P_patientTemp_MR_option_change, P_patientTemp_MR_change,
   } = props;
 
 
@@ -41,7 +41,7 @@ export default function Pasien({ props }) {
 
   
   const filterByMRN = () => {
-    P_findPatient.medicalRecordNumber.medicalRecordNumber !== '' ? setPatientsResult(patients.filter(p => p.medicalRecordNumber.toString() === P_findPatient.medicalRecordNumber.medicalRecordNumber)) : setPatientsResult(patients);
+    P_findPatient.medicalRecordNumber.medicalRecordNumber !== '' ? setPatientsResult(patients.filter(p => p.medicalRecordNumber.toString().includes(P_findPatient.medicalRecordNumber.medicalRecordNumber) === true && p)) : setPatientsResult(patients);
   };
 
   const filterByPD = () => {
@@ -315,7 +315,8 @@ export default function Pasien({ props }) {
         </div>
         <div className='content'>
           <Title props={{title: 'Hasil'}} />
-          <div className='textErrMsg' style={{color: 'black', marginBottom: '15px'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div>
+          <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div>
+          <Gap props={{height: 15}} />
           <Table props={{
             titles: ['No. Rekam Medis', 'Nama'], 
             selected: P_patient.PD_PM, 
@@ -602,12 +603,11 @@ export default function Pasien({ props }) {
         </div> }
 
         { P_patient.option === 'Rekam Medis' && <div>
-          {/* {(__user.role === 'ADMINISTRATOR' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'KIA') && ( */}
-          {(__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && ( // dev
+          {(__user.role === 'ADMINISTRATOR' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') && (
             <ButtonList props={{
               options: ['Lihat Rekam Medis', 'Tambah Rekam Medis Baru'], 
               value: P_patientTemp.medicalRecordOption, 
-              onClick: () => setP_patientTemp({...P_patientTemp, medicalRecordOption: P_patientTemp.medicalRecordOption === 'Lihat Rekam Medis' ? 'Tambah Rekam Medis Baru' : 'Lihat Rekam Medis'}), 
+              onClick: P_patientTemp_MR_option_change, 
               direction: 'row', 
             }} />
           )}

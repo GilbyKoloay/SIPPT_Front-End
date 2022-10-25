@@ -12,18 +12,26 @@ import {
 
 // contents
 import {
-  DaftarPasienBaru,
-  Pasien,
   AntrianPoli,
+  DaftarPasienBaru,
+  DaftarPegawaiBaru,
+  Obat,
+  Pasien,
+  PemesananObat,
+  Statistik,
 } from '../../components/contents';
 
-export default function Loket({ props }) {
+export default function Administrator({ props }) {
   const { __user } = props;
   const dashboardList = [
     { id: 1, name: 'Dasbor' },
-    { id: 2, name: 'Daftar Pasien Baru' },
-    { id: 3, name: 'Pasien' },
-    { id: 4, name: 'Antrian Poli' },
+    { id: 2, name: 'Antrian Poli' },
+    { id: 3, name: 'Daftar Pasien Baru' },
+    { id: 4, name: 'Daftar Pegawai Baru' },
+    { id: 5, name: 'Obat' },
+    { id: 6, name: 'Pasien' },
+    { id: 7, name: 'Pemesanan Obat' },
+    { id: 8, name: 'Statistik' },
   ];
   const addressList = [
     { districtCity: 'MINAHASA UTARA', subDistricts: [
@@ -238,8 +246,21 @@ export default function Loket({ props }) {
 
 
   const [dashboard, setDashboard] = useState(dashboardList[0]);
-  const [patients, setPatients] = useState(null);
 
+  const patients_getAll = async () => {
+    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+    
+    (res.status === 'success') && setPatients(res.data);
+  };
+
+  // dev ======================================================================================================================================================================
+  // SIGN UP NEW PATIENT ======================================================================================================================================================
+  // SUNP =====================================================================================================================================================================
+  
   const [SUNP_personalData, setSUNP_personalData]= useState({
     medicalRecordNumber: '',
     name: '',
@@ -284,111 +305,7 @@ export default function Loket({ props }) {
     number: '',
   });
 
-  const [P_findPatient, setP_findPatient] = useState({
-    findUse: 'Cari Menggunakan Nomor Rekam Medis',
-    medicalRecordNumber: {
-      medicalRecordNumber: '',
-    },
-    personalData: {
-      name: '',
-      sex: '',
-      address: {
-        districtCity: '',
-        subDistrict: '',
-        wardVillage: '',
-      },
-      phoneNumber: '',
-      birthPlace: '',
-      birthDateOption: 'Sama dengan',
-      birthDate: {
-        date: '',
-        month: '',
-        year: '',
-      },
-      birthDateSec: {
-        date: '',
-        month: '',
-        year: '',
-      },
-      ageOption: 'Sama dengan',
-      age: '',
-      ageSec: '',
-      familyCardName: '',
-      religion: '',
-      maritalStatus: '',
-      job: '',
-      paymentMethod: '',
-      JKN: '',
-      otherInsurance: '',
-      number: '',
-    },
-    BPJSKIS: {
-      cardNumber: '',
-      name: '',
-      birthDateOption: 'Sama dengan',
-      birthDate: {
-        date: '',
-        month: '',
-        year: '',
-      },
-      birthDateSec: {
-        date: '',
-        month: '',
-        year: '',
-      },
-      healthFacilityLevel: '',
-      nursingClass: '',
-      NIK: '',
-      address: '',
-    },
-  });
 
-  const [P_patient, setP_patient] = useState({
-    option: '',
-    PD_PM: null,
-    BPJSKIS: null, 
-  });
-
-  const [P_patientTemp, setP_patientTemp] = useState({
-    personalDataOnChange: false,
-    BPJSKISOnChange: false,
-    paymentMethodOnChange: false,
-    medicalRecordOption: 'Lihat Rekam Medis',
-    PD_PM: null,
-    BPJSKIS: null,
-    MR: {
-      date: {
-        date: '',
-        month: '',
-        year: '',
-      },
-      bodyHeight: '',
-      bodyWeight: '',
-      tension: '',
-      pulse: '',
-      respiration: '',
-      bodyTemperature: '',
-      laboratorium: '',
-      history: '',
-      physicalExamination: '',
-      diagnosis: '',
-      medicalPrescription: '',
-      suggestion: '',
-      initials: false,
-    },
-  });
-  
-
-
-  const patients_getAll = async () => {
-    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
-      method: 'GET',
-      headers: { 'Authorization' : `Bearer ${__user.__token}` },
-    });
-    const res = await req.json();
-    
-    (res.status === 'success') && setPatients(res.data);
-  };
 
   const SUNP_personalData_change = (prop, val) => {
     setSUNP_personalData((typeof(prop) === 'string') ? 
@@ -627,6 +544,108 @@ export default function Loket({ props }) {
     }
   };
 
+  // dev ======================================================================================================================================================================
+  // PATIENT ==================================================================================================================================================================
+  // P ========================================================================================================================================================================
+
+  const [patients, setPatients] = useState(null);
+
+  const [P_findPatient, setP_findPatient] = useState({
+    findUse: 'Cari Menggunakan Nomor Rekam Medis',
+    medicalRecordNumber: {
+      medicalRecordNumber: '',
+    },
+    personalData: {
+      name: '',
+      sex: '',
+      address: {
+        districtCity: '',
+        subDistrict: '',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      ageOption: 'Sama dengan',
+      age: '',
+      ageSec: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    },
+    BPJSKIS: {
+      cardNumber: '',
+      name: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    },
+  });
+
+  const [P_patient, setP_patient] = useState({
+    option: '',
+    PD_PM: null,
+    BPJSKIS: null, 
+  });
+
+  const [P_patientTemp, setP_patientTemp] = useState({
+    personalDataOnChange: false,
+    BPJSKISOnChange: false,
+    paymentMethodOnChange: false,
+    medicalRecordOption: 'Lihat Rekam Medis',
+    PD_PM: null,
+    BPJSKIS: null,
+    MR: {
+      date: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      bodyHeight: '',
+      bodyWeight: '',
+      tension: '',
+      pulse: '',
+      respiration: '',
+      bodyTemperature: '',
+      laboratorium: '',
+      history: '',
+      physicalExamination: '',
+      diagnosis: '',
+      medicalPrescription: '',
+      suggestion: '',
+      initials: false,
+    },
+  });
+
+
+  
   const P_findPatient_findUse_change = (val) => {
     setP_findPatient({...P_findPatient, findUse: val});
   };
@@ -878,7 +897,6 @@ export default function Loket({ props }) {
 
   const P_patientTemp_BPJSKIS_change_click = async (val) => {
     if(val === 'Simpan Perubahan') {
-      console.log();
       const req = await fetch(`${process.env.REACT_APP_API}/BPJS/change`, {
         method: 'PATCH',
         headers: {
@@ -1023,6 +1041,10 @@ export default function Loket({ props }) {
     );
   };
 
+  const P_patientTemp_MR_option_change = (val) => {
+    setP_patientTemp({...P_patientTemp, medicalRecordOption: val});
+  };
+
   const P_patientTemp_MR_change = (prop, val) => {
     setP_patientTemp(typeof(prop) === 'string' ? 
       {...P_patientTemp, MR: {...P_patientTemp.MR, [prop]: val}} :
@@ -1030,12 +1052,65 @@ export default function Loket({ props }) {
     );
   };
 
-  // Run once when LOKET is loaded
+  // dev ======================================================================================================================================================================
+  // DRUG =====================================================================================================================================================================
+  // D ========================================================================================================================================================================
+
+  const [D_drugs, setD_drugs] = useState(null);
+  const [D_drug_option, setD_drug_option] = useState('Cari Obat');
+  const [D_add, setD_add] = useState({
+    name: '',
+    type: '',
+    unit: '',
+    batchNumber: '',
+  });
+  const [D_result, setD_result] = useState(null);
+
+  const drugs_getAll = async() => {
+    const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+
+    (res.status === 'success') && setD_drugs(res.data);
+  };
+
+  const D_add_change = (prop, val) => {
+    setD_add({...D_add, [prop]: val});
+  };
+
+  const D_add_submit = async (e) => {
+    e.preventDefault();
+    
+    const req = await fetch(`${process.env.REACT_APP_API}/drug/create`, {
+      method: 'POST', 
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ _employee: __user._id, ...D_add }),
+    });
+    const res = await req.json();
+
+    console.log({ _employee: __user._id, ...D_add });
+    console.log(res);
+  };
+
+  // dev ======================================================================================================================================================================
+  // ==========================================================================================================================================================================
+  // ==========================================================================================================================================================================
+
+
+
+
+  // Run once when ADMINISTRATOR is loaded
   useEffect(() => {
     patients_getAll();
+    drugs_getAll();
   }, []);
   
-  // LOKET
+  // ADMINISTRATOR
   useEffect(() => {
     
   }, [dashboard]);
@@ -1046,6 +1121,11 @@ export default function Loket({ props }) {
     // console.log(SUNP_BPJSKISData); // dev
     // console.log(SUNP_paymentMethod); // dev
   }, [SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
+
+  // Obat
+  useEffect(() => {
+    console.log(D_add); // dev
+  });
 
   // Patient
   useEffect(() => {
@@ -1060,10 +1140,12 @@ export default function Loket({ props }) {
 
 
   return(
-    <div className='loket'>
+    <div className='administrator'>
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
         <Dashboard props={{dashboardList, dashboard, setDashboard}} />
+        {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />}
+
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
           SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear, SUNP_personalData_address_change,
@@ -1071,6 +1153,17 @@ export default function Loket({ props }) {
           SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
           SUNP_submitForm,
         }} />}
+
+        {(dashboard.name === 'Daftar Pegawai Baru') && <DaftarPegawaiBaru props={{}} />}
+
+        {(dashboard.name === 'Obat') && <Obat props={{
+          __user,
+          D_drugs, setD_drugs,
+          D_drug_option, setD_drug_option,
+          D_result, setD_result,
+          D_add, D_add_change, D_add_submit,
+        }} />}
+
         {(dashboard.name === 'Pasien') && <Pasien props={{
           __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
           patients,
@@ -1083,9 +1176,12 @@ export default function Loket({ props }) {
           P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
           P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
           P_patientTemp_paymentMethod_change_click,
-          P_patientTemp_MR_change,
+          P_patientTemp_MR_option_change, P_patientTemp_MR_change,
         }} />}
-        {(dashboard.name === 'Antrian Poli') && <AntrianPoli />}
+
+        {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{}} />}
+
+        {(dashboard.name === 'Statistik') && <Statistik props={{}} />}
       </div>
       <Footer props={{text: 'Footer'}} />
     </div>

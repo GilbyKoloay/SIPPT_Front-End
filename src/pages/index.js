@@ -1,11 +1,11 @@
 // pages
 
 import Login from './Login';
-import Loket from './Loket';
+import Administrator from './Administrator';
 import NotFound from './NotFound';
 
 export {
   Login,
-  Loket,
+  Administrator,
   NotFound,
 };
