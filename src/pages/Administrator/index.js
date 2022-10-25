@@ -1058,6 +1058,34 @@ export default function Administrator({ props }) {
 
   const [D_drugs, setD_drugs] = useState(null);
   const [D_drug_option, setD_drug_option] = useState('Cari Obat');
+  const [D_drug_find, setD_drug_find] = useState({
+    name: '',
+      type: '',
+      unit: '',
+      batchNumber: '',
+      receiveDateOption: 'Sama dengan',
+      receiveDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      receiveDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expenditureDateOption: 'Sama dengan',
+      expenditureDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expenditureDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+  });
   const [D_add, setD_add] = useState({
     name: '',
     type: '',
@@ -1076,8 +1104,57 @@ export default function Administrator({ props }) {
     (res.status === 'success') && setD_drugs(res.data);
   };
 
+  const D_drug_findChange = (prop, val) => {
+    setD_drug_find((typeof(prop) === 'string') ? 
+      {...D_drug_find, [prop]: val} : 
+      {...D_drug_find, [prop[0]]: {...D_drug_find[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const D_drug_findClear = (e) => {
+    setD_drug_find({
+      name: '',
+      type: '',
+      unit: '',
+      batchNumber: '',
+      receiveDateOption: 'Sama dengan',
+      receiveDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      receiveDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expenditureDateOption: 'Sama dengan',
+      expenditureDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expenditureDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+    });
+  };
+
   const D_add_change = (prop, val) => {
     setD_add({...D_add, [prop]: val});
+  };
+
+  const D_add_clear = (e) => {
+    (e !== null) && e.preventDefault();
+
+    setD_add({
+      name: '',
+      type: '',
+      unit: '',
+      batchNumber: '',
+    });
   };
 
   const D_add_submit = async (e) => {
@@ -1093,8 +1170,7 @@ export default function Administrator({ props }) {
     });
     const res = await req.json();
 
-    console.log({ _employee: __user._id, ...D_add });
-    console.log(res);
+    (res.status === 'success') && D_add_clear(null);
   };
 
   // dev ======================================================================================================================================================================
@@ -1124,7 +1200,8 @@ export default function Administrator({ props }) {
 
   // Obat
   useEffect(() => {
-    console.log(D_add); // dev
+    // console.log(D_add); // dev
+    console.log(D_drug_find); // dev
   });
 
   // Patient
@@ -1160,8 +1237,9 @@ export default function Administrator({ props }) {
           __user,
           D_drugs, setD_drugs,
           D_drug_option, setD_drug_option,
+          D_drug_find, D_drug_findChange, D_drug_findClear,
+          D_add, D_add_change, D_add_clear, D_add_submit,
           D_result, setD_result,
-          D_add, D_add_change, D_add_submit,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{
