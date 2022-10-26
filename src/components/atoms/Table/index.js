@@ -2,7 +2,7 @@
 import './styles.css';
 
 export default function Table({ props }) {
-  const { data, show, selected, onClick } = props;
+  const { data, show=null, selected, onClick } = props;
   const widths = {};
 
   (() => {
@@ -36,17 +36,27 @@ export default function Table({ props }) {
     <div className='atom-table'>
       <div className='row title'>
         {data.map((obj, dataIndex) => ((dataIndex === 0) && Object.keys(obj).map((prop, objIndex) => 
-          show.map(s => (prop === s) && <div key={objIndex+1} style={getWidth(prop)}>{prop}</div>)
+          (show !== null ? show.map(s => (prop === s) && <div key={objIndex+1} style={getWidth(prop)}>{prop}</div>) : 
+          <div key={objIndex+1} style={getWidth(prop)}>{prop}</div>)
         )))}
       </div>
 
       {data.map((obj, dataIndex) => (<div key={dataIndex+1} className={`row ${selected && selected._id === obj._id ? 'selected' : ''}`} onClick={() => onClick(obj)}>
-        {Object.keys(obj).map((prop, objIndex) => show.map(s => (prop === s) && 
-          <div key={objIndex+1} style={getWidth(prop)}>{
-            typeof(obj[prop]) !== 'object' ? obj[prop] :
-            (prop === 'address') ? Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ', ' : ''}`) :
-            (prop === 'birthDate') && Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ' - ' : ''}`)
-          }</div>))}
+        {Object.keys(obj).map((prop, objIndex) => 
+          (show !== null ? show.map(s => (prop === s) && 
+            <div key={objIndex+1} style={getWidth(prop)}>{
+              typeof(obj[prop]) !== 'object' ? obj[prop] :
+              (prop === 'address') ? Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ', ' : ''}`) :
+              (prop === 'birthDate') && Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ' - ' : ''}`)
+            }</div>
+          ) : 
+            <div key={objIndex+1} style={getWidth(prop)}>{
+              typeof(obj[prop]) !== 'object' ? obj[prop] :
+              (prop === 'address') ? Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ', ' : ''}`) :
+              (prop === 'birthDate') && Object.keys(obj[prop]).map((subProp, subPropIndex) => `${obj[prop][subProp]}${subPropIndex < 2 ? ' - ' : ''}`)
+            }</div>
+          )
+        )}
       </div>))}
     </div>
   );

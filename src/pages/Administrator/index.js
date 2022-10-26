@@ -1088,13 +1088,14 @@ export default function Administrator({ props }) {
         year: '',
       },
   });
-  const [D_add, setD_add] = useState({
+  const [D_drug_add, setD_drug_add] = useState({
     name: '',
     type: '',
     unit: '',
     batchNumber: '',
   });
   const [D_result, setD_result] = useState(null);
+  const [D_result_selected, setD_result_selected] = useState(null);
 
   const drugs_getAll = async() => {
     const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
@@ -1103,17 +1104,20 @@ export default function Administrator({ props }) {
     });
     const res = await req.json();
 
-    (res.status === 'success') && setD_drugs(res.data);
+    if(res.status === 'success') {
+      setD_drugs(res.data);
+      setD_result(res.data);
+    }
   };
 
-  const D_drug_findChange = (prop, val) => {
+  const D_drug_find_change = (prop, val) => {
     setD_drug_find((typeof(prop) === 'string') ? 
       {...D_drug_find, [prop]: val} : 
       {...D_drug_find, [prop[0]]: {...D_drug_find[prop[0]], [prop[1]]: val}}
     );
   };
 
-  const D_drug_findClear = (e) => {
+  const D_drug_find_clear = (e) => {
     setD_drug_find({
       name: '',
       type: '',
@@ -1144,14 +1148,14 @@ export default function Administrator({ props }) {
     });
   };
 
-  const D_add_change = (prop, val) => {
-    setD_add({...D_add, [prop]: val});
+  const D_drug_add_change = (prop, val) => {
+    setD_drug_add({...D_drug_add, [prop]: val});
   };
 
-  const D_add_clear = (e) => {
+  const D_drug_add_clear = (e) => {
     (e !== null) && e.preventDefault();
 
-    setD_add({
+    setD_drug_add({
       name: '',
       type: '',
       unit: '',
@@ -1159,7 +1163,7 @@ export default function Administrator({ props }) {
     });
   };
 
-  const D_add_submit = async (e) => {
+  const D_drug_add_submit = async (e) => {
     e.preventDefault();
     
     const req = await fetch(`${process.env.REACT_APP_API}/drug/create`, {
@@ -1168,11 +1172,11 @@ export default function Administrator({ props }) {
         'authorization' : `Bearer ${__user.__token}`,
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ _employee: __user._id, ...D_add }),
+      body: JSON.stringify({ _employee: __user._id, ...D_drug_add }),
     });
     const res = await req.json();
 
-    (res.status === 'success') && D_add_clear(null);
+    (res.status === 'success') && D_drug_add_clear(null);
   };
 
   // dev ======================================================================================================================================================================
@@ -1204,6 +1208,7 @@ export default function Administrator({ props }) {
   useEffect(() => {
     // console.log(D_add); // dev
     // console.log(D_drug_find); // dev
+    // console.log(`D_result_selected`, D_result_selected); // dev
   });
 
   // Patient
@@ -1239,9 +1244,9 @@ export default function Administrator({ props }) {
           __user,
           D_drugs, setD_drugs,
           D_drug_option, setD_drug_option,
-          D_drug_find, D_drug_findChange, D_drug_findClear,
-          D_add, D_add_change, D_add_clear, D_add_submit,
-          D_result, setD_result,
+          D_drug_find, D_drug_find_change, D_drug_find_clear,
+          D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
+          D_result, setD_result, D_result_selected, setD_result_selected,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{
