@@ -23,6 +23,7 @@ export default function Obat({ props }) {
     D_drug_find, D_drug_find_change, D_drug_find_clear,
     D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
     D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
+    D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
   } = props;
 
   return(
@@ -210,6 +211,61 @@ export default function Obat({ props }) {
           value: D_drugSelected.option, 
           onClick: D_drugSelected_option_change, 
         }} />
+        { D_drugSelected.option !== null && <div>
+          <Gap props={{height: 25}} />
+          <HorLine />
+          <Gap props={{height: 25}} />
+          { D_drugSelected.option === 'Data Obat' && <form className='row'>
+            <div className='form'>
+              <TextInput props={{
+                label: 'Nama Obat', 
+                value: D_drugSelected_drugData.data.name, 
+                onChange: D_drugSelected_drugData_change, 
+                change: 'name', 
+                disabled: !D_drugSelected_drugData_change.change, 
+              }} />
+              <Select props={{
+                label: 'Tipe Obat', 
+                options: ['TIPE OBAT', 'KAPSUL', 'KAPLET', 'SIRUP', 'DROPS', 'SALEP', 'TETES', 'KRIM', 'GEL', 'SUPOSITORIA', 'INJEKSI', 'CAIRAN INFUS', 'BMHP'], 
+                value: D_drugSelected_drugData.data.type, 
+                onChange: D_drugSelected_drugData_change, 
+                change: 'type', 
+                disabled: !D_drugSelected_drugData_change.change, 
+              }} />
+            </div>
+            <div className='form'>
+              <Select props={{
+                label: 'Unit', 
+                options: ['UNIT OBAT', 'BOTOL', 'BOX', 'ROLL', 'SATCHET'], 
+                value: D_drugSelected_drugData.data.unit, 
+                onChange: D_drugSelected_drugData_change, 
+                change: 'unit', 
+                disabled: !D_drugSelected_drugData_change.change, 
+              }} />
+              <TextInput props={{
+                label: 'Nomor Batch', 
+                value: D_drugSelected_drugData.data.batchNumber, 
+                onChange: D_drugSelected_drugData_change, 
+                change: 'batchNumber', 
+                disabled: !D_drugSelected_drugData_change.change, 
+              }} />
+              { !D_drugSelected_drugData.change ? 
+                <Button props={{
+                  label: 'Ubah', 
+                  onClick: D_drugSelected_drugData_changeChange, 
+                  type: 'tertiary', 
+                  position: 'right', 
+                }} /> :
+                <ButtonList props={{
+                  options: ['Simpan Perubahan', 'Batalkan Perubahan'], 
+                  onClick: D_drugSelected_drugData_changeChange, 
+                  direction: 'row', 
+                  align: 'end', 
+                }} /> 
+              }
+            </div>
+          </form> }
+        </div> }
       </div> }
     </main>
   );

@@ -769,8 +769,6 @@ export default function Administrator({ props }) {
   }
 
   const P_patient_PDPM_change = async (val) => {
-    console.log(`P_patient_PDPM_change`, val);
-
     const req = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
       method: 'GET',
       headers: {
@@ -1099,6 +1097,15 @@ export default function Administrator({ props }) {
     data: null,
     option: null,
   });
+  const [D_drugSelected_drugData, setD_drugSelected_drugData] = useState({
+    change: false,
+    data: {
+      name: '',
+      type: '',
+      unit: '',
+      batchNumber: '',
+    },
+  });
 
   const drugs_getAll = async() => {
     const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
@@ -1187,10 +1194,39 @@ export default function Administrator({ props }) {
 
   const D_drugSelected_data_change = (val) => {
     setD_drugSelected({...D_drugSelected, data: val});
+    setD_drugSelected_drugData({
+      change: false,
+      data: {
+        name: val.name,
+        type: val.type,
+        unit: val.unit,
+        batchNumber: val.batchNumber,
+      },
+    });
   }
 
   const D_drugSelected_option_change = (val) => {
     setD_drugSelected({...D_drugSelected, option: val});
+  };
+
+  const D_drugSelected_drugData_change = (prop, val) => {
+    setD_drugSelected_drugData({...D_drugSelected_drugData, data: {...D_drugSelected_drugData.data, [prop]: val}});
+  };
+
+  const D_drugSelected_drugData_changeChange = (val) => {
+    if(typeof(val) === 'string') {
+      if(val === 'Simpan Perubahan') {
+        
+      }
+      else if(val === 'Batalkan Perubahan') {
+        
+      }
+    }
+    else {
+      val.preventDefault();
+    }
+
+    setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
   };
 
   // dev ======================================================================================================================================================================
@@ -1223,6 +1259,7 @@ export default function Administrator({ props }) {
     // console.log(D_add); // dev
     // console.log(D_drug_find); // dev
     // console.log(`D_result_selected`, D_result_selected); // dev
+    // console.log(`D_drugSelected_drugData`, D_drugSelected_drugData); // dev
   });
 
   // Patient
@@ -1261,6 +1298,7 @@ export default function Administrator({ props }) {
           D_drug_find, D_drug_find_change, D_drug_find_clear,
           D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
           D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
+          D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{
