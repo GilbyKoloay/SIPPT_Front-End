@@ -1095,7 +1095,10 @@ export default function Administrator({ props }) {
     batchNumber: '',
   });
   const [D_result, setD_result] = useState(null);
-  const [D_result_selected, setD_result_selected] = useState(null);
+  const [D_drugSelected, setD_drugSelected] = useState({
+    data: null,
+    option: null,
+  });
 
   const drugs_getAll = async() => {
     const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
@@ -1176,7 +1179,18 @@ export default function Administrator({ props }) {
     });
     const res = await req.json();
 
-    (res.status === 'success') && D_drug_add_clear(null);
+    if(res.status === 'success') {
+      D_drug_add_clear(null);
+      drugs_getAll();
+    }
+  };
+
+  const D_drugSelected_data_change = (val) => {
+    setD_drugSelected({...D_drugSelected, data: val});
+  }
+
+  const D_drugSelected_option_change = (val) => {
+    setD_drugSelected({...D_drugSelected, option: val});
   };
 
   // dev ======================================================================================================================================================================
@@ -1246,7 +1260,7 @@ export default function Administrator({ props }) {
           D_drug_option, setD_drug_option,
           D_drug_find, D_drug_find_change, D_drug_find_clear,
           D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
-          D_result, setD_result, D_result_selected, setD_result_selected,
+          D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{

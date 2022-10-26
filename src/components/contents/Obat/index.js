@@ -22,7 +22,7 @@ export default function Obat({ props }) {
     D_drug_option, setD_drug_option,
     D_drug_find, D_drug_find_change, D_drug_find_clear,
     D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
-    D_result, setD_result, D_result_selected, setD_result_selected,
+    D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
   } = props;
 
   return(
@@ -152,8 +152,8 @@ export default function Obat({ props }) {
               'type', 
               'unit', 
             ], 
-            selected: D_result_selected, 
-            onClick: setD_result_selected, 
+            selected: D_drugSelected.data, 
+            onClick: D_drugSelected_data_change, 
           }} />
         </div> }
         { (D_drug_option === 'Tambah Obat') && <div className='content'>
@@ -200,9 +200,15 @@ export default function Obat({ props }) {
             }} />
         </div> }
       </div>
-      { D_result_selected !== null && <div className='content'>
+      { (D_drug_option === 'Cari Obat' && D_drugSelected.data !== null) && <div className='content'>
         <Title props={{
-          title: D_result_selected.name, 
+          title: D_drugSelected.data.name, 
+        }} />
+        <ButtonList props={{
+          options: ['Data Obat', 'Tambah Pemasukkan', 'Tambah Pengeluaran'], 
+          direction: 'row', 
+          value: D_drugSelected.option, 
+          onClick: D_drugSelected_option_change, 
         }} />
       </div> }
     </main>
