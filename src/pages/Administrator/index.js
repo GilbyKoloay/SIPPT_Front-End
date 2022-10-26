@@ -769,6 +769,8 @@ export default function Administrator({ props }) {
   }
 
   const P_patient_PDPM_change = async (val) => {
+    console.log(`P_patient_PDPM_change`, val);
+
     const req = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
       method: 'GET',
       headers: {
