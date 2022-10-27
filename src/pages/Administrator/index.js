@@ -1100,6 +1100,9 @@ export default function Administrator({ props }) {
   const [D_drugSelected_drugData, setD_drugSelected_drugData] = useState({
     change: false,
     data: {
+      _id: null,
+      drug: null,
+      changeLog: null,
       name: '',
       type: '',
       unit: '',
@@ -1196,12 +1199,7 @@ export default function Administrator({ props }) {
     setD_drugSelected({...D_drugSelected, data: val});
     setD_drugSelected_drugData({
       change: false,
-      data: {
-        name: val.name,
-        type: val.type,
-        unit: val.unit,
-        batchNumber: val.batchNumber,
-      },
+      data: val,
     });
   }
 
@@ -1213,20 +1211,57 @@ export default function Administrator({ props }) {
     setD_drugSelected_drugData({...D_drugSelected_drugData, data: {...D_drugSelected_drugData.data, [prop]: val}});
   };
 
-  const D_drugSelected_drugData_changeChange = (val) => {
+  const D_drugSelected_drugData_changeChange = async (val) => {
     if(typeof(val) === 'string') {
       if(val === 'Simpan Perubahan') {
-        
+        const req = await fetch(`${process.env.REACT_APP_API}/drug/change`, {
+          method: 'PATCH',
+          headers: {
+            'authorization' : `Bearer ${__user.__token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            _employee: __user._id,
+            _id: D_drugSelected_drugData.data._id,
+            name: D_drugSelected_drugData.data.name,
+            type: D_drugSelected_drugData.data.type,
+            unit: D_drugSelected_drugData.data.unit,
+            batchNumber: D_drugSelected_drugData.data.batchNumber,
+          }),
+        });
+        const res = await req.json();
+
+        if(res.status === 'success') {
+          drugs_getAll();
+          setD_drugSelected({
+            ...D_drugSelected,
+            data: {
+              ...D_drugSelected.data,
+              name: D_drugSelected_drugData.data.name,
+              type: D_drugSelected_drugData.data.type,
+              unit: D_drugSelected_drugData.data.unit,
+              batchNumber: D_drugSelected_drugData.data.batchNumber,
+            }
+          });
+          setD_drugSelected_drugData({
+            data: D_drugSelected_drugData.data,
+            change: !D_drugSelected_drugData.change
+          });
+        }
       }
       else if(val === 'Batalkan Perubahan') {
-        
+        setD_drugSelected_drugData({
+          data: D_drugSelected.data,
+          change: !D_drugSelected_drugData.change,
+        });
       }
     }
     else {
       val.preventDefault();
+      setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
     }
 
-    setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
+    // setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
   };
 
   // dev ======================================================================================================================================================================

@@ -222,7 +222,7 @@ export default function Obat({ props }) {
                 value: D_drugSelected_drugData.data.name, 
                 onChange: D_drugSelected_drugData_change, 
                 change: 'name', 
-                disabled: !D_drugSelected_drugData_change.change, 
+                disabled: !D_drugSelected_drugData.change, 
               }} />
               <Select props={{
                 label: 'Tipe Obat', 
@@ -230,7 +230,7 @@ export default function Obat({ props }) {
                 value: D_drugSelected_drugData.data.type, 
                 onChange: D_drugSelected_drugData_change, 
                 change: 'type', 
-                disabled: !D_drugSelected_drugData_change.change, 
+                disabled: !D_drugSelected_drugData.change, 
               }} />
             </div>
             <div className='form'>
@@ -240,14 +240,14 @@ export default function Obat({ props }) {
                 value: D_drugSelected_drugData.data.unit, 
                 onChange: D_drugSelected_drugData_change, 
                 change: 'unit', 
-                disabled: !D_drugSelected_drugData_change.change, 
+                disabled: !D_drugSelected_drugData.change, 
               }} />
               <TextInput props={{
                 label: 'Nomor Batch', 
                 value: D_drugSelected_drugData.data.batchNumber, 
                 onChange: D_drugSelected_drugData_change, 
                 change: 'batchNumber', 
-                disabled: !D_drugSelected_drugData_change.change, 
+                disabled: !D_drugSelected_drugData.change, 
               }} />
               { !D_drugSelected_drugData.change ? 
                 <Button props={{
