@@ -336,7 +336,7 @@ export default function Pasien({ props }) {
       { P_patient.PD_PM && <div className='content'>
         <Title props={{title: P_patient.PD_PM.name}} />
         <ButtonList props={{
-          options: ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli'], 
+          options: ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli', 'Hapus Pasien'], 
           value: P_patient.option, 
           onClick: P_patient_option_change, 
           direction: 'row', 

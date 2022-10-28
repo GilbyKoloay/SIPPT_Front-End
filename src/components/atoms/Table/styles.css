@@ -56,6 +56,16 @@
     background-color: var(--primaryColorHover);
 }
 
+.atom-table .row.empty {
+    background-color: red;
+    border-radius: 5px;
+    padding: 7.5px;
+    background-color: #DDDDDD;
+    cursor: default;
+    display: flex;
+    justify-content: center;
+}
+
 .atom-table .row div {
     padding: 7.5px;
     color: black;

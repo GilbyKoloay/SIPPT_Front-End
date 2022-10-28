@@ -1109,6 +1109,19 @@ export default function Administrator({ props }) {
       batchNumber: '',
     },
   });
+  const [D_drugSelected_addReceive, setD_drugSelected_addReceive] = useState({
+    receiveTotal: '',
+    receiveDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+    expireDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+  });
 
   const drugs_getAll = async() => {
     const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
@@ -1260,16 +1273,62 @@ export default function Administrator({ props }) {
       val.preventDefault();
       setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
     }
+  };
 
-    // setD_drugSelected_drugData({...D_drugSelected_drugData, change: !D_drugSelected_drugData.change});
+  const D_drugSelected_addReceive_change = (prop, val) => {
+    setD_drugSelected_addReceive(typeof(prop) === 'string' ? 
+      {...D_drugSelected_addReceive, [prop]: val} : 
+      {...D_drugSelected_addReceive, [prop[0]]: {...D_drugSelected_addReceive[prop[0]], [prop[1]]: val}}
+    );
+  }
+
+  const D_drugSelected_addReceive_submit = async (e) => {
+    e.preventDefault();
+    
+    const req = await fetch(`${process.env.REACT_APP_API}/drug/createReceive`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+        _id: D_drugSelected.data._id,
+        receiveTotal: D_drugSelected_addReceive.receiveTotal,
+        receiveDate: D_drugSelected_addReceive.receiveDate,
+        expireDate: D_drugSelected_addReceive.expireDate,
+      }),
+    });
+    const res = await req.json();
+    
+    if(res.status === 'success') {
+      drugs_getAll();
+      setD_drugSelected_addReceive({
+        receiveTotal: '',
+        receiveDate: {
+          date: '',
+          month: '',
+          year: '',
+        },
+        expireDate: {
+          date: '',
+          month: '',
+          year: '',
+        },
+      });
+      // setD_drugSelected({
+      //   ...D_drugSelected,
+      //   data: {
+      //     ...D_drugSelected.data,
+      //     drug: D_drugSelected.data.drug.push()
+      //   }
+      // });
+    }
   };
 
   // dev ======================================================================================================================================================================
   // ==========================================================================================================================================================================
   // ==========================================================================================================================================================================
-
-
-
 
   // Run once when ADMINISTRATOR is loaded
   useEffect(() => {
@@ -1295,6 +1354,7 @@ export default function Administrator({ props }) {
     // console.log(D_drug_find); // dev
     // console.log(`D_result_selected`, D_result_selected); // dev
     // console.log(`D_drugSelected_drugData`, D_drugSelected_drugData); // dev
+    // console.log(`D_drugSelected_addReceive`, D_drugSelected_addReceive); // dev
   });
 
   // Patient
@@ -1334,6 +1394,7 @@ export default function Administrator({ props }) {
           D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
           D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
           D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
+          D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{

@@ -24,6 +24,7 @@ export default function Obat({ props }) {
     D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
     D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
     D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
+    D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
   } = props;
 
   return(
@@ -206,7 +207,7 @@ export default function Obat({ props }) {
           title: D_drugSelected.data.name, 
         }} />
         <ButtonList props={{
-          options: ['Data Obat', 'Tambah Pemasukkan', 'Tambah Pengeluaran'], 
+          options: ['Data Obat', 'Tambah Pemasukkan', 'Tambah Pengeluaran', 'Hapus Obat'], 
           direction: 'row', 
           value: D_drugSelected.option, 
           onClick: D_drugSelected_option_change, 
@@ -265,6 +266,53 @@ export default function Obat({ props }) {
               }
             </div>
           </form> }
+          { D_drugSelected.option === 'Tambah Pemasukkan' && <div>
+            { D_drugSelected.data.drug.length > 0 && <div>
+              <div className='textLabel'>Daftar Pemasukkan Obat</div>
+              <Gap props={{height: 15}} />
+              <Table props={{
+                data: D_drugSelected.data.drug, 
+                show: [
+                  'receiveDate', 
+                  'expireDate', 
+                  'receiveTotal', 
+                ], 
+              }} />
+            </div> }
+            <Gap props={{height: 25}} />
+            <HorLine />
+            <Gap props={{height: 25}} />
+            <form className='row'>
+              <div className='form'>
+                <TextInput props={{
+                  label: 'Jumlah Pemasukkan', 
+                  value: D_drugSelected_addReceive.receiveTotal, 
+                  onChange: D_drugSelected_addReceive_change, 
+                  change: 'receiveTotal'
+                }} />
+              </div>
+              <div className='form'>
+                <DateInput props={{
+                  label: 'Tanggal Pemasukkan', 
+                  value: D_drugSelected_addReceive.receiveDate, 
+                  onChange: D_drugSelected_addReceive_change, 
+                  change: 'receiveDate', 
+                }} />
+                <DateInput props={{
+                  label: 'Tanggal Kadalursa', 
+                  value: D_drugSelected_addReceive.expireDate, 
+                  onChange: D_drugSelected_addReceive_change, 
+                  change: 'expireDate', 
+                }} />
+              </div>
+            </form>
+            <Gap props={{height: 10}} />
+            <Button props={{
+              label: 'Tambah Obat', 
+              onClick: D_drugSelected_addReceive_submit, 
+              type: 'primary', 
+            }} />
+          </div> }
         </div> }
       </div> }
     </main>
