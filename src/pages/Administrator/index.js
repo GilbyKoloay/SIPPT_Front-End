@@ -1085,6 +1085,17 @@ export default function Administrator({ props }) {
         month: '',
         year: '',
       },
+      expireDateOption: 'Sama dengan', 
+      expireDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expireDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
   });
   const [D_drug_add, setD_drug_add] = useState({
     name: '',
@@ -1117,6 +1128,16 @@ export default function Administrator({ props }) {
       year: '',
     },
     expireDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+  });
+
+  const [D_drugSelected_addExpenditure, setD_drugSelected_addExpenditure] = useState({
+    selectedReceive: null,
+    expenditureTotal: '',
+    expenditureDate: {
       date: '',
       month: '',
       year: '',
@@ -1171,6 +1192,17 @@ export default function Administrator({ props }) {
         month: '',
         year: '',
       },
+      expireDateOption: 'Sama dengan', 
+      expireDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      expireDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
     });
   };
 
@@ -1213,6 +1245,15 @@ export default function Administrator({ props }) {
     setD_drugSelected_drugData({
       change: false,
       data: val,
+    });
+    setD_drugSelected_addExpenditure({
+      selectedReceive: null,
+      expenditureTotal: '',
+      expenditureDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
     });
   }
 
@@ -1303,6 +1344,10 @@ export default function Administrator({ props }) {
     
     if(res.status === 'success') {
       drugs_getAll();
+      setD_drugSelected({
+        data: null,
+        option: null,
+      });
       setD_drugSelected_addReceive({
         receiveTotal: '',
         receiveDate: {
@@ -1316,13 +1361,54 @@ export default function Administrator({ props }) {
           year: '',
         },
       });
-      // setD_drugSelected({
-      //   ...D_drugSelected,
-      //   data: {
-      //     ...D_drugSelected.data,
-      //     drug: D_drugSelected.data.drug.push()
-      //   }
-      // });
+    }
+  };
+
+  const D_drugSelected_addExpenditure_selectReceive = (val) => {
+    setD_drugSelected_addExpenditure({...D_drugSelected_addExpenditure, selectedReceive: val});
+  };
+
+  const D_drugSelected_addExpenditure_change = (prop, val) => {
+    setD_drugSelected_addExpenditure(typeof(prop) === 'string' ? 
+      {...D_drugSelected_addExpenditure, [prop]: val} : 
+      {...D_drugSelected_addExpenditure, [prop[0]]: {...D_drugSelected_addExpenditure[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const D_drugSelected_addExpenditure_submit = async (e) => {
+    e.preventDefault();
+    
+    const req = await fetch(`${process.env.REACT_APP_API}/drug/createExpenditure`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+        _id: D_drugSelected.data._id,
+        _receive: D_drugSelected_addExpenditure.selectedReceive._id,
+        expenditureTotal: D_drugSelected_addExpenditure.expenditureTotal,
+        expenditureDate: D_drugSelected_addExpenditure.expenditureDate,
+      }),
+    });
+    const res = await req.json();
+
+    if(res.status === 'success') {
+      drugs_getAll();
+      setD_drugSelected({
+        data: null,
+        option: null,
+      });
+      setD_drugSelected_addExpenditure({
+        selectedReceive: null,
+        expenditureTotal: '',
+        expenditureDate: {
+          date: '',
+          month: '',
+          year: '',
+        },
+      });
     }
   };
 
@@ -1352,9 +1438,12 @@ export default function Administrator({ props }) {
   useEffect(() => {
     // console.log(D_add); // dev
     // console.log(D_drug_find); // dev
-    // console.log(`D_result_selected`, D_result_selected); // dev
+    // console.log(`D_drugs`, D_drugs); // dev
+    // D_drugs.forEach(d => console.log(`d_drugs.drug`, d.drug)); // dev
+    // console.log(`D_drugSelected.data`, D_drugSelected.data); // dev
     // console.log(`D_drugSelected_drugData`, D_drugSelected_drugData); // dev
     // console.log(`D_drugSelected_addReceive`, D_drugSelected_addReceive); // dev
+    // console.log(`D_drugSelected_addExpenditure`, D_drugSelected_addExpenditure); // dev
   });
 
   // Patient
@@ -1395,6 +1484,7 @@ export default function Administrator({ props }) {
           D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
           D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
           D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
+          D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{

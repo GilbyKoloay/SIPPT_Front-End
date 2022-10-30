@@ -25,6 +25,7 @@ export default function Obat({ props }) {
     D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
     D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
     D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
+    D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
   } = props;
 
   return(
@@ -129,6 +130,37 @@ export default function Obat({ props }) {
                   value: D_drug_find.expenditureDateSec, 
                   onChange: D_drug_find_change, 
                   change: 'expenditureDateSec', 
+                  direction: 'col', 
+                }} />
+            </div> }
+            <RadioButton props={{
+              label: 'Tanggal Kadaluarsa', 
+              options: ['Sama dengan', 'Dari / Sampai'], 
+              value: D_drug_find.expireDateOption, 
+              onChange: D_drug_find_change, 
+              change: 'expireDateOption', 
+            }} />
+            { (D_drug_find.expireDateOption === 'Sama dengan') ? <div>
+              <DateInput props={{
+                label: 'Sama dengan', 
+                value: D_drug_find.expireDate, 
+                onChange: D_drug_find_change, 
+                change: 'expireDate', 
+                direction: 'col', 
+              }} />
+              </div> : (D_drug_find.expireDateOption === 'Dari / Sampai') && <div>
+                <DateInput props={{
+                  label: 'Dari', 
+                  value: D_drug_find.expireDate, 
+                  onChange: D_drug_find_change, 
+                  change: 'expireDate', 
+                  direction: 'col', 
+                }} />
+                <DateInput props={{
+                  label: 'Sampai', 
+                  value: D_drug_find.expireDateSec, 
+                  onChange: D_drug_find_change, 
+                  change: 'expireDateSec', 
                   direction: 'col', 
                 }} />
             </div> }
@@ -267,7 +299,7 @@ export default function Obat({ props }) {
             </div>
           </form> }
           { D_drugSelected.option === 'Tambah Pemasukkan' && <div>
-            { D_drugSelected.data.drug.length > 0 && <div>
+            { D_drugSelected.data.drug.length > 0 ? <div>
               <div className='textLabel'>Daftar Pemasukkan Obat</div>
               <Gap props={{height: 15}} />
               <Table props={{
@@ -278,7 +310,9 @@ export default function Obat({ props }) {
                   'receiveTotal', 
                 ], 
               }} />
-            </div> }
+            </div> : <div className='textLabel'>
+              Belum pernah dilakukan pemasukkan pada obat ini.
+            </div>}
             <Gap props={{height: 25}} />
             <HorLine />
             <Gap props={{height: 25}} />
@@ -288,7 +322,7 @@ export default function Obat({ props }) {
                   label: 'Jumlah Pemasukkan', 
                   value: D_drugSelected_addReceive.receiveTotal, 
                   onChange: D_drugSelected_addReceive_change, 
-                  change: 'receiveTotal'
+                  change: 'receiveTotal', 
                 }} />
               </div>
               <div className='form'>
@@ -308,10 +342,76 @@ export default function Obat({ props }) {
             </form>
             <Gap props={{height: 10}} />
             <Button props={{
-              label: 'Tambah Obat', 
+              label: 'Tambah Pemasukkan Obat', 
               onClick: D_drugSelected_addReceive_submit, 
               type: 'primary', 
             }} />
+          </div> }
+          { D_drugSelected.option === 'Tambah Pengeluaran' && <div>
+            { D_drugSelected.data.drug.length > 0 ? <div>
+              <form className='row'>
+                <div className='form'>
+                  <div className='textLabel'>Daftar Pemasukkan Obat</div>
+                  <Gap props={{height: 15}} />
+                  <Table props={{
+                    data: D_drugSelected.data.drug, 
+                    show: [
+                      'receiveDate', 
+                      'expireDate', 
+                      'receiveTotal', 
+                    ], 
+                    selected: D_drugSelected_addExpenditure.selectedReceive, 
+                    onClick: D_drugSelected_addExpenditure_selectReceive, 
+                  }} />
+                </div>
+                <div className='form'>
+                  <div className='textLabel'>Daftar Pengeluaran Obat</div>
+                  <Gap props={{height: 15}} />
+                  { D_drugSelected_addExpenditure.selectedReceive !== null && D_drugSelected_addExpenditure.selectedReceive.expenditure.length > 0 ? <Table props={{
+                    data: D_drugSelected_addExpenditure.selectedReceive.expenditure, 
+                    show: [
+                      'expenditureDate', 
+                      'expenditureTotal', 
+                    ], 
+                  }} /> : <div className='textLabel'>{ D_drugSelected_addExpenditure.selectedReceive === null ? 
+                    `Silahkan memilih daftar pemasukkan obat terlebih dahulu.` : 
+                    `Belum pernah dilakukan pengeluaran pada obat yang dimasukkan pada ${D_drugSelected_addExpenditure.selectedReceive.receiveDate}.`
+                  }</div> }
+                </div>
+              </form>
+              <Gap props={{height: 25}} />
+              <HorLine />
+              <Gap props={{height: 25}} />
+              { D_drugSelected_addExpenditure.selectedReceive !== null ? <div>
+                <form className='row'>
+                  <div className='form'>
+                    <TextInput props={{
+                      label: 'Jumlah Pengeluaran', 
+                      value: D_drugSelected_addExpenditure.expenditureTotal, 
+                      onChange: D_drugSelected_addExpenditure_change, 
+                      change: 'expenditureTotal', 
+                    }} />
+                  </div>
+                  <div className='form'>
+                    <DateInput props={{
+                      label: 'Tanggal Pengeluaran', 
+                      value: D_drugSelected_addExpenditure.expenditureDate, 
+                      onChange: D_drugSelected_addExpenditure_change, 
+                      change: 'expenditureDate', 
+                    }} />
+                  </div>
+                </form>
+                <Button props={{
+                  label: 'Tambah Pengeluaran Obat', 
+                  onClick: D_drugSelected_addExpenditure_submit, 
+                  type: 'primary', 
+                }} />
+              </div> : <div className='textLabel'>
+                Silahkan memilih daftar pemasukkan obat terlebih dahulu.
+              </div> }
+            </div> : <div className='textLabel'>
+              Belum ada pemasukkan di obat ini. Silahkan menambahkan pemasukkan obat terlebih dahulu.
+            </div> }
           </div> }
         </div> }
       </div> }
