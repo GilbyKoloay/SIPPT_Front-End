@@ -32,6 +32,7 @@ export default function Pasien({ props }) {
     P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
     P_patientTemp_paymentMethod_change_click,
     P_patientTemp_MR_option_change, P_patientTemp_MR_change,
+    P_patientTemp_delete_change,
   } = props;
 
 
@@ -66,7 +67,7 @@ export default function Pasien({ props }) {
   
   useEffect(() => {
     filter();
-  }, [P_findPatient, P_patient, P_patientTemp]);
+  }, [patients, P_findPatient, P_patient, P_patientTemp]);
 
 
 
@@ -710,6 +711,18 @@ export default function Pasien({ props }) {
 
         { P_patient.option === 'Poli' && <div>
           Poli here
+        </div> }
+
+        { P_patient.option === 'Hapus Pasien' && <div>
+          <div className='textLabel'>Menghapus pasien akan menghapus juga data Rekam Medis dan data BPJS/KIS dari pasien.</div>
+          <Gap props={{height: 15}} />
+          <div className='textLabel'>{P_patientTemp.delete ? 'Konfirmasi Penghapusan' : 'Hapus'} Pasien?</div>
+          <Gap props={{height: 25}} />
+          <ButtonList props={{
+            options: (P_patientTemp.delete === false) ? ['Hapus Pasien', 'Batal Menghapus Pasien'] : ['Batal Menghapus Pasien', 'Hapus Pasien'], 
+            direction: 'row', 
+            onClick: P_patientTemp_delete_change, 
+          }} />
         </div> }
       </div> }
     </main>

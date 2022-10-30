@@ -247,16 +247,6 @@ export default function Administrator({ props }) {
 
   const [dashboard, setDashboard] = useState(dashboardList[0]);
 
-  const patients_getAll = async () => {
-    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
-      method: 'GET',
-      headers: { 'Authorization' : `Bearer ${__user.__token}` },
-    });
-    const res = await req.json();
-    
-    (res.status === 'success') && setPatients(res.data);
-  };
-
   // dev ======================================================================================================================================================================
   // SIGN UP NEW PATIENT ======================================================================================================================================================
   // SUNP =====================================================================================================================================================================
@@ -642,9 +632,20 @@ export default function Administrator({ props }) {
       suggestion: '',
       initials: false,
     },
+    delete: false,
   });
 
 
+  
+  const patients_getAll = async () => {
+    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+    
+    (res.status === 'success') && setPatients(res.data);
+  };
   
   const P_findPatient_findUse_change = (val) => {
     setP_findPatient({...P_findPatient, findUse: val});
@@ -810,6 +811,7 @@ export default function Administrator({ props }) {
         suggestion: '',
         initials: false,
       },
+      delete: false,
     });
   };
 
@@ -1050,6 +1052,96 @@ export default function Administrator({ props }) {
       {...P_patientTemp, MR: {...P_patientTemp.MR, [prop]: val}} :
       {...P_patientTemp, MR: {...P_patientTemp.MR, [prop[0]]: {...P_patientTemp.MR[prop[0]], [prop[1]]: val}}}
     );
+  };
+  
+  const P_patientTemp_delete_change = async (val) => {
+    if(val === 'Batal Menghapus Pasien') {
+      setP_patientTemp({...P_patientTemp, delete: false});
+    }
+    else if(P_patientTemp.delete === false && val === 'Hapus Pasien') {
+      setP_patientTemp({...P_patientTemp, delete: true});
+    }
+    else if(P_patientTemp.delete === true && val === 'Hapus Pasien') {
+      // delete patient
+      const reqPatient = await fetch(`${process.env.REACT_APP_API}/patient/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._id,
+        }),
+      });
+      const resPatient = await reqPatient.json();
+      console.log(`resPatient`, resPatient);
+
+      // delete patient's bpjs/kis
+      const reqBPJSKIS = await fetch(`${process.env.REACT_APP_API}/BPJS/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._BPJS,
+        }),
+      });
+      const resBPJSKIS = await reqBPJSKIS.json();
+      console.log(`resBPJSKIS`, resBPJSKIS);
+
+      // delete patient's medical record
+      const reqMR = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._medicalRecord,
+        }),
+      });
+      const resMR = await reqMR.json()
+      console.log(`resMR`, resMR);
+
+      setP_patient({
+        option: '',
+        PD_PM: null,
+        BPJSKIS: null, 
+      });
+      
+      setP_patientTemp({
+        personalDataOnChange: false,
+        BPJSKISOnChange: false,
+        paymentMethodOnChange: false,
+        medicalRecordOption: 'Lihat Rekam Medis',
+        PD_PM: null,
+        BPJSKIS: null,
+        MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+        delete: false,
+      });
+
+      patients_getAll();
+    }
   };
 
   // dev ======================================================================================================================================================================
@@ -1454,6 +1546,7 @@ export default function Administrator({ props }) {
     // console.log(P_findPatient.BPJSKIS); // dev
     // console.log(P_patient); // dev
     // console.log(`P_patientTemp`, P_patientTemp); // dev
+    // console.log(`P_patientTemp.delete`, P_patientTemp.delete); // dev
   }, [P_findPatient, P_patient, P_patientTemp]);
 
 
@@ -1500,6 +1593,7 @@ export default function Administrator({ props }) {
           P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
           P_patientTemp_paymentMethod_change_click,
           P_patientTemp_MR_option_change, P_patientTemp_MR_change,
+          P_patientTemp_delete_change,
         }} />}
 
         {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{}} />}
