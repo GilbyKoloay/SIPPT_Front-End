@@ -1319,6 +1319,10 @@ export default function Administrator({ props }) {
     },
   });
 
+  const [D_drugSelected_deleteDrug, setD_drugSelected_deleteDrug] = useState({
+    delete: false,
+  });
+
   const drugs_getAll = async() => {
     const req = await fetch(`${process.env.REACT_APP_API}/drug/getAll`, {
       method: 'GET',
@@ -1587,6 +1591,37 @@ export default function Administrator({ props }) {
     }
   };
 
+  const D_drugSelected_deleteDrug_change = async (val) => {
+    if(val === 'Batal Menghapus Obat') {
+      setD_drugSelected_deleteDrug({...D_drugSelected_deleteDrug, delete: false});
+    }
+    else if(D_drugSelected_deleteDrug.delete === false && val === 'Hapus Obat') {
+      setD_drugSelected_deleteDrug({...D_drugSelected_deleteDrug, delete: true});
+    }
+    else if(D_drugSelected_deleteDrug.delete === true && val === 'Hapus Obat') {
+      const res = await fetch(`${process.env.REACT_APP_API}/drug/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: D_drugSelected.data._id,
+        }),
+      });
+      const req = await res.json();
+
+      console.log(`req`, req);
+
+      drugs_getAll();
+      setD_drugSelected({
+        data: null,
+        option: null,
+      });
+      setD_drugSelected_deleteDrug({delete: false});
+    }
+  };
+
   // dev ======================================================================================================================================================================
   // ==========================================================================================================================================================================
   // ==========================================================================================================================================================================
@@ -1662,6 +1697,7 @@ export default function Administrator({ props }) {
           D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
           D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
           D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
+          D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change,
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{

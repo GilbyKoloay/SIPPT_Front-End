@@ -26,6 +26,7 @@ export default function Obat({ props }) {
     D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
     D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
     D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
+    D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change,
   } = props;
 
   return(
@@ -347,6 +348,7 @@ export default function Obat({ props }) {
               type: 'primary', 
             }} />
           </div> }
+
           { D_drugSelected.option === 'Tambah Pengeluaran' && <div>
             { D_drugSelected.data.drug.length > 0 ? <div>
               <form className='row'>
@@ -412,6 +414,18 @@ export default function Obat({ props }) {
             </div> : <div className='textLabel'>
               Belum ada pemasukkan di obat ini. Silahkan menambahkan pemasukkan obat terlebih dahulu.
             </div> }
+          </div> }
+
+          { D_drugSelected.option === 'Hapus Obat' && <div>
+            <div className='textLabel'>Menghapus obat akan menghapus juga data pemasukkan dan pengeluaran dari obat.</div>
+            <Gap props={{height: 15}} />
+            <div className='textLabel'>{D_drugSelected_deleteDrug.delete ? 'Konfirmasi Penghapusan' : 'Hapus'} Obat?</div>
+            <Gap props={{height: 25}} />
+            <ButtonList props={{
+              options: (D_drugSelected_deleteDrug.delete === false) ? ['Hapus Obat', 'Batal Menghapus Obat'] : ['Batal Menghapus Obat', 'Hapus Obat'], 
+              direction: 'row', 
+              onClick: D_drugSelected_deleteDrug_change, 
+            }} />
           </div> }
         </div> }
       </div> }
