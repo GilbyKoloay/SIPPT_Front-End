@@ -603,6 +603,7 @@ export default function Administrator({ props }) {
     option: '',
     PD_PM: null,
     BPJSKIS: null, 
+    MR: null,
   });
 
   const [P_patientTemp, setP_patientTemp] = useState({
@@ -765,44 +766,68 @@ export default function Administrator({ props }) {
   }
 
   const P_patient_PDPM_change = async (val) => {
-    const req = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
+    const reqBPJS = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
       method: 'GET',
       headers: {
         'Authorization' : `Bearer ${__user.__token}`,
         'Content-type': 'application/json',
       },
     });
-    const res = await req.json();
+    const resBPJS = await reqBPJS.json();
 
-    setP_patient({...P_patient,
-      PD_PM: val,
-      BPJSKIS: (res.status === 'success') ? res.data : null,
-    });
+    if(resBPJS.status === 'success') {
+      const reqMR = await fetch(`${process.env.REACT_APP_API}/medicalRecord/get:${val._medicalRecord}`, {
+        method: 'GET',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+      });
+      const resMR = await reqMR.json();
 
-    setP_patientTemp({
-      personalDataOnChange: false,
-      BPJSKISOnChange: false,
-      paymentMethodOnChange: false,
-      medicalRecordOption: 'Lihat Rekam Medis',
-      PD_PM: val,
-      BPJSKIS: (res.status === 'success') ? res.data: null,
-      MR: {
-        bodyHeight: '',
-        bodyWeight: '',
-        tension: '',
-        pulse: '',
-        respiration: '',
-        bodyTemperature: '',
-        laboratorium: '',
-        history: '',
-        physicalExamination: '',
-        diagnosis: '',
-        medicalPrescription: '',
-        suggestion: '',
-        initials: false,
-      },
-      delete: false,
-    });
+      if(resMR.status === 'success') {
+        setP_patient({...P_patient,
+          PD_PM: val,
+          BPJSKIS: resBPJS.data,
+          MR: {
+            ...resMR.data, 
+            records: resMR.data.records.map(r => ({
+              ...r,
+              bodyHeight: r.bodyHeight.$numberDecimal,
+              bodyWeight: r.bodyWeight.$numberDecimal,
+              bodyTemperature: r.bodyTemperature.$numberDecimal,
+              pulse: r.pulse.$numberDecimal,
+              respiration: r.respiration.$numberDecimal,
+            })),
+          },
+        });
+  
+        setP_patientTemp({
+          personalDataOnChange: false,
+          BPJSKISOnChange: false,
+          paymentMethodOnChange: false,
+          medicalRecordOption: 'Lihat Rekam Medis',
+          PD_PM: val,
+          BPJSKIS: resBPJS.data,
+          MR: {
+            bodyHeight: '',
+            bodyWeight: '',
+            tension: '',
+            pulse: '',
+            respiration: '',
+            bodyTemperature: '',
+            laboratorium: '',
+            history: '',
+            physicalExamination: '',
+            diagnosis: '',
+            medicalPrescription: '',
+            suggestion: '',
+            initials: false,
+          },
+          delete: false,
+        });
+      }
+    }
   };
 
   const P_patientTemp_personalData_change_click = async (val) => {
@@ -1086,6 +1111,7 @@ export default function Administrator({ props }) {
         option: '',
         PD_PM: null,
         BPJSKIS: null, 
+        MR: null,
       });
 
       setP_patientTemp({
@@ -1169,6 +1195,7 @@ export default function Administrator({ props }) {
         option: '',
         PD_PM: null,
         BPJSKIS: null, 
+        MR: null,
       });
       
       setP_patientTemp({

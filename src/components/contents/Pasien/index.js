@@ -724,7 +724,26 @@ export default function Pasien({ props }) {
               type: 'primary', 
             }} />
           </div> : <div>
-            tabel
+            <Gap props={{height: 25}} />
+            { P_patient.MR.records.length > 0 ? <Table props={{
+              data: P_patient.MR.records, 
+              show: [
+                'bodyHeight', 
+                'bodyWeight', 
+                'tension', 
+                'pulse', 
+                'respiration', 
+                'bodyTemperature', 
+                'laboratorium', 
+                'history', 
+                'physicalExamination', 
+                'diagnosis', 
+                'medicalPrescription', 
+                'suggestion', 
+              ], 
+            }} /> : <div className='textLabel'>
+              Pasien ini tidak memiliki rekaman medis
+            </div> }
           </div>}
         </div> }
 
