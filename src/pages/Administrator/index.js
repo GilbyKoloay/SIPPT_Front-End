@@ -613,11 +613,6 @@ export default function Administrator({ props }) {
     PD_PM: null,
     BPJSKIS: null,
     MR: {
-      date: {
-        date: '',
-        month: '',
-        year: '',
-      },
       bodyHeight: '',
       bodyWeight: '',
       tension: '',
@@ -792,11 +787,6 @@ export default function Administrator({ props }) {
       PD_PM: val,
       BPJSKIS: (res.status === 'success') ? res.data: null,
       MR: {
-        date: {
-          date: '',
-          month: '',
-          year: '',
-        },
         bodyHeight: '',
         bodyWeight: '',
         tension: '',
@@ -1053,6 +1043,77 @@ export default function Administrator({ props }) {
       {...P_patientTemp, MR: {...P_patientTemp.MR, [prop[0]]: {...P_patientTemp.MR[prop[0]], [prop[1]]: val}}}
     );
   };
+
+  const P_patientTemp_MR_submit = async (e) => {
+    e.preventDefault();
+
+    const req = await fetch(`${process.env.REACT_APP_API}/medicalRecord/createRecord`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+        _id: P_patientTemp.PD_PM._medicalRecord,
+        ...P_patientTemp.MR,
+      }),
+    });
+    const res = await req.json();
+
+    if(res.status === 'success') {
+      setP_patientTemp({...P_patientTemp, MR: {
+        MR: {
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+      }});
+
+      patients_getAll();
+
+      setP_patient({
+        option: '',
+        PD_PM: null,
+        BPJSKIS: null, 
+      });
+
+      setP_patientTemp({
+        personalDataOnChange: false,
+        BPJSKISOnChange: false,
+        paymentMethodOnChange: false,
+        medicalRecordOption: 'Lihat Rekam Medis',
+        PD_PM: null,
+        BPJSKIS: null,
+        MR: {
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+        delete: false,
+      });
+    }
+  };
   
   const P_patientTemp_delete_change = async (val) => {
     if(val === 'Batal Menghapus Pasien') {
@@ -1118,11 +1179,6 @@ export default function Administrator({ props }) {
         PD_PM: null,
         BPJSKIS: null,
         MR: {
-          date: {
-            date: '',
-            month: '',
-            year: '',
-          },
           bodyHeight: '',
           bodyWeight: '',
           tension: '',
@@ -1547,6 +1603,7 @@ export default function Administrator({ props }) {
     // console.log(P_patient); // dev
     // console.log(`P_patientTemp`, P_patientTemp); // dev
     // console.log(`P_patientTemp.delete`, P_patientTemp.delete); // dev
+    // console.log(`P_patientTemp.MR`, P_patientTemp.MR); // dev
   }, [P_findPatient, P_patient, P_patientTemp]);
 
 
@@ -1592,7 +1649,7 @@ export default function Administrator({ props }) {
           P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
           P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
           P_patientTemp_paymentMethod_change_click,
-          P_patientTemp_MR_option_change, P_patientTemp_MR_change,
+          P_patientTemp_MR_option_change, P_patientTemp_MR_change, P_patientTemp_MR_submit,
           P_patientTemp_delete_change,
         }} />}
 
