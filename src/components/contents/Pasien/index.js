@@ -644,12 +644,6 @@ export default function Pasien({ props }) {
                     change: 'bodyWeight', 
                   }} />
                   <TextInput props={{
-                    label: 'Tensi', 
-                    value: P_patientTemp.MR.tension, 
-                    onChange: P_patientTemp_MR_change, 
-                    change: 'tension', 
-                  }} />
-                  <TextInput props={{
                     label: 'Nadi', 
                     value: P_patientTemp.MR.pulse, 
                     onChange: P_patientTemp_MR_change, 
@@ -666,6 +660,12 @@ export default function Pasien({ props }) {
                     value: P_patientTemp.MR.bodyTemperature, 
                     onChange: P_patientTemp_MR_change, 
                     change: 'bodyTemperature', 
+                  }} />
+                  <TextInput props={{
+                    label: 'Tensi', 
+                    value: P_patientTemp.MR.tension, 
+                    onChange: P_patientTemp_MR_change, 
+                    change: 'tension', 
                   }} />
                   <TextInput props={{
                     label: 'Laboratorium', 

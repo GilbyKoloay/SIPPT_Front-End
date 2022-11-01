@@ -44,13 +44,13 @@ export default function Login({ props }) {
       setPasswordErr(false);
       __setUser(res.data);
       
-      // (res.data.role) === 'ADMINISTRATOR' && navigate('/administrator');
-      // (res.data.role) === 'LOKET' && navigate('/loket');
-      // (res.data.role) === 'POLI UMUM' && navigate('/poliUmum');
-      // (res.data.role) === 'POLI GIGI' && navigate('/poliGigi');
-      // (res.data.role) === 'POLI KIA' && navigate('/poliKIA');
-      // (res.data.role) === 'APOTEK' && navigate('/apotek');
-      navigate('/administrator'); // dev
+      (res.data.role) === 'ADMINISTRATOR' && navigate('/administrator');
+      (res.data.role) === 'LOKET' && navigate('/loket');
+      (res.data.role) === 'POLI UMUM' && navigate('/poliUmum');
+      (res.data.role) === 'POLI GIGI' && navigate('/poliGigi');
+      (res.data.role) === 'POLI KIA' && navigate('/poliKIA');
+      (res.data.role) === 'APOTEK' && navigate('/apotek');
+      // navigate('/administrator'); // dev
     }
     if(res.status === 'error') {
       setErrMsg(res.msg);
