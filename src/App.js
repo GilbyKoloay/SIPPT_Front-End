@@ -24,10 +24,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/login' element={<Login props={{__setUser}} />} />
-          <Route path='/administrator' element={__user ? <Administrator props={{__user}} /> : <NotFound />} />
-          <Route path='/loket' element={__user ? <Loket props={{__user}} /> : <NotFound />} />
-          <Route path='/poli' element={__user ? <Poli props={{__user}} /> : <NotFound />} />
-          <Route path='/apotek' element={__user ? <Apotek props={{__user}} /> : <NotFound />} />
+          <Route path='/administrator' element={__user ? <Administrator props={{__user, __setUser}} /> : <NotFound />} />
+          <Route path='/loket' element={__user ? <Loket props={{__user, __setUser}} /> : <NotFound />} />
+          <Route path='/poli' element={__user ? <Poli props={{__user, __setUser}} /> : <NotFound />} />
+          <Route path='/apotek' element={__user ? <Apotek props={{__user, __setUser}} /> : <NotFound />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

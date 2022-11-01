@@ -19,7 +19,7 @@ import {
 } from '../../components/contents';
 
 export default function Poli({ props }) {
-  const { __user } = props;
+  const { __user, __setUser } = props;
   const dashboardList = [
     { id: 1, name: 'Dasbor' },
     // { id: 2, name: 'Antrian Poli' },
@@ -1694,7 +1694,13 @@ export default function Poli({ props }) {
     <div className='poli'>
       <Header props={{name: __user.name, role: __user.role}} />
       <div className='dashboard-main'>
-        <Dashboard props={{dashboardList, dashboard, setDashboard}} />
+        <Dashboard props={{
+          dashboardList, 
+          dashboard, 
+          setDashboard, 
+          exit: __setUser
+        }} />
+        
         {/* {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />} */}
 
         {(dashboard.name === 'Obat') && <Obat props={{
