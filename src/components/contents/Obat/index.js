@@ -37,7 +37,7 @@ export default function Obat({ props }) {
             title: 'Obat', 
           }} />
           <ButtonList props={{
-            options: ['Cari Obat', 'Tambah Obat'], 
+            options: ((__user.role === 'ADMINISTRATOR') || (__user.role === 'APOTEK')) ? ['Cari Obat', 'Tambah Obat'] : ['Cari Obat'], 
             value: D_drug_option, 
             direction: 'col', 
             onClick: setD_drug_option, 
@@ -240,7 +240,7 @@ export default function Obat({ props }) {
           title: D_drugSelected.data.name, 
         }} />
         <ButtonList props={{
-          options: ['Data Obat', 'Tambah Pemasukkan', 'Tambah Pengeluaran', 'Hapus Obat'], 
+          options: ((__user.role === 'ADMINISTRATOR') || (__user.role === 'APOTEK')) ? ['Data Obat', 'Tambah Pemasukkan', 'Tambah Pengeluaran', 'Hapus Obat'] : ['Data Obat'], 
           direction: 'row', 
           value: D_drugSelected.option, 
           onClick: D_drugSelected_option_change, 
@@ -283,7 +283,7 @@ export default function Obat({ props }) {
                 change: 'batchNumber', 
                 disabled: !D_drugSelected_drugData.change, 
               }} />
-              { !D_drugSelected_drugData.change ? 
+              { ((__user.role === 'ADMINISTRATOR') || (__user.role === 'APOTEK')) && (!D_drugSelected_drugData.change ? 
                 <Button props={{
                   label: 'Ubah', 
                   onClick: D_drugSelected_drugData_changeChange, 
@@ -296,7 +296,7 @@ export default function Obat({ props }) {
                   direction: 'row', 
                   align: 'end', 
                 }} /> 
-              }
+              )}
             </div>
           </form> }
           { D_drugSelected.option === 'Tambah Pemasukkan' && <div>
