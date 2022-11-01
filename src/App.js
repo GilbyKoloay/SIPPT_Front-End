@@ -13,7 +13,7 @@ export default function App() {
   // google 'useState value disappear when refreshing page'
 
   useEffect(() => {
-    // console.log(__user);
+    // console.log(`__user`, __user);
   }, [__user]);
 
   return (

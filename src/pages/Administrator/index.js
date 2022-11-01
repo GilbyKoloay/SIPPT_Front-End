@@ -614,6 +614,11 @@ export default function Administrator({ props }) {
     PD_PM: null,
     BPJSKIS: null,
     MR: {
+      date: {
+        date: '',
+        month: '',
+        year: '',
+      },
       bodyHeight: '',
       bodyWeight: '',
       tension: '',
@@ -810,6 +815,11 @@ export default function Administrator({ props }) {
           PD_PM: val,
           BPJSKIS: resBPJS.data,
           MR: {
+            date: {
+              date: '',
+              month: '',
+              year: '',
+            },
             bodyHeight: '',
             bodyWeight: '',
             tension: '',
@@ -1089,6 +1099,11 @@ export default function Administrator({ props }) {
     if(res.status === 'success') {
       setP_patientTemp({...P_patientTemp, MR: {
         MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
           bodyHeight: '',
           bodyWeight: '',
           tension: '',
@@ -1122,6 +1137,11 @@ export default function Administrator({ props }) {
         PD_PM: null,
         BPJSKIS: null,
         MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
           bodyHeight: '',
           bodyWeight: '',
           tension: '',
@@ -1206,6 +1226,11 @@ export default function Administrator({ props }) {
         PD_PM: null,
         BPJSKIS: null,
         MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
           bodyHeight: '',
           bodyWeight: '',
           tension: '',

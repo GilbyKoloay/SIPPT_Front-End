@@ -625,6 +625,12 @@ export default function Pasien({ props }) {
             <form className='col'>
               <div className='row'>
                 <div className='form'>
+                  <DateInput props={{
+                    label: 'Tanggal Periksa', 
+                    value: P_patientTemp.MR.date, 
+                    change: 'date', 
+                    onChange: P_patientTemp_MR_change, 
+                  }} />
                   <TextInput props={{
                     label: 'Tinggi Badan', 
                     value: P_patientTemp.MR.bodyHeight, 
@@ -728,6 +734,7 @@ export default function Pasien({ props }) {
             { P_patient.MR.records.length > 0 ? <Table props={{
               data: P_patient.MR.records, 
               show: [
+                'date', 
                 'bodyHeight', 
                 'bodyWeight', 
                 'tension', 
