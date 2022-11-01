@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// sryles
+// styles
 import './styles.css';
 
 // components
@@ -12,20 +12,18 @@ import {
 
 // contents
 import {
-
+  // AntrianPoli,
+  DaftarPasienBaru,
+  Pasien,
 } from '../../components/contents';
 
 export default function Loket({ props }) {
   const { __user } = props;
   const dashboardList = [
     { id: 1, name: 'Dasbor' },
-    { id: 2, name: 'Antrian Poli' },
+    // { id: 2, name: 'Antrian Poli' },
     { id: 3, name: 'Daftar Pasien Baru' },
-    { id: 4, name: 'Daftar Pegawai Baru' },
-    { id: 5, name: 'Obat' },
-    { id: 6, name: 'Pasien' },
-    { id: 7, name: 'Pemesanan Obat' },
-    { id: 8, name: 'Statistik' },
+    { id: 4, name: 'Pasien' },
   ];
   const addressList = [
     { districtCity: 'MINAHASA UTARA', subDistricts: [
@@ -240,14 +238,1079 @@ export default function Loket({ props }) {
 
 
   const [dashboard, setDashboard] = useState(dashboardList[0]);
+
+  // dev ======================================================================================================================================================================
+  // SIGN UP NEW PATIENT ======================================================================================================================================================
+  // SUNP =====================================================================================================================================================================
   
+  const [SUNP_personalData, setSUNP_personalData]= useState({
+    medicalRecordNumber: '',
+    name: '',
+    sex: '',
+    address: {
+      districtCity: 'MINAHASA UTARA',
+      subDistrict: 'TALAWAAN',
+      wardVillage: '',
+    },
+    phoneNumber: '',
+    birthPlace: '',
+    birthDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+    age: '',
+    familyCardName: '',
+    religion: '',
+    maritalStatus: '',
+    job: '',
+  });
+
+  const [SUNP_BPJSKISData, setSUNP_BPJSKISData] = useState({
+    cardNumber: '',
+    name: '',
+    birthDate: {
+      date: '',
+      month: '',
+      year: '',
+    },
+    healthFacilityLevel: '',
+    nursingClass: '',
+    NIK: '',
+    address: '',
+  });
+
+  const [SUNP_paymentMethod, setSUNP_paymentMethod] = useState({
+    paymentMethod: '',
+    JKN: '',
+    otherInsurance: '',
+    number: '',
+  });
+
+
+
+  const SUNP_personalData_change = (prop, val) => {
+    setSUNP_personalData((typeof(prop) === 'string') ? 
+      {...SUNP_personalData, [prop]: val} : 
+      {...SUNP_personalData, [prop[0]]: {...SUNP_personalData[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const SUNP_personalData_address_change = (prop, val) => {
+    setSUNP_personalData(
+      (prop === 'districtCity') ? {...SUNP_personalData, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }} : (prop === 'subDistrict') ? {...SUNP_personalData, address: {
+        districtCity: SUNP_personalData.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }} : (prop === 'wardVillage') && {...SUNP_personalData, address: {
+        districtCity: SUNP_personalData.address.districtCity,
+        subDistrict: SUNP_personalData.address.subDistrict,
+        wardVillage: val,
+      }}
+    );
+  };
+
+  const SUNP_personalData_clear = (e) => {
+    (e) && e.preventDefault();
+
+    setSUNP_personalData({
+      medicalRecordNumber: '',
+      name: '',
+      sex: '',
+      address: {
+        districtCity: 'MINAHASA UTARA',
+        subDistrict: 'TALAWAAN',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      age: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+    });
+  };
+
+  const SUNP_BPJSKISData_change = (prop, val) => {
+    setSUNP_BPJSKISData((typeof(prop) === 'string') ? 
+      {...SUNP_BPJSKISData, [prop]: val} : 
+      {...SUNP_BPJSKISData, [prop[0]]: {...SUNP_BPJSKISData[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const SUNP_BPJSKISData_clear = (e) => {
+    (e) && e.preventDefault();
+    
+    setSUNP_BPJSKISData({
+      cardNumber: '',
+      name: '',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    });
+  };
+
+  const SUNP_paymentMethod_change = (prop, val) => {
+    setSUNP_paymentMethod((typeof(prop) === 'string') ? 
+      {...SUNP_paymentMethod, [prop]: val} : 
+      {...SUNP_paymentMethod, [prop[0]]: {...SUNP_paymentMethod[prop[0]], [prop[1]]: val}}
+    );
+  };
+
+  const SUNP_paymentMethod_clear = (e) => {
+    (e) && e.preventDefault();
+    
+    setSUNP_paymentMethod({
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    });
+  };
+
+  const SUNP_submitForm = async (e) => {
+    e.preventDefault();
+
+    // create new patient's medical record
+    const MRreq = await fetch(`${process.env.REACT_APP_API}/medicalRecord/create`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+      }),
+    });
+    const MRres = await MRreq.json();
+    console.log(`MRres`)
+    console.log(MRres);
+    
+    if(MRres.status === 'success') {
+      // create new patient's BPJS
+      const BPJSreq = await fetch(`${process.env.REACT_APP_API}/BPJS/create`, {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          cardNumber: SUNP_BPJSKISData.cardNumber,
+          name: SUNP_BPJSKISData.name,
+          birthDate: {
+            date: SUNP_BPJSKISData.birthDate.date,
+            month: SUNP_BPJSKISData.birthDate.month,
+            year: SUNP_BPJSKISData.birthDate.year,
+          },
+          healthFacilityLevel: SUNP_BPJSKISData.healthFacilityLevel,
+          nursingClass: SUNP_BPJSKISData.nursingClass,
+          NIK: SUNP_BPJSKISData.NIK,
+          address: SUNP_BPJSKISData.address,
+        }),
+      });
+      const BPJSres = await BPJSreq.json();
+      console.log(`BPJSres`);
+      console.log(BPJSres);
+
+      if(BPJSres.status === 'error') {
+        // delete previously created medical record
+        const MRreqDel = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization' : `Bearer ${__user.__token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            _id: MRres.data._id,
+          }),
+        });
+        const MRresDel = await MRreqDel.json();
+        console.log(`MRresDel`);
+        console.log(MRresDel);
+      }
+      else if(BPJSres.status === 'success') {
+        // create new patient data
+        const req = await fetch(`${process.env.REACT_APP_API}/patient/create`, {
+          method: 'POST',
+          headers: {
+            'Authorization' : `Bearer ${__user.__token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            _employee: __user._id,
+            _medicalRecord: MRres.data._id,
+            _BPJS: BPJSres.data._id,
+            medicalRecordNumber: SUNP_personalData.medicalRecordNumber,
+            name: SUNP_personalData.name,
+            birthPlace: SUNP_personalData.birthPlace,
+            birthDate: {
+              date: SUNP_personalData.birthDate.date,
+              month: SUNP_personalData.birthDate.month,
+              year: SUNP_personalData.birthDate.year,
+            },
+            sex: SUNP_personalData.sex,
+            familyCardName: SUNP_personalData.familyCardName,
+            address: {
+              districtCity: SUNP_personalData.address.districtCity,
+              subDistrict: SUNP_personalData.address.subDistrict,
+              wardVillage: SUNP_personalData.address.wardVillage,
+            },
+            phoneNumber: SUNP_personalData.phoneNumber,
+            religion: SUNP_personalData.religion,
+            maritalStatus: SUNP_personalData.maritalStatus,
+            job: SUNP_personalData.job,
+            paymentMethod: SUNP_paymentMethod.paymentMethod,
+            JKN: SUNP_paymentMethod.JKN,
+            otherInsurance: SUNP_paymentMethod.otherInsurance,
+            number: SUNP_paymentMethod.number,
+          }),
+        });
+        const res = await req.json();
+        console.log(`res`);
+        console.log(res);
+
+        if(res.status === 'error') {
+          // delete previously cretated medical record and BPJS
+          const MRreqDel = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization' : `Bearer ${__user.__token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              _id: MRres.data._id,
+            }),
+          });
+          const MRresDel = await MRreqDel.json();
+          console.log(`MRresDel`);
+          console.log(MRresDel);
+
+          const BPJSreqDel = await fetch(`${process.env.REACT_APP_API}/bpjs/delete`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization' : `Bearer ${__user.__token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              _id: BPJSres.data._id,
+            }),
+          });
+          const BPJSresDel = await BPJSreqDel.json();
+          console.log(`BPJSresDel`);
+          console.log(BPJSresDel);
+        }
+        else if(res.status === 'success') {
+          SUNP_personalData_clear(null);
+          SUNP_BPJSKISData_clear(null);
+          SUNP_paymentMethod_clear(null);
+          patients_getAll();
+        }
+      }
+    }
+  };
+
+  // dev ======================================================================================================================================================================
+  // PATIENT ==================================================================================================================================================================
+  // P ========================================================================================================================================================================
+
+  const [patients, setPatients] = useState(null);
+
+  const [P_findPatient, setP_findPatient] = useState({
+    findUse: 'Cari Menggunakan Nomor Rekam Medis',
+    medicalRecordNumber: {
+      medicalRecordNumber: '',
+    },
+    personalData: {
+      name: '',
+      sex: '',
+      address: {
+        districtCity: '',
+        subDistrict: '',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      ageOption: 'Sama dengan',
+      age: '',
+      ageSec: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    },
+    BPJSKIS: {
+      cardNumber: '',
+      name: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    },
+  });
+
+  const [P_patient, setP_patient] = useState({
+    option: '',
+    PD_PM: null,
+    BPJSKIS: null, 
+    MR: null,
+  });
+
+  const [P_patientTemp, setP_patientTemp] = useState({
+    personalDataOnChange: false,
+    BPJSKISOnChange: false,
+    paymentMethodOnChange: false,
+    medicalRecordOption: 'Lihat Rekam Medis',
+    PD_PM: null,
+    BPJSKIS: null,
+    MR: {
+      date: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      bodyHeight: '',
+      bodyWeight: '',
+      tension: '',
+      pulse: '',
+      respiration: '',
+      bodyTemperature: '',
+      laboratorium: '',
+      history: '',
+      physicalExamination: '',
+      diagnosis: '',
+      medicalPrescription: '',
+      suggestion: '',
+      initials: false,
+    },
+    delete: false,
+  });
+
+
+  
+  const patients_getAll = async () => {
+    const req = await fetch(`${process.env.REACT_APP_API}/patient/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+    
+    (res.status === 'success') && setPatients(res.data);
+  };
+  
+  const P_findPatient_findUse_change = (val) => {
+    setP_findPatient({...P_findPatient, findUse: val});
+  };
+
+  const P_findPatient_findUseMRN_change = (prop, val) => {
+    setP_findPatient({...P_findPatient, medicalRecordNumber: {
+      [prop]: val,
+    }});
+  };
+
+  const P_findPatient_findUseMRN_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, medicalRecordNumber: {
+      medicalRecordNumber: '',
+    }});
+  };
+
+  const P_findPatient_findUsePD_change = (prop, val) => {
+    setP_findPatient(typeof(prop) === 'string' ? 
+      {...P_findPatient, personalData: {
+        ...P_findPatient.personalData,
+        [prop]: val,
+      }} :
+      {...P_findPatient, personalData: {
+        ...P_findPatient.personalData,
+        [prop[0]]: {...P_findPatient.personalData[prop[0]], [prop[1]]: val}
+      }}
+    );
+  };
+
+  const P_findPatient_findUsePD_address_change = (prop, val) => {
+    setP_findPatient(
+      (prop === 'districtCity') ? {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }}} : (prop === 'subDistrict') ? {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: P_findPatient.personalData.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }}} : (prop === 'wardVillage') && {...P_findPatient, personalData: {...P_findPatient.personalData, address: {
+        districtCity: P_findPatient.personalData.address.districtCity,
+        subDistrict: P_findPatient.personalData.address.subDistrict,
+        wardVillage: val,
+      }}}
+    );
+  };
+
+  const P_findPatient_findUsePD_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, personalData: {
+      name: '',
+      sex: '',
+      address: {
+        districtCity: '',
+        subDistrict: '',
+        wardVillage: '',
+      },
+      phoneNumber: '',
+      birthPlace: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      ageOption: 'Sama dengan',
+      age: '',
+      ageSec: '',
+      familyCardName: '',
+      religion: '',
+      maritalStatus: '',
+      job: '',
+      paymentMethod: '',
+      JKN: '',
+      otherInsurance: '',
+      number: '',
+    }});
+  };
+
+  const P_findPatient_findUseBPJSKIS_change = (prop, val) => {
+    setP_findPatient(typeof(prop) === 'string' ? 
+      {...P_findPatient, BPJSKIS: {...P_findPatient.BPJSKIS, [prop]: val}} :
+      {...P_findPatient, BPJSKIS: {...P_findPatient.BPJSKIS, [prop[0]]: {...P_findPatient.BPJSKIS[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
+  const P_findPatient_findUseBPJSKIS_clear = (e) => {
+    e.preventDefault();
+
+    setP_findPatient({...P_findPatient, BPJSKIS: {
+      cardNumber: '',
+      name: '',
+      birthDateOption: 'Sama dengan',
+      birthDate: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      birthDateSec: {
+        date: '',
+        month: '',
+        year: '',
+      },
+      healthFacilityLevel: '',
+      nursingClass: '',
+      NIK: '',
+      address: '',
+    }});
+  };
+
+  const P_patient_option_change = (val) => {
+    setP_patient({...P_patient, option: val});
+  }
+
+  const P_patient_PDPM_change = async (val) => {
+    const reqBPJS = await fetch(`${process.env.REACT_APP_API}/BPJS/get:${val._BPJS}`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    const resBPJS = await reqBPJS.json();
+
+    if(resBPJS.status === 'success') {
+      const reqMR = await fetch(`${process.env.REACT_APP_API}/medicalRecord/get:${val._medicalRecord}`, {
+        method: 'GET',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+      });
+      const resMR = await reqMR.json();
+
+      if(resMR.status === 'success') {
+        setP_patient({...P_patient,
+          PD_PM: val,
+          BPJSKIS: resBPJS.data,
+          MR: {
+            ...resMR.data, 
+            records: resMR.data.records.map(r => ({
+              ...r,
+              bodyHeight: r.bodyHeight.$numberDecimal,
+              bodyWeight: r.bodyWeight.$numberDecimal,
+              bodyTemperature: r.bodyTemperature.$numberDecimal,
+              pulse: r.pulse.$numberDecimal,
+              respiration: r.respiration.$numberDecimal,
+            })),
+          },
+        });
+  
+        setP_patientTemp({
+          personalDataOnChange: false,
+          BPJSKISOnChange: false,
+          paymentMethodOnChange: false,
+          medicalRecordOption: 'Lihat Rekam Medis',
+          PD_PM: val,
+          BPJSKIS: resBPJS.data,
+          MR: {
+            date: {
+              date: '',
+              month: '',
+              year: '',
+            },
+            bodyHeight: '',
+            bodyWeight: '',
+            tension: '',
+            pulse: '',
+            respiration: '',
+            bodyTemperature: '',
+            laboratorium: '',
+            history: '',
+            physicalExamination: '',
+            diagnosis: '',
+            medicalPrescription: '',
+            suggestion: '',
+            initials: false,
+          },
+          delete: false,
+        });
+      }
+    }
+  };
+
+  const P_patientTemp_personalData_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      const req = await fetch(`${process.env.REACT_APP_API}/patient/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.PD_PM._id,
+          medicalRecordNumber: P_patientTemp.PD_PM.medicalRecordNumber,
+          name: P_patientTemp.PD_PM.name,
+          birthPlace: P_patientTemp.PD_PM.birthPlace,
+          birthDate: P_patientTemp.PD_PM.birthDate,
+          sex: P_patientTemp.PD_PM.sex,
+          familyCardName: P_patientTemp.PD_PM.familyCardName,
+          address: P_patientTemp.PD_PM.address,
+          phoneNumber: P_patientTemp.PD_PM.phoneNumber,
+          religion: P_patientTemp.PD_PM.religion,
+          maritalStatus: P_patientTemp.PD_PM.maritalStatus,
+          job: P_patientTemp.PD_PM.job,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, PD_PM: {
+          medicalRecordNumber: P_patientTemp.PD_PM.medicalRecordNumber,
+          name: P_patientTemp.PD_PM.name,
+          birthPlace: P_patientTemp.PD_PM.birthPlace,
+          birthDate: P_patientTemp.PD_PM.birthDate,
+          sex: P_patientTemp.PD_PM.sex,
+          familyCardName: P_patientTemp.PD_PM.familyCardName,
+          address: P_patientTemp.PD_PM.address,
+          phoneNumber: P_patientTemp.PD_PM.phoneNumber,
+          religion: P_patientTemp.PD_PM.religion,
+          maritalStatus: P_patientTemp.PD_PM.maritalStatus,
+          job: P_patientTemp.PD_PM.job,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
+        }});
+        setP_patientTemp({...P_patientTemp, personalDataOnChange: false});
+      }
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        personalDataOnChange: false,
+        PD_PM: {
+          ...P_patientTemp.PD_PM,
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          sex: P_patient.PD_PM.sex,
+          address: {
+            districtCity: P_patient.PD_PM.address.districtCity,
+            subDistrict: P_patient.PD_PM.address.subDistrict,
+            wardVillage: P_patient.PD_PM.address.wardVillage,
+          },
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: {
+            date: P_patient.PD_PM.birthDate.date,
+            month: P_patient.PD_PM.birthDate.month,
+            year: P_patient.PD_PM.birthDate.year,
+          },
+          familyCardName: P_patient.PD_PM.familyCardName,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+        },
+      });
+    }
+  };
+
+  const P_patientTemp_BPJSKIS_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      const req = await fetch(`${process.env.REACT_APP_API}/BPJS/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.BPJSKIS._id,
+          cardNumber: P_patientTemp.BPJSKIS.cardNumber,
+          name: P_patientTemp.BPJSKIS.name,
+          birthDate: P_patientTemp.BPJSKIS.birthDate,
+          healthFacilityLevel: P_patientTemp.BPJSKIS.healthFacilityLevel,
+          nursingClass: P_patientTemp.BPJSKIS.nursingClass,
+          NIK: P_patientTemp.BPJSKIS.NIK,
+          address: P_patientTemp.BPJSKIS.address,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, BPJSKIS: {
+          cardNumber: P_patientTemp.BPJSKIS.cardNumber,
+          name: P_patientTemp.BPJSKIS.name,
+          birthDate: P_patientTemp.BPJSKIS.birthDate,
+          healthFacilityLevel: P_patientTemp.BPJSKIS.healthFacilityLevel,
+          nursingClass: P_patientTemp.BPJSKIS.nursingClass,
+          NIK: P_patientTemp.BPJSKIS.NIK,
+          address: P_patientTemp.BPJSKIS.address,
+        }});
+        setP_patientTemp({...P_patientTemp, BPJSKISOnChange: false});
+      }
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        BPJSKISOnChange: false,
+        BPJSKIS: P_patient.BPJSKIS,
+      });
+    }
+  };
+
+  const P_patientTemp_paymentMethod_change_click = async (val) => {
+    if(val === 'Simpan Perubahan') {
+      const req = await fetch(`${process.env.REACT_APP_API}/patient/change`, {
+        method: 'PATCH',
+        headers: {
+          'authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _employee: __user._id,
+          _id: P_patientTemp.PD_PM._id,
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: P_patient.PD_PM.birthDate,
+          sex: P_patient.PD_PM.sex,
+          familyCardName: P_patient.PD_PM.familyCardName,
+          address: P_patient.PD_PM.address,
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+          paymentMethod: P_patientTemp.PD_PM.paymentMethod,
+          JKN: P_patientTemp.PD_PM.JKN,
+          otherInsurance: P_patientTemp.PD_PM.otherInsurance,
+          number: P_patientTemp.PD_PM.number,
+        }),
+      });
+      const res = await req.json();
+      
+      if(res.status === 'success') {
+        patients_getAll();
+        setP_patient({...P_patient, PD_PM: {
+          medicalRecordNumber: P_patient.PD_PM.medicalRecordNumber,
+          name: P_patient.PD_PM.name,
+          birthPlace: P_patient.PD_PM.birthPlace,
+          birthDate: P_patient.PD_PM.birthDate,
+          sex: P_patient.PD_PM.sex,
+          familyCardName: P_patient.PD_PM.familyCardName,
+          address: P_patient.PD_PM.address,
+          phoneNumber: P_patient.PD_PM.phoneNumber,
+          religion: P_patient.PD_PM.religion,
+          maritalStatus: P_patient.PD_PM.maritalStatus,
+          job: P_patient.PD_PM.job,
+          paymentMethod: P_patientTemp.PD_PM.paymentMethod,
+          JKN: P_patientTemp.PD_PM.JKN,
+          otherInsurance: P_patientTemp.PD_PM.otherInsurance,
+          number: P_patientTemp.PD_PM.number,
+        }});
+        setP_patientTemp({...P_patientTemp, paymentMethodOnChange: false});
+      }
+    }
+    else if(val === 'Batalkan Perubahan') {
+      setP_patientTemp({
+        ...P_patientTemp,
+        paymentMethodOnChange: false,
+        PD_PM: {
+          ...P_patientTemp.PD_PM,
+          paymentMethod: P_patient.PD_PM.paymentMethod,
+          JKN: P_patient.PD_PM.JKN,
+          otherInsurance: P_patient.PD_PM.otherInsurance,
+          number: P_patient.PD_PM.number,
+        },
+      });
+    }
+  };
+
+  const P_patientTemp_PD_PM_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop]: val}} :
+      {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, [prop[0]]: {...P_patientTemp.PD_PM[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
+  const P_patientTemp_personalData_address_change = (prop, val) => {
+    setP_patientTemp(
+      (prop === 'districtCity') ? {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: val,
+        subDistrict: '',
+        wardVillage: '',
+      }}} :
+      (prop === 'subDistrict') ? {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: P_patientTemp.PD_PM.address.districtCity,
+        subDistrict: val,
+        wardVillage: '',
+      }}} :
+      (prop === 'wardVillage') && {...P_patientTemp, PD_PM: {...P_patientTemp.PD_PM, address: {
+        districtCity: P_patientTemp.PD_PM.address.districtCity,
+        subDistrict: P_patientTemp.PD_PM.address.subDistrict,
+        wardVillage: val,
+      }}}
+    );
+  };
+
+  const P_patientTemp_BPJSKIS_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop]: val}} :
+      {...P_patientTemp, BPJSKIS: {...P_patientTemp.BPJSKIS, [prop[0]]: {...P_patientTemp.BPJSKIS[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
+  const P_patientTemp_MR_option_change = (val) => {
+    setP_patientTemp({...P_patientTemp, medicalRecordOption: val});
+  };
+
+  const P_patientTemp_MR_change = (prop, val) => {
+    setP_patientTemp(typeof(prop) === 'string' ? 
+      {...P_patientTemp, MR: {...P_patientTemp.MR, [prop]: val}} :
+      {...P_patientTemp, MR: {...P_patientTemp.MR, [prop[0]]: {...P_patientTemp.MR[prop[0]], [prop[1]]: val}}}
+    );
+  };
+
+  const P_patientTemp_MR_submit = async (e) => {
+    e.preventDefault();
+
+    const req = await fetch(`${process.env.REACT_APP_API}/medicalRecord/createRecord`, {
+      method: 'POST',
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        _employee: __user._id,
+        _id: P_patientTemp.PD_PM._medicalRecord,
+        ...P_patientTemp.MR,
+      }),
+    });
+    const res = await req.json();
+
+    if(res.status === 'success') {
+      setP_patientTemp({...P_patientTemp, MR: {
+        MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+      }});
+
+      patients_getAll();
+
+      setP_patient({
+        option: '',
+        PD_PM: null,
+        BPJSKIS: null, 
+        MR: null,
+      });
+
+      setP_patientTemp({
+        personalDataOnChange: false,
+        BPJSKISOnChange: false,
+        paymentMethodOnChange: false,
+        medicalRecordOption: 'Lihat Rekam Medis',
+        PD_PM: null,
+        BPJSKIS: null,
+        MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+        delete: false,
+      });
+    }
+  };
+  
+  const P_patientTemp_delete_change = async (val) => {
+    if(val === 'Batal Menghapus Pasien') {
+      setP_patientTemp({...P_patientTemp, delete: false});
+    }
+    else if(P_patientTemp.delete === false && val === 'Hapus Pasien') {
+      setP_patientTemp({...P_patientTemp, delete: true});
+    }
+    else if(P_patientTemp.delete === true && val === 'Hapus Pasien') {
+      // delete patient
+      const reqPatient = await fetch(`${process.env.REACT_APP_API}/patient/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._id,
+        }),
+      });
+      const resPatient = await reqPatient.json();
+      console.log(`resPatient`, resPatient);
+
+      // delete patient's bpjs/kis
+      const reqBPJSKIS = await fetch(`${process.env.REACT_APP_API}/BPJS/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._BPJS,
+        }),
+      });
+      const resBPJSKIS = await reqBPJSKIS.json();
+      console.log(`resBPJSKIS`, resBPJSKIS);
+
+      // delete patient's medical record
+      const reqMR = await fetch(`${process.env.REACT_APP_API}/medicalRecord/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${__user.__token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: P_patientTemp.PD_PM._medicalRecord,
+        }),
+      });
+      const resMR = await reqMR.json()
+      console.log(`resMR`, resMR);
+
+      setP_patient({
+        option: '',
+        PD_PM: null,
+        BPJSKIS: null, 
+        MR: null,
+      });
+      
+      setP_patientTemp({
+        personalDataOnChange: false,
+        BPJSKISOnChange: false,
+        paymentMethodOnChange: false,
+        medicalRecordOption: 'Lihat Rekam Medis',
+        PD_PM: null,
+        BPJSKIS: null,
+        MR: {
+          date: {
+            date: '',
+            month: '',
+            year: '',
+          },
+          bodyHeight: '',
+          bodyWeight: '',
+          tension: '',
+          pulse: '',
+          respiration: '',
+          bodyTemperature: '',
+          laboratorium: '',
+          history: '',
+          physicalExamination: '',
+          diagnosis: '',
+          medicalPrescription: '',
+          suggestion: '',
+          initials: false,
+        },
+        delete: false,
+      });
+
+      patients_getAll();
+    }
+  };
+
   // dev ======================================================================================================================================================================
   // ==========================================================================================================================================================================
   // ==========================================================================================================================================================================
 
+  // Run once when LOKET is loaded
+  useEffect(() => {
+    patients_getAll();
+  }, []);
+  
+  // LOKET
+  useEffect(() => {
+    
+  }, [dashboard]);
+
+  // Sign Up New Patient
+  useEffect(() => {
+    // console.log(SUNP_personalData); // dev
+    // console.log(SUNP_BPJSKISData); // dev
+    // console.log(SUNP_paymentMethod); // dev
+  }, [SUNP_personalData, SUNP_BPJSKISData, SUNP_paymentMethod]);
+
+  // Patient
+  useEffect(() => {
+    // console.log(P_findPatient.findUse); // dev
+    // console.log(P_findPatient.medicalRecordNumber); // dev
+    // console.log(P_findPatient.personalData); // dev
+    // console.log(P_findPatient.BPJSKIS); // dev
+    // console.log(P_patient); // dev
+    // console.log(`P_patientTemp`, P_patientTemp); // dev
+    // console.log(`P_patientTemp.delete`, P_patientTemp.delete); // dev
+    // console.log(`P_patientTemp.MR`, P_patientTemp.MR); // dev
+  }, [P_findPatient, P_patient, P_patientTemp]);
+
+
+
   return(
-    <div>
-      loket
+    <div className='loket'>
+      <Header props={{name: __user.name, role: __user.role}} />
+      <div className='dashboard-main'>
+        <Dashboard props={{dashboardList, dashboard, setDashboard}} />
+        {/* {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />} */}
+
+        {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
+          addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+          SUNP_personalData, SUNP_personalData_change, SUNP_personalData_clear, SUNP_personalData_address_change,
+          SUNP_BPJSKISData, SUNP_BPJSKISData_change, SUNP_BPJSKISData_clear,
+          SUNP_paymentMethod, SUNP_paymentMethod_change, SUNP_paymentMethod_clear,
+          SUNP_submitForm,
+        }} />}
+
+        {(dashboard.name === 'Pasien') && <Pasien props={{
+          __user, addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
+          patients,
+          P_patient, P_patient_option_change, P_patient_PDPM_change,
+          P_findPatient, P_findPatient_findUse_change,
+          P_findPatient_findUseMRN_change, P_findPatient_findUseMRN_clear,
+          P_findPatient_findUsePD_change, P_findPatient_findUsePD_address_change, P_findPatient_findUsePD_clear,
+          P_findPatient_findUseBPJSKIS_change, P_findPatient_findUseBPJSKIS_clear,
+          P_patientTemp, setP_patientTemp,
+          P_patientTemp_personalData_change_click, P_patientTemp_PD_PM_change, P_patientTemp_personalData_address_change,
+          P_patientTemp_BPJSKIS_change_click, P_patientTemp_BPJSKIS_change,
+          P_patientTemp_paymentMethod_change_click,
+          P_patientTemp_MR_option_change, P_patientTemp_MR_change, P_patientTemp_MR_submit,
+          P_patientTemp_delete_change,
+        }} />}
+      </div>
+      <Footer props={{text: 'Footer'}} />
     </div>
   );
 }

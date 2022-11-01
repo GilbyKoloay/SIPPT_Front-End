@@ -46,9 +46,7 @@ export default function Login({ props }) {
       
       (res.data.role) === 'ADMINISTRATOR' && navigate('/administrator');
       (res.data.role) === 'LOKET' && navigate('/loket');
-      (res.data.role) === 'POLI UMUM' && navigate('/poliUmum');
-      (res.data.role) === 'POLI GIGI' && navigate('/poliGigi');
-      (res.data.role) === 'POLI KIA' && navigate('/poliKIA');
+      ((res.data.role === 'POLI UMUM') || (res.data.role === 'POLI GIGI') || (res.data.role === 'POLI KIA')) && navigate('/poli');
       (res.data.role) === 'APOTEK' && navigate('/apotek');
       // navigate('/administrator'); // dev
     }
