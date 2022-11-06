@@ -337,7 +337,12 @@ export default function Pasien({ props }) {
       { P_patient.PD_PM && <div className='content'>
         <Title props={{title: P_patient.PD_PM.name}} />
         <ButtonList props={{
-          options: ((__user.role === 'ADMINISTRATOR') || (__user.role === 'LOKET')) ? ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli', 'Hapus Pasien'] : ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis'], 
+          // options: ((__user.role === 'ADMINISTRATOR') || (__user.role === 'LOKET')) ? ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli', 'Hapus Pasien'] : ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis'], 
+          options: (
+            (__user.role === 'ADMINISTRATOR') ? ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli', 'Hapus Pasien'] :
+            (__user.role === 'LOKET') ? ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Poli', 'Hapus Pasien'] :
+            (__user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') && ['Data Diri', 'BPJS/KIS', 'Cara Pembayaran', 'Rekam Medis', 'Poli']
+          ),
           value: P_patient.option, 
           onClick: P_patient_option_change, 
           direction: 'row', 
@@ -464,7 +469,7 @@ export default function Pasien({ props }) {
               }} />
             </div>
           </form>
-          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') && (
             (P_patientTemp.personalDataOnChange === false) ?
             <Button props={{
               label: 'Ubah', 
@@ -538,7 +543,7 @@ export default function Pasien({ props }) {
               }} />
             </div>
           </form>
-          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') && (
             (P_patientTemp.BPJSKISOnChange === false) ?
             <Button props={{
               label: 'Ubah', 
@@ -593,7 +598,7 @@ export default function Pasien({ props }) {
               }} />
             </div>
           </form>
-          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET') && (
+          { (__user.role === 'ADMINISTRATOR' || __user.role === 'LOKET' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') && (
             (P_patientTemp.paymentMethodOnChange === false) ?
             <Button props={{
               label: 'Ubah', 
@@ -613,7 +618,7 @@ export default function Pasien({ props }) {
 
         { P_patient.option === 'Rekam Medis' && <div>
           <ButtonList props={{
-            options: ((__user.role === 'ADMINISTRATOR') || (__user.role === 'LOKET')) ? ['Lihat Rekam Medis', 'Tambah Rekam Medis Baru'] : ['Lihat Rekam Medis'], 
+            options: (__user.role === 'ADMINISTRATOR' || __user.role === 'POLI UMUM' || __user.role === 'POLI GIGI' || __user.role === 'POLI KIA') ? ['Lihat Rekam Medis', 'Tambah Rekam Medis Baru'] : ['Lihat Rekam Medis'], 
             value: P_patientTemp.medicalRecordOption, 
             onClick: P_patientTemp_MR_option_change, 
             direction: 'row', 
@@ -723,7 +728,7 @@ export default function Pasien({ props }) {
             </form>
             <Gap props={{height: 15}} />
             <Button props={{
-              label: 'Tambahkan Rekam Medis', 
+              label: 'Tambah Rekam Medis', 
               onClick: P_patientTemp_MR_submit, 
               type: 'primary', 
             }} />

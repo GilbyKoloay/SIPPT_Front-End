@@ -29,12 +29,16 @@ export default function Login({ props }) {
     const req = await fetch(`${process.env.REACT_APP_API}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      //   'Bypass-Tunnel-Reminder': 'anything',
+      // },
       body: JSON.stringify({
         username,
         password,
       }),
-    });
-    const res = await req.json();
+    }); console.log(`req`, req);
+    const res = await req.json(); console.log(`res`, res);
 
     if(res.status === 'success') {
       setErrMsg('');
