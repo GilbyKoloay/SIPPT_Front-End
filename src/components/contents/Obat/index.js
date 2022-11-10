@@ -53,15 +53,15 @@ export default function Obat({ props }) {
               change: 'name', 
             }} />
             <Select props={{
-              label: 'Tipe Obat', 
-              options: ['TIPE OBAT', 'KAPSUL', 'KAPLET', 'SIRUP', 'DROPS', 'SALEP', 'TETES', 'KRIM', 'GEL', 'SUPOSITORIA', 'INJEKSI', 'CAIRAN INFUS', 'BMHP'], 
-              value: D_drug_find.type, 
+              label: 'Jenis Sediaan', 
+              options: ['JENIS SEDIAAN', 'SERBUK', 'TABLET', 'KAPSUL', 'PIL', 'LARUTAN', 'SUSPENSI', 'CAIRAN INFUS', 'SALEP', 'VAKSIN', 'SUPPOSITORIA', 'OBAT TETES', 'INJEKSI', 'BMHP', 'ALAT KESEHATAN'], 
+              value: D_drug_find.preparationType, 
               onChange: D_drug_find_change, 
-              change: 'type', 
+              change: 'preparationType', 
             }} />
             <Select props={{
-              label: 'Unit', 
-              options: ['UNIT OBAT', 'BOTOL', 'BOX', 'ROLL', 'SATCHET'], 
+              label: 'Satuan', 
+              options: ['SATUAN', 'SACHET', 'TABLET', 'KAPSUL', 'PIL', 'BOTOL', 'POT', 'TUBE', 'VIAL', 'SUPPOSITORIA', 'AMPUL', 'VIAL', 'STRIP', 'PIECES', 'ROL', 'SET'],
               value: D_drug_find.unit,
               onChange: D_drug_find_change, 
               change: 'unit', 
@@ -202,15 +202,15 @@ export default function Obat({ props }) {
               change: 'name', 
             }} />
             <Select props={{
-              label: 'Tipe Obat', 
-              options: ['TIPE OBAT', 'KAPSUL', 'KAPLET', 'SIRUP', 'DROPS', 'SALEP', 'TETES', 'KRIM', 'GEL', 'SUPOSITORIA', 'INJEKSI', 'CAIRAN INFUS', 'BMHP'], 
-              value: D_drug_add.type, 
+              label: 'Jenis Sediaan', 
+              options: ['JENIS SEDIAAN', 'SERBUK', 'TABLET', 'KAPSUL', 'PIL', 'LARUTAN', 'SUSPENSI', 'CAIRAN INFUS', 'SALEP', 'VAKSIN', 'SUPPOSITORIA', 'OBAT TETES', 'INJEKSI', 'BMHP', 'ALAT KESEHATAN'], 
+              value: D_drug_add.preparationType, 
               onChange: D_drug_add_change,
-              change: 'type', 
+              change: 'preparationType', 
             }} />
             <Select props={{
-              label: 'Unit Obat', 
-              options: ['UNIT OBAT', 'BOTOL', 'BOX', 'ROLL', 'SATCHET'], 
+              label: 'Satuan', 
+              options: ['SATUAN', 'SACHET', 'TABLET', 'KAPSUL', 'PIL', 'BOTOL', 'POT', 'TUBE', 'VIAL', 'SUPPOSITORIA', 'AMPUL', 'VIAL', 'STRIP', 'PIECES', 'ROL', 'SET'],
               value: D_drug_add.unit, 
               onChange: D_drug_add_change, 
               change: 'unit', 
@@ -259,18 +259,18 @@ export default function Obat({ props }) {
                 disabled: !D_drugSelected_drugData.change, 
               }} />
               <Select props={{
-                label: 'Tipe Obat', 
-                options: ['TIPE OBAT', 'KAPSUL', 'KAPLET', 'SIRUP', 'DROPS', 'SALEP', 'TETES', 'KRIM', 'GEL', 'SUPOSITORIA', 'INJEKSI', 'CAIRAN INFUS', 'BMHP'], 
-                value: D_drugSelected_drugData.data.type, 
+                label: 'Jenis Sediaan', 
+                options: ['JENIS SEDIAAN', 'SERBUK', 'TABLET', 'KAPSUL', 'PIL', 'LARUTAN', 'SUSPENSI', 'CAIRAN INFUS', 'SALEP', 'VAKSIN', 'SUPPOSITORIA', 'OBAT TETES', 'INJEKSI', 'BMHP', 'ALAT KESEHATAN'], 
+                value: D_drugSelected_drugData.data.preparationType, 
                 onChange: D_drugSelected_drugData_change, 
-                change: 'type', 
+                change: 'preparationType', 
                 disabled: !D_drugSelected_drugData.change, 
               }} />
             </div>
             <div className='form'>
               <Select props={{
-                label: 'Unit', 
-                options: ['UNIT OBAT', 'BOTOL', 'BOX', 'ROLL', 'SATCHET'], 
+                label: 'Satuan', 
+                options: ['SATUAN', 'SACHET', 'TABLET', 'KAPSUL', 'PIL', 'BOTOL', 'POT', 'TUBE', 'VIAL', 'SUPPOSITORIA', 'AMPUL', 'VIAL', 'STRIP', 'PIECES', 'ROL', 'SET'],
                 value: D_drugSelected_drugData.data.unit, 
                 onChange: D_drugSelected_drugData_change, 
                 change: 'unit', 

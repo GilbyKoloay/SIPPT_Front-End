@@ -28,6 +28,11 @@
     background-color: var(--tertiaryColor);
 }
 
+.atom-table .row.title div {
+    font-family: OpenSans-semibold;
+    color: white;
+}
+
 .atom-table .row.title .textErrMsg {
     color: white;
     font-family: OpenSans-medium;

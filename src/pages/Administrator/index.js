@@ -1260,7 +1260,7 @@ export default function Administrator({ props }) {
   const [D_drug_option, setD_drug_option] = useState('Cari Obat');
   const [D_drug_find, setD_drug_find] = useState({
     name: '',
-      type: '',
+      preparationType: '',
       unit: '',
       batchNumber: '',
       receiveDateOption: 'Sama dengan',
@@ -1299,7 +1299,7 @@ export default function Administrator({ props }) {
   });
   const [D_drug_add, setD_drug_add] = useState({
     name: '',
-    type: '',
+    preparationType: '',
     unit: '',
     batchNumber: '',
   });
@@ -1315,7 +1315,7 @@ export default function Administrator({ props }) {
       drug: null,
       changeLog: null,
       name: '',
-      type: '',
+      preparationType: '',
       unit: '',
       batchNumber: '',
     },
@@ -1371,7 +1371,7 @@ export default function Administrator({ props }) {
   const D_drug_find_clear = (e) => {
     setD_drug_find({
       name: '',
-      type: '',
+      preparationType: '',
       unit: '',
       batchNumber: '',
       receiveDateOption: 'Sama dengan',
@@ -1419,7 +1419,7 @@ export default function Administrator({ props }) {
 
     setD_drug_add({
       name: '',
-      type: '',
+      preparationType: '',
       unit: '',
       batchNumber: '',
     });
@@ -1482,7 +1482,7 @@ export default function Administrator({ props }) {
             _employee: __user._id,
             _id: D_drugSelected_drugData.data._id,
             name: D_drugSelected_drugData.data.name,
-            type: D_drugSelected_drugData.data.type,
+            preparationType: D_drugSelected_drugData.data.preparationType,
             unit: D_drugSelected_drugData.data.unit,
             batchNumber: D_drugSelected_drugData.data.batchNumber,
           }),
@@ -1496,7 +1496,7 @@ export default function Administrator({ props }) {
             data: {
               ...D_drugSelected.data,
               name: D_drugSelected_drugData.data.name,
-              type: D_drugSelected_drugData.data.type,
+              preparationType: D_drugSelected_drugData.data.preparationType,
               unit: D_drugSelected_drugData.data.unit,
               batchNumber: D_drugSelected_drugData.data.batchNumber,
             }
