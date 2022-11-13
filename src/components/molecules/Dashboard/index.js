@@ -11,7 +11,7 @@ export default function Dashboard({ props }) {
           <div key={d.id} className={`${dashboard.id === d.id ? 'item-selected' : 'item'} textLabel`} onClick={() => setDashboard(dashboardList[index])}>{d.name}</div>
         ))}
       </div>
-      <div className='logout textLabel' onClick={() => exit(null)}>Keluar</div>
+      <div className='logout textLabel' onClick={() => exit()}>Keluar</div>
     </div>
   );
 }

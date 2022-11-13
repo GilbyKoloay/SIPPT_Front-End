@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // styles
 import './styles.css';
@@ -19,6 +20,8 @@ import {
 } from '../../components/contents';
 
 export default function Poli({ props }) {
+  const navigate = useNavigate();
+
   const { __user, __setUser } = props;
   const dashboardList = [
     { id: 1, name: 'Dasbor' },
@@ -1698,7 +1701,10 @@ export default function Poli({ props }) {
           dashboardList, 
           dashboard, 
           setDashboard, 
-          exit: __setUser
+          exit: () => {
+            __setUser(null);
+            navigate('/login');
+          },
         }} />
         
         {/* {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />} */}
