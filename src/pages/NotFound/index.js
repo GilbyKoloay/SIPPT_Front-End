@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
 export default function NotFound() {
-  const [timer, setTimer] = useState(5);
-  // const [timer, setTimer] = useState(0); // dev
+  // const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(0); // dev
 
   const navigate = useNavigate();
 

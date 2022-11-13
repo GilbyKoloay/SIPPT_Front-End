@@ -184,7 +184,7 @@ export default function Obat({ props }) {
             show: [
               'batchNumber', 
               'name', 
-              'type', 
+              'preparationType', 
               'unit', 
             ], 
             selected: D_drugSelected.data, 

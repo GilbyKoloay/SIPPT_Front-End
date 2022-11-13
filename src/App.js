@@ -23,6 +23,7 @@ export default function App() {
     <div className='App'>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Login props={{__setUser}} />} />
           <Route path='/login' element={<Login props={{__setUser}} />} />
           <Route path='/administrator' element={__user ? <Administrator props={{__user, __setUser}} /> : <NotFound />} />
           <Route path='/loket' element={__user ? <Loket props={{__user, __setUser}} /> : <NotFound />} />
