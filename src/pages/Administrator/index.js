@@ -12,12 +12,12 @@ import {
 
 // contents
 import {
-  // AntrianPoli,
+  AntrianPoli,
   DaftarPasienBaru,
-  // DaftarPegawaiBaru,
+  DaftarPegawaiBaru,
   Obat,
   Pasien,
-  // PemesananObat,
+  PemesananObat,
   // Statistik,
 } from '../../components/contents';
 
@@ -25,9 +25,9 @@ export default function Administrator({ props }) {
   const { __user, __setUser } = props;
   const dashboardList = [
     { id: 1, name: 'Dasbor' },
-    // { id: 2, name: 'Antrian Poli' },
+    { id: 2, name: 'Antrian Poli' },
     { id: 3, name: 'Daftar Pasien Baru' },
-    // { id: 4, name: 'Daftar Pegawai Baru' },
+    { id: 4, name: 'Daftar Pegawai Baru' },
     { id: 5, name: 'Obat' },
     { id: 6, name: 'Pasien' },
     // { id: 7, name: 'Pemesanan Obat' },
@@ -1706,7 +1706,7 @@ export default function Administrator({ props }) {
           exit: __setUser
         }} />
         
-        {/* {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />} */}
+        {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />}
 
         {(dashboard.name === 'Daftar Pasien Baru') && <DaftarPasienBaru props={{
           addressList, sexList, religionList, maritalStatusList, jobList, paymentMethodList, JKNList,
@@ -1716,7 +1716,7 @@ export default function Administrator({ props }) {
           SUNP_submitForm,
         }} />}
 
-        {/* {(dashboard.name === 'Daftar Pegawai Baru') && <DaftarPegawaiBaru props={{}} />} */}
+        {(dashboard.name === 'Daftar Pegawai Baru') && <DaftarPegawaiBaru props={{}} />}
 
         {(dashboard.name === 'Obat') && <Obat props={{
           __user,
@@ -1747,7 +1747,7 @@ export default function Administrator({ props }) {
           P_patientTemp_delete_change,
         }} />}
 
-        {/* {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{}} />} */}
+        {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{}} />}
 
         {/* {(dashboard.name === 'Statistik') && <Statistik props={{}} />} */}
       </div>
