@@ -41,7 +41,8 @@ export default function Table({ props }) {
           {data.map((obj, dataIndex) => ((dataIndex === 0) && Object.keys(obj).map((prop, objIndex) => 
             (show !== null ? show.map(s => (prop === s) && <div key={objIndex+1} style={getWidth(prop)}>{prop}</div>) : 
             <div key={objIndex+1} style={getWidth(prop)}>{prop}</div>)
-          )))}
+          )))} 
+          {/* Untuk Membuat Multiple Data harus rombak logic ini, karena ini semua yang dibuat harus multiple yang saat ini logicnya untuk single data */}
         </div>
 
         {data.map((obj, dataIndex) => (<div key={dataIndex+1} className={`row ${selected && selected._id === obj._id ? 'selected' : ''}`} onClick={() => onClick(obj)}>

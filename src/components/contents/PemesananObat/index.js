@@ -1,7 +1,42 @@
-export default function PemesananObat() {
+import '../styles.css';
+
+// atoms
+import {
+  Title,
+  Table,
+} from '../../atoms';
+
+export default function PemesananObat( {props} ) {
+
+  const {
+    D_drugs,
+    patients,
+    D_drugSelected,D_drugSelected_data_change,
+  } = props;
+
+  console.log(props)
+
     return(
       <main>
-        PemesananObat
+        <div className='content'>
+        <Title props={{
+            title: 'Data pemesanan Obat', 
+          }} />
+          {/* <div className='textErrMsg' style={{color: 'black'}}>Total pasien ditemukan: <b>{patientsResult ? patientsResult.length : '0'}</b></div> */}
+          {/* <Gap props={{height: 15}} /> */}
+          <Table props={{
+            data: patients, 
+            show: [
+              'familyCardName', 
+              'paymentMethod', 
+              'type', 
+              'unit', 
+            ], 
+            selected: D_drugSelected.data, 
+            onClick: D_drugSelected_data_change, 
+          }} />
+        </div>
+        
       </main>
     );
   }

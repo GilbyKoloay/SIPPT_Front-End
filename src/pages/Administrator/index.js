@@ -30,7 +30,7 @@ export default function Administrator({ props }) {
     { id: 4, name: 'Daftar Pegawai Baru' },
     { id: 5, name: 'Obat' },
     { id: 6, name: 'Pasien' },
-    // { id: 7, name: 'Pemesanan Obat' },
+    { id: 7, name: 'Pemesanan Obat' },
     // { id: 8, name: 'Statistik' },
   ];
   const addressList = [
@@ -242,6 +242,7 @@ export default function Administrator({ props }) {
   const jobList = ['ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR/MAHASISWA', 'LAINNYA'];
   const paymentMethodList = ['BIAYA SENDIRI', 'UMUM'];
   const JKNList = ['KM', 'KAB', 'A', 'S', 'M'];
+  const role = ['ADMINISTRATOR', 'APOTEKER', 'LOKET', 'POLI UMUM', 'POLI KIA', 'POLI GIGI' ];
 
 
 
@@ -1303,6 +1304,14 @@ export default function Administrator({ props }) {
     unit: '',
     batchNumber: '',
   });
+
+  const [D_employee_add, setEmployee_add] = useState({
+    name: '',
+    username: '',
+    password: '',
+    role: ''
+  })
+
   const [D_result, setD_result] = useState(null);
   const [D_drugSelected, setD_drugSelected] = useState({
     data: null,
@@ -1414,6 +1423,10 @@ export default function Administrator({ props }) {
     setD_drug_add({...D_drug_add, [prop]: val});
   };
 
+  const D_empl_add_change = (prop, val) => {
+    setEmployee_add({...D_employee_add, [prop]: val})
+  }
+
   const D_drug_add_clear = (e) => {
     (e !== null) && e.preventDefault();
 
@@ -1443,6 +1456,44 @@ export default function Administrator({ props }) {
       drugs_getAll();
     }
   };
+
+  const CreateNewEmployee = async (e) => {
+    e.preventDefault();
+    
+    const req = await fetch(`${process.env.REACT_APP_API}/employee/create`, {
+      method: 'POST', 
+      headers: {
+        'authorization' : `Bearer ${__user.__token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ _employee: __user._id, ...D_employee_add }),
+    });
+    const res = await req.json();
+
+    if(res.status === 'success') {
+      // D_drug_add_clear(null);
+      // drugs_getAll();
+      GetAllEmployee()
+      console.log(res)
+    }
+  };
+
+  const [D_Employee, setEmpls] = useState(null)
+
+  const GetAllEmployee = async() => {
+    
+    const req = await fetch(`${process.env.REACT_APP_API}/employee/getAll`, {
+      method: 'GET',
+      headers: { 'Authorization' : `Bearer ${__user.__token}` },
+    });
+    const res = await req.json();
+
+    if(res.status === 'success') {
+      setEmpls(res.data);
+
+      console.log(res)
+    }
+  }
 
   const D_drugSelected_data_change = (val) => {
     setD_drugSelected({...D_drugSelected, data: val});
@@ -1716,7 +1767,11 @@ export default function Administrator({ props }) {
           SUNP_submitForm,
         }} />}
 
-        {(dashboard.name === 'Daftar Pegawai Baru') && <DaftarPegawaiBaru props={{}} />}
+        {(dashboard.name === 'Daftar Pegawai Baru') && <DaftarPegawaiBaru props={{
+          __user,
+          D_Employee,
+          D_employee_add, CreateNewEmployee, D_empl_add_change
+        }} />}
 
         {(dashboard.name === 'Obat') && <Obat props={{
           __user,
@@ -1728,7 +1783,7 @@ export default function Administrator({ props }) {
           D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
           D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
           D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
-          D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change,
+          D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change
         }} />}
 
         {(dashboard.name === 'Pasien') && <Pasien props={{
@@ -1747,7 +1802,20 @@ export default function Administrator({ props }) {
           P_patientTemp_delete_change,
         }} />}
 
-        {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{}} />}
+        {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{
+          __user, sexList, JKNList,
+          patients,
+          D_drugs, setD_drugs,
+          D_drug_option, setD_drug_option,
+          D_drug_find, D_drug_find_change, D_drug_find_clear,
+          D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
+          D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
+          D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
+          D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
+          D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
+          D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change,
+          
+        }} />}
 
         {/* {(dashboard.name === 'Statistik') && <Statistik props={{}} />} */}
       </div>
