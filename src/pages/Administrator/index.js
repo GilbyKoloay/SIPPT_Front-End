@@ -12,6 +12,7 @@ import {
 
 // contents
 import {
+  Home,
   AntrianPoli,
   DaftarPasienBaru,
   DaftarPegawaiBaru,
@@ -23,16 +24,22 @@ import {
 
 export default function Administrator({ props }) {
   const { __user, __setUser } = props;
+  // Seharusnya menu LIST namanya BODOH!!!
   const dashboardList = [
-    { id: 1, name: 'Dasbor' },
-    { id: 2, name: 'Antrian Poli' },
-    { id: 3, name: 'Daftar Pasien Baru' },
-    { id: 4, name: 'Daftar Pegawai Baru' },
-    { id: 5, name: 'Obat' },
-    { id: 6, name: 'Pasien' },
-    { id: 7, name: 'Pemesanan Obat' },
-    // { id: 8, name: 'Statistik' },
+    // { id: 1, name: 'Main Menu' },
+    { id: 2, name: 'Dashboard'},
+    { id: 3, name: 'Antrian Poli' },
+    { id: 4, name: 'Daftar Pasien Baru' },
+    { id: 5, name: 'Daftar Pegawai Baru' },
+    { id: 6, name: 'Obat' },
+    { id: 7, name: 'Pasien' },
+    { id: 8, name: 'Pemesanan Obat' },
+    // { id: 9, name: 'Statistik' },
   ];
+
+
+  // PEMBUATAN DAFTAR KELURAHAN DAN KECAMATAN TIDAK EFISIEN INI NAMANYA DUMMY HARUSNYA BISA BIKIN DI DATABASE SAJA DAN DIPANGGIL, ATAU PAKE REST API PLUGIN YANG SUDAH BANYAK DI INTERNET BISA DIGUNAKAN !!
+
   const addressList = [
     { districtCity: 'MINAHASA UTARA', subDistricts: [
       { subDistrict: 'TALAWAAN', wardsVillages: ['KOLONGAN', 'MAPANGET', 'PANIKI ATAS', 'PANIKI BARU', 'PATOKAAN', 'TALAWAAN', 'TEEP WARISA', 'TUMBOHON', 'WARISA', 'WARISA KAMPUNG BARU', 'WINETIN', 'WUSA'], },
@@ -242,7 +249,7 @@ export default function Administrator({ props }) {
   const jobList = ['ASN', 'TNI/POLRI', 'SWASTA', 'PETANI', 'WIRASWASTA', 'PELAJAR/MAHASISWA', 'LAINNYA'];
   const paymentMethodList = ['BIAYA SENDIRI', 'UMUM'];
   const JKNList = ['KM', 'KAB', 'A', 'S', 'M'];
-  const role = ['ADMINISTRATOR', 'APOTEKER', 'LOKET', 'POLI UMUM', 'POLI KIA', 'POLI GIGI' ];
+  // const role = ['ADMINISTRATOR', 'APOTEKER', 'LOKET', 'POLI UMUM', 'POLI KIA', 'POLI GIGI' ];
 
 
 
@@ -1471,8 +1478,6 @@ export default function Administrator({ props }) {
     const res = await req.json();
 
     if(res.status === 'success') {
-      // D_drug_add_clear(null);
-      // drugs_getAll();
       GetAllEmployee()
       console.log(res)
     }
@@ -1756,6 +1761,10 @@ export default function Administrator({ props }) {
           setDashboard, 
           exit: __setUser
         }} />
+
+        {(dashboard.name === 'Dashboard') && <Home props={{
+          name: __user.name, role: __user.role
+        }} />}
         
         {(dashboard.name === 'Antrian Poli') && <AntrianPoli props={{}} />}
 
@@ -1803,17 +1812,7 @@ export default function Administrator({ props }) {
         }} />}
 
         {(dashboard.name === 'Pemesanan Obat') && <PemesananObat props={{
-          __user, sexList, JKNList,
           patients,
-          D_drugs, setD_drugs,
-          D_drug_option, setD_drug_option,
-          D_drug_find, D_drug_find_change, D_drug_find_clear,
-          D_drug_add, D_drug_add_change, D_drug_add_clear, D_drug_add_submit,
-          D_result, setD_result, D_drugSelected, setD_drugSelected, D_drugSelected_data_change, D_drugSelected_option_change,
-          D_drugSelected_drugData, D_drugSelected_drugData_change, D_drugSelected_drugData_changeChange,
-          D_drugSelected_addReceive, D_drugSelected_addReceive_change, D_drugSelected_addReceive_submit,
-          D_drugSelected_addExpenditure, D_drugSelected_addExpenditure_selectReceive, D_drugSelected_addExpenditure_change, D_drugSelected_addExpenditure_submit,
-          D_drugSelected_deleteDrug, D_drugSelected_deleteDrug_change,
           
         }} />}
 

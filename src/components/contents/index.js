@@ -1,5 +1,5 @@
 // contents
-
+import Home from './Home';
 import AntrianPoli from './AntrianPoli';
 import DaftarPasienBaru from './DaftarPasienBaru';
 import DaftarPegawaiBaru from './DaftarPegawaiBaru';
@@ -9,6 +9,7 @@ import PemesananObat from './PemesananObat';
 import Statistik from './Statistik';
 
 export {
+    Home,
     AntrianPoli,
     DaftarPasienBaru,
     DaftarPegawaiBaru,

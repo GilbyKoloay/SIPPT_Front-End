@@ -9,9 +9,7 @@ import {
 export default function PemesananObat( {props} ) {
 
   const {
-    D_drugs,
     patients,
-    D_drugSelected,D_drugSelected_data_change,
   } = props;
 
   console.log(props)
@@ -29,11 +27,9 @@ export default function PemesananObat( {props} ) {
             show: [
               'familyCardName', 
               'paymentMethod', 
-              'type', 
-              'unit', 
             ], 
-            selected: D_drugSelected.data, 
-            onClick: D_drugSelected_data_change, 
+            // selected: D_drugSelected.data, 
+            // onClick: D_drugSelected_data_change, 
           }} />
         </div>
         
