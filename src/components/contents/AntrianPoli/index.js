@@ -4,7 +4,6 @@ import ReactToPrint from "react-to-print";
 // import PropTypes from "prop-types";
 import './style.css';
 
-
 class AntrianPoli extends React.Component {
 
   render() {
@@ -32,6 +31,7 @@ class AntrianPoli extends React.Component {
       
     );
   }
+
 }
 
 export default AntrianPoli;
