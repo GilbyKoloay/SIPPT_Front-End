@@ -1,0 +1,41 @@
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    width: 25%;
+    padding-bottom: 12px;
+  }
+
+.content {
+    display: grid;
+    grid-template-columns: 1%;
+    grid-template-rows: 1%;
+    gap: 10px;
+    padding: 10px;
+    
+    
+  }
+
+#antrian td, #antrian th {
+    border: 1px solid #ddd3dd;
+    padding: 8px;
+    text-align: center;
+    /* padding-top: 12px; */
+    padding-bottom: 12px;
+    background-color: #ddd3dd;
+  }
+
+#antrian tr:nth-child(even){background-color: #ddd;}
+
+#antrian tr:hover {background-color: #ddd3dd;}
+
+#content {
+    height: 200px;
+    width: 25%;
+  }
+  
